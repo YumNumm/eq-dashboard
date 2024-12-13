@@ -12,3 +12,8 @@
   - Dart `3.7.0-209.1.beta`
 
 [防災アプリ開発 Advent Calendar 2024]: https://adventar.org/calendars/9939
+
+## 環境構築
+
+1. [melos](https://melos.invertase.dev/) をインストール
+1. `melos bootstrap` を実行

@@ -1,0 +1,9 @@
+name: eqdashboard_workspace
+description: The workspace for the EQDashboard project.
+
+environment:
+  sdk: ^3.7.0-209.1.beta
+  flutter: ^3.28.0-0.1.pre
+
+dependencies:
+  melos: ^6.1.0

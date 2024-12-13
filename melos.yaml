@@ -1,0 +1,43 @@
+name: eqdashboard_workspace
+repository: https://github.com/YumNumm/eq-dashboard
+sdkPath: .fvm/flutter_sdk/
+
+command:
+  version:
+    linkToCommits: true
+  bootstrap:
+    runPubGetInParallel: false
+    environment:
+      sdk: ^3.7.0-209.1.beta
+      flutter: ^3.28.0-0.1.pre
+
+scripts:
+  analyze:
+    run: |
+      melos exec -c 1 -- \
+        dart analyze . --fatal-infos
+    description: |
+      Run `dart analyze` in all packages.
+       - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
+  generate:
+    run: melos run generate:dart && melos run generate:flutter
+    description: Build all generated files for Dart & Flutter packages in this project.
+
+  rebuild:
+    run: melos exec -c 1 --depends-on="build_runner" -- "flutter pub run build_runner build --delete-conflicting-outputs"
+    description: Build all generated files for Flutter packages in this project.
+
+  clean-all:
+    run: melos clean &&  melos exec "flutter clean"
+
+  upgrade:
+    run: melos exec "flutter pub upgrade --major-versions"
+
+packages:
+  - app
+  - packages/*
+
+ide:
+  intellij:
+    enabled: false
