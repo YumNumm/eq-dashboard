@@ -2,13 +2,13 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'auth_provider.dart';
+part of 'auth_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authHash() => r'08ff1764c44c5b4d9c6a251bd625462d449d5c61';
+String _$authHash() => r'2f82ea4ac2a1e7dce8b77569f542d414d5998b16';
 
 /// See also [Auth].
 @ProviderFor(Auth)

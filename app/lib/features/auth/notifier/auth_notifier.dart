@@ -3,7 +3,7 @@ import 'package:eqdashboard/features/auth/provider/oauth_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-part 'auth_provider.g.dart';
+part 'auth_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 class Auth extends _$Auth {
@@ -26,9 +26,20 @@ class Auth extends _$Auth {
       // launch
       await launchUrl(url);
 
-      
       return null;
     });
+  }
+
+  Future<void> handleAuthorizationCallback(Uri uri) async {
+    final manager = ref.watch(oauthManagerProvider);
+    final code = uri.queryParameters['code'];
+    if (code == null || code.isEmpty) {
+      throw Exception('code is empty');
+    }
+    final state = await manager.handleAuthorizationCode(
+      code: code,
+    );
+    return state;
   }
 
   Future<void> logout() async {
