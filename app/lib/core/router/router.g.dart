@@ -9,19 +9,52 @@ part of 'router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $homeRoute,
+      $myShellRouteData,
     ];
 
-RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/',
-      factory: $HomeRouteExtension._fromState,
+RouteBase get $myShellRouteData => ShellRouteData.$route(
+      factory: $MyShellRouteDataExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: '/page-one',
+          factory: $PageOneRouteDataExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/page-two',
+          factory: $PageTwoRouteDataExtension._fromState,
+        ),
+      ],
     );
 
-extension $HomeRouteExtension on HomeRoute {
-  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+extension $MyShellRouteDataExtension on MyShellRouteData {
+  static MyShellRouteData _fromState(GoRouterState state) =>
+      const MyShellRouteData();
+}
+
+extension $PageOneRouteDataExtension on PageOneRouteData {
+  static PageOneRouteData _fromState(GoRouterState state) =>
+      const PageOneRouteData();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/page-one',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PageTwoRouteDataExtension on PageTwoRouteData {
+  static PageTwoRouteData _fromState(GoRouterState state) =>
+      const PageTwoRouteData();
+
+  String get location => GoRouteData.$location(
+        '/page-two',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -38,7 +71,7 @@ extension $HomeRouteExtension on HomeRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'd914ebdbbb8570d308bce3b4e56f23e9d6bc2f0c';
+String _$routerHash() => r'd29690712189759c935eb540d96dfcbc6983513b';
 
 /// See also [router].
 @ProviderFor(router)

@@ -1,4 +1,6 @@
 import 'package:eqdashboard/pages/home/home_page.dart';
+import 'package:eqdashboard/pages/page_one/page_one.dart';
+import 'package:eqdashboard/pages/page_two/page_two.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -10,16 +12,49 @@ part 'router.g.dart';
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) => GoRouter(
       routes: $appRoutes,
-      initialLocation: '/',
+      initialLocation: '/page-one',
       debugLogDiagnostics: kDebugMode,
     );
 
-@TypedGoRoute<HomeRoute>(path: '/')
-class HomeRoute extends GoRouteData {
-  const HomeRoute();
+@TypedShellRoute<MyShellRouteData>(
+  routes: <TypedRoute<RouteData>>[
+    TypedGoRoute<PageOneRouteData>(path: '/page-one'),
+    TypedGoRoute<PageTwoRouteData>(path: '/page-two'),
+  ],
+)
+class MyShellRouteData extends ShellRouteData {
+  const MyShellRouteData();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const HomePage();
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    Widget navigator,
+  ) {
+    return HomePage(child: navigator);
+  }
+}
+
+class PageOneRouteData extends GoRouteData {
+  const PageOneRouteData();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage(
+      key: state.pageKey,
+      child: const PageOne(),
+    );
+  }
+}
+
+class PageTwoRouteData extends GoRouteData {
+  const PageTwoRouteData();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage(
+      key: state.pageKey,
+      child: const PageTwo(),
+    );
   }
 }
