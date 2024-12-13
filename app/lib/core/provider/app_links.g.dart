@@ -41,5 +41,22 @@ final getInitialLinkProvider = FutureProvider<Uri?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetInitialLinkRef = FutureProviderRef<Uri?>;
+String _$appLinksStreamHash() => r'd5aa06acc91877e879abdd4fe1b55b51c5988f09';
+
+/// See also [appLinksStream].
+@ProviderFor(appLinksStream)
+final appLinksStreamProvider = StreamProvider<Uri?>.internal(
+  appLinksStream,
+  name: r'appLinksStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$appLinksStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AppLinksStreamRef = StreamProviderRef<Uri?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

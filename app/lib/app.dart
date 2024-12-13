@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-import 'features/auth/pages/login_page.dart';
-
 class App extends HookConsumerWidget {
   const App({super.key});
 
@@ -13,7 +11,6 @@ class App extends HookConsumerWidget {
       title: 'EQDashboard',
       theme: MacosThemeData.light(),
       darkTheme: MacosThemeData.dark(),
-      home: const LoginPage(),
     );
   }
 }
