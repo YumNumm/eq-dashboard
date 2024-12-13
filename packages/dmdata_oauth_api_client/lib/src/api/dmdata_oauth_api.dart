@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
@@ -19,82 +17,74 @@ abstract class DmdataOauthApiClient {
 
   /// 認可コードフローでアクセストークンを要求します。
   @POST('/account/oauth2/v1/token')
-  @Headers({
-    HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
-  })
+  @FormUrlEncoded()
   Future<OAuthTokenResponse> requestToken({
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
-    @Query('client_id') required String clientId,
+    @Field('client_id') required String clientId,
 
     /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
-    @Query('client_secret') String? clientSecret,
+    @Field('client_secret') String? clientSecret,
 
     /// 認可コードフローでは、`authorization_code`を指定する必要があります。
-    @Query('grant_type') required OAuthGrantType grantType,
+    @Field('grant_type') required OAuthGrantType grantType,
 
     /// 認可コード要求で取得した`ACe.`で始まる認可コード。
-    @Query('code') required String code,
+    @Field('code') required String code,
 
     /// 認可コード要求する際にパラメータに入力した`redirect_uri`を指定します。クライアントに設定したリダイレクトURIが1個のみで、実際のリダイレクト先と一致する場合は必要ではありません。
-    @Query('redirect_uri') required String redirectUri,
+    @Field('redirect_uri') required String redirectUri,
 
     /// 認可コード要求時に、PKCEが使用されていた場合は必須です。
-    @Query('code_verifier') String? codeVerifier,
+    @Field('code_verifier') String? codeVerifier,
   });
 
   /// リフレッシュトークンを使用してアクセストークンを再取得します。
   @POST('/account/oauth2/v1/token')
-  @Headers({
-    HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
-  })
+  @FormUrlEncoded()
   Future<OAuthTokenResponse> refreshToken({
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
-    @Query('client_id') required String clientId,
+    @Field('client_id') required String clientId,
 
     /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
-    @Query('client_secret') String? clientSecret,
+    @Field('client_secret') String? clientSecret,
 
     /// リフレッシュトークンフローでは、`refresh_token`を指定する必要があります。
-    @Query('grant_type') required OAuthGrantType grantType,
+    @Field('grant_type') required OAuthGrantType grantType,
 
     /// 認可コード要求で取得した`ARh.`で始まるリフレッシュトークン。
-    @Query('refresh_token') required String refreshToken,
+    @Field('refresh_token') required String refreshToken,
   });
 
   /// クライアント・クレデンシャルズフローでアクセストークンを取得します。
   /// クライアントが機密である必要があります。
   @POST('/account/oauth2/v1/token')
-  @Headers({
-    HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
-  })
+  @FormUrlEncoded()
   Future<OAuthTokenResponse> clientCredentials({
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
-    @Query('client_id') required String clientId,
+    @Field('client_id') required String clientId,
 
     /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。
-    @Query('client_secret') required String clientSecret,
+    @Field('client_secret') required String clientSecret,
 
     /// クライアント・クレデンシャルズフローでは、`client_credentials`を指定する必要があります。
-    @Query('grant_type') required OAuthGrantType grantType,
+    @Field('grant_type') required OAuthGrantType grantType,
 
     /// ユーザーから認可を求めるスコープ（権限）。複数含める場合はスペースで区切ります。
-    @Query('scope') required String scope,
+    @Field('scope') required String scope,
   });
 
   /// アクセストークンまたはリフレッシュトークンを失効させます。
   @POST('/account/oauth2/v1/revoke')
-  @Headers({
-    HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
-  })
+  @FormUrlEncoded()
   Future<void> revokeToken({
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
-    @Query('client_id') required String clientId,
+    @Field('client_id') required String clientId,
 
     /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
-    @Query('client_secret') String? clientSecret,
+    @Field('client_secret') String? clientSecret,
 
     /// `ATn.`で始まるアクセストークンか、`ARh.`で始まるリフレッシュトークン。
-    @Query('token') required String token,
+    @Field('token') required String token,
   });
 }
 
