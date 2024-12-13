@@ -1,11 +1,11 @@
-import 'package:dmdata_oauth/src/oauth_authorization_url.dart';
+import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('OAuthAuthorizationUrl', () {
     test('デフォルトのベースURLでURLが生成できる', () {
       // Arrange
-      final generator = OAuthAuthorizationUrl();
+      final generator = DmdataOAuthAuthorizationUrlGenerator();
 
       // Act
       final uri = generator.generate(
@@ -32,7 +32,7 @@ void main() {
 
     test('カスタムベースURLでURLが生成できる', () {
       // Arrange
-      final generator = OAuthAuthorizationUrl(
+      final generator = DmdataOAuthAuthorizationUrlGenerator(
         baseUrl: 'https://custom.example.com/oauth/auth',
       );
 
@@ -61,7 +61,7 @@ void main() {
 
     test('複数のスコープを指定できる', () {
       // Arrange
-      final generator = OAuthAuthorizationUrl();
+      final generator = DmdataOAuthAuthorizationUrlGenerator();
 
       // Act
       final uri = generator.generate(
@@ -82,7 +82,7 @@ void main() {
 
     test('ResponseModeを変更できる', () {
       // Arrange
-      final generator = OAuthAuthorizationUrl();
+      final generator = DmdataOAuthAuthorizationUrlGenerator();
 
       // Act
       final uri = generator.generate(
@@ -99,7 +99,7 @@ void main() {
 
     test('PKCEパラメータを追加できる', () {
       // Arrange
-      final generator = OAuthAuthorizationUrl();
+      final generator = DmdataOAuthAuthorizationUrlGenerator();
 
       // Act
       final uri = generator.generate(
@@ -119,7 +119,7 @@ void main() {
     group('バリデーション', () {
       test('stateが64バイトを超える場合はエラー', () {
         // Arrange
-        final generator = OAuthAuthorizationUrl();
+        final generator = DmdataOAuthAuthorizationUrlGenerator();
 
         // Act & Assert
         expect(
@@ -135,7 +135,7 @@ void main() {
 
       test('code_challengeのみの指定はエラー', () {
         // Arrange
-        final generator = OAuthAuthorizationUrl();
+        final generator = DmdataOAuthAuthorizationUrlGenerator();
 
         // Act & Assert
         expect(
@@ -152,7 +152,7 @@ void main() {
 
       test('code_challenge_methodが不正な値の場合はエラー', () {
         // Arrange
-        final generator = OAuthAuthorizationUrl();
+        final generator = DmdataOAuthAuthorizationUrlGenerator();
 
         // Act & Assert
         expect(

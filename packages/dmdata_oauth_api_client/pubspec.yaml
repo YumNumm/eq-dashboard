@@ -1,9 +1,14 @@
-name: dmdata_oauth
+name: dmdata_oauth_api_client
 version: 1.0.0
 publish_to: "none"
 
 environment:
   sdk: ^3.6.0
+
+dependencies:
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  retrofit: ^4.4.1
 
 dev_dependencies:
   eqdashboard_lints:
@@ -13,7 +18,3 @@ dev_dependencies:
   json_serializable: ^6.9.0
   retrofit_generator: ^9.1.5
   test: ^1.25.2
-dependencies:
-  freezed_annotation: ^2.4.4
-  json_annotation: ^4.9.0
-  retrofit: ^4.4.1

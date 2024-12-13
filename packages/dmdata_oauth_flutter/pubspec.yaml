@@ -10,7 +10,17 @@ dependencies:
     sdk: flutter
   app_links: ^6.3.3
   oauth2: ^2.0.3
+  freezed_annotation: ^2.4.4
+
+  hooks_riverpod: ^2.6.1
+  flutter_hooks: ^0.20.5
+  riverpod_annotation: ^2.6.1
+  flutter_secure_storage: ^4.2.1
 
 dev_dependencies:
-  eqdashboard_lints:
-    path: ../eqdashboard_lints
+  build_runner: ^2.4.13
+  freezed: ^2.5.7
+  json_serializable: ^6.9.0
+  riverpod_generator: ^2.6.3
+  custom_lint: ^0.7.0
+  riverpod_lint: ^2.6.3

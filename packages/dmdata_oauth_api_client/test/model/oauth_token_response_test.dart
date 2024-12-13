@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dmdata_oauth/src/model/oauth_token_response.dart';
+import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
 import 'package:test/test.dart';
 
 void main() {
