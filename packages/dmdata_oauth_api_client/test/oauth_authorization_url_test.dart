@@ -97,7 +97,7 @@ void main() {
       expect(uri.toString(), contains('response_mode=fragment'));
     });
 
-    test('PKCEパラメータを追加できる', () {
+    test('PKCEパラメータを追加できる - S256', () {
       // Arrange
       final generator = DmdataOAuthAuthorizationUrlGenerator();
 
@@ -108,12 +108,31 @@ void main() {
         scope: 'telegram.list',
         state: 'test_state',
         codeChallenge: 'test_challenge',
-        codeChallengeMethod: 'S256',
+        codeChallengeMethod: CodeChallengeMethod.S256,
       );
 
       // Assert
       expect(uri.toString(), contains('code_challenge=test_challenge'));
       expect(uri.toString(), contains('code_challenge_method=S256'));
+    });
+
+    test('PKCEパラメータを追加できる - plain', () {
+      // Arrange
+      final generator = DmdataOAuthAuthorizationUrlGenerator();
+
+      // Act
+      final uri = generator.generate(
+        clientId: 'CId.test_client_id',
+        redirectUri: 'https://example.com/callback',
+        scope: 'telegram.list',
+        state: 'test_state',
+        codeChallenge: 'test_challenge',
+        codeChallengeMethod: CodeChallengeMethod.plain,
+      );
+
+      // Assert
+      expect(uri.toString(), contains('code_challenge=test_challenge'));
+      expect(uri.toString(), contains('code_challenge_method=plain'));
     });
 
     group('バリデーション', () {
@@ -162,7 +181,7 @@ void main() {
             scope: 'telegram.list',
             state: 'test_state',
             codeChallenge: 'test_challenge',
-            codeChallengeMethod: 'invalid',
+            codeChallengeMethod: null,
           ),
           throwsA(isA<AssertionError>()),
         );

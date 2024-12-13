@@ -14,7 +14,7 @@ enum ResponseMode {
 /// PKCEのcode_challengeのエンコード方式
 enum CodeChallengeMethod {
   /// SHA256でハッシュ化
-  s256,
+  S256,
 
   /// 平文
   plain,
