@@ -36,6 +36,10 @@ mixin _$OAuthConfig {
   /// デフォルトは1時間
   Duration get accessTokenExpiration => throw _privateConstructorUsedError;
 
+  /// リフレッシュトークンの更新期限
+  /// デフォルトは1週間
+  Duration get refreshTokenExpiration => throw _privateConstructorUsedError;
+
   /// Serializes this OAuthConfig to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -57,7 +61,8 @@ abstract class $OAuthConfigCopyWith<$Res> {
       String? clientSecret,
       String redirectUri,
       String scope,
-      Duration accessTokenExpiration});
+      Duration accessTokenExpiration,
+      Duration refreshTokenExpiration});
 }
 
 /// @nodoc
@@ -80,6 +85,7 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
     Object? redirectUri = null,
     Object? scope = null,
     Object? accessTokenExpiration = null,
+    Object? refreshTokenExpiration = null,
   }) {
     return _then(_value.copyWith(
       clientId: null == clientId
@@ -102,6 +108,10 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
           ? _value.accessTokenExpiration
           : accessTokenExpiration // ignore: cast_nullable_to_non_nullable
               as Duration,
+      refreshTokenExpiration: null == refreshTokenExpiration
+          ? _value.refreshTokenExpiration
+          : refreshTokenExpiration // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ) as $Val);
   }
 }
@@ -119,7 +129,8 @@ abstract class _$$OAuthConfigImplCopyWith<$Res>
       String? clientSecret,
       String redirectUri,
       String scope,
-      Duration accessTokenExpiration});
+      Duration accessTokenExpiration,
+      Duration refreshTokenExpiration});
 }
 
 /// @nodoc
@@ -140,6 +151,7 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
     Object? redirectUri = null,
     Object? scope = null,
     Object? accessTokenExpiration = null,
+    Object? refreshTokenExpiration = null,
   }) {
     return _then(_$OAuthConfigImpl(
       clientId: null == clientId
@@ -162,6 +174,10 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
           ? _value.accessTokenExpiration
           : accessTokenExpiration // ignore: cast_nullable_to_non_nullable
               as Duration,
+      refreshTokenExpiration: null == refreshTokenExpiration
+          ? _value.refreshTokenExpiration
+          : refreshTokenExpiration // ignore: cast_nullable_to_non_nullable
+              as Duration,
     ));
   }
 }
@@ -174,7 +190,8 @@ class _$OAuthConfigImpl implements _OAuthConfig {
       this.clientSecret,
       required this.redirectUri,
       required this.scope,
-      this.accessTokenExpiration = const Duration(hours: 1)});
+      this.accessTokenExpiration = const Duration(hours: 1),
+      this.refreshTokenExpiration = const Duration(days: 7)});
 
   factory _$OAuthConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$OAuthConfigImplFromJson(json);
@@ -201,9 +218,15 @@ class _$OAuthConfigImpl implements _OAuthConfig {
   @JsonKey()
   final Duration accessTokenExpiration;
 
+  /// リフレッシュトークンの更新期限
+  /// デフォルトは1週間
+  @override
+  @JsonKey()
+  final Duration refreshTokenExpiration;
+
   @override
   String toString() {
-    return 'OAuthConfig(clientId: $clientId, clientSecret: $clientSecret, redirectUri: $redirectUri, scope: $scope, accessTokenExpiration: $accessTokenExpiration)';
+    return 'OAuthConfig(clientId: $clientId, clientSecret: $clientSecret, redirectUri: $redirectUri, scope: $scope, accessTokenExpiration: $accessTokenExpiration, refreshTokenExpiration: $refreshTokenExpiration)';
   }
 
   @override
@@ -219,13 +242,15 @@ class _$OAuthConfigImpl implements _OAuthConfig {
                 other.redirectUri == redirectUri) &&
             (identical(other.scope, scope) || other.scope == scope) &&
             (identical(other.accessTokenExpiration, accessTokenExpiration) ||
-                other.accessTokenExpiration == accessTokenExpiration));
+                other.accessTokenExpiration == accessTokenExpiration) &&
+            (identical(other.refreshTokenExpiration, refreshTokenExpiration) ||
+                other.refreshTokenExpiration == refreshTokenExpiration));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, clientId, clientSecret,
-      redirectUri, scope, accessTokenExpiration);
+      redirectUri, scope, accessTokenExpiration, refreshTokenExpiration);
 
   /// Create a copy of OAuthConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -249,7 +274,8 @@ abstract class _OAuthConfig implements OAuthConfig {
       final String? clientSecret,
       required final String redirectUri,
       required final String scope,
-      final Duration accessTokenExpiration}) = _$OAuthConfigImpl;
+      final Duration accessTokenExpiration,
+      final Duration refreshTokenExpiration}) = _$OAuthConfigImpl;
 
   factory _OAuthConfig.fromJson(Map<String, dynamic> json) =
       _$OAuthConfigImpl.fromJson;
@@ -274,6 +300,11 @@ abstract class _OAuthConfig implements OAuthConfig {
   /// デフォルトは1時間
   @override
   Duration get accessTokenExpiration;
+
+  /// リフレッシュトークンの更新期限
+  /// デフォルトは1週間
+  @override
+  Duration get refreshTokenExpiration;
 
   /// Create a copy of OAuthConfig
   /// with the given fields replaced by the non-null parameter values.

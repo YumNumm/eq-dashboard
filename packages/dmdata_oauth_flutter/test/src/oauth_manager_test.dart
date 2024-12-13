@@ -23,6 +23,7 @@ void main() {
         accessToken: 'dummy_access_token',
         refreshToken: 'dummy_refresh_token',
         expiresAt: DateTime(2024),
+        refreshTokenExpiresAt: DateTime(2024).add(const Duration(days: 30)),
         scope: 'dummy_scope',
       ),
     );
@@ -60,6 +61,7 @@ void main() {
         accessToken: 'test_access_token',
         refreshToken: 'test_refresh_token',
         expiresAt: DateTime.now().add(const Duration(hours: 1)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
       when(() => mockStorage.load()).thenAnswer((_) async => expectedState);
@@ -195,6 +197,7 @@ void main() {
         accessToken: 'old_access_token',
         refreshToken: 'old_refresh_token',
         expiresAt: DateTime.now(),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -255,6 +258,7 @@ void main() {
         accessToken: 'old_access_token',
         refreshToken: 'old_refresh_token',
         expiresAt: DateTime.now(),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -274,6 +278,41 @@ void main() {
         throwsA(isA<Exception>()),
       );
     });
+
+    test('リフレッシュトークンが期限切れの場合、OAuthRefreshTokenExpiredExceptionをスローすること',
+        () async {
+      // Arrange
+      final expiredState = OAuthState(
+        accessToken: 'old_access_token',
+        refreshToken: 'old_refresh_token',
+        expiresAt: DateTime.now(),
+        refreshTokenExpiresAt:
+            DateTime.now().subtract(const Duration(days: 1)), // 期限切れ
+        scope: 'test_scope',
+      );
+
+      when(() => mockStorage.load()).thenAnswer((_) async => expiredState);
+      when(
+        () => mockClient.refreshToken(
+          clientId: any(named: 'clientId'),
+          clientSecret: any(named: 'clientSecret'),
+          grantType: any(named: 'grantType'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenThrow(OAuthRefreshTokenExpiredException());
+
+      // Act & Assert
+      expect(
+        () => manager.refreshToken(),
+        throwsA(
+          isA<OAuthRefreshTokenExpiredException>().having(
+            (e) => e.message,
+            'message',
+            'リフレッシュトークンが切れています',
+          ),
+        ),
+      );
+    });
   });
 
   group('signOut', () {
@@ -283,6 +322,7 @@ void main() {
         accessToken: 'test_access_token',
         refreshToken: 'test_refresh_token',
         expiresAt: DateTime.now(),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -331,6 +371,7 @@ void main() {
         accessToken: 'test_access_token',
         refreshToken: 'test_refresh_token',
         expiresAt: DateTime.now(),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -390,6 +431,7 @@ void main() {
         refreshToken: 'old_refresh_token',
         // 現在時刻から30分前（期限切れ）
         expiresAt: DateTime.now().subtract(const Duration(minutes: 30)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -434,6 +476,7 @@ void main() {
         refreshToken: 'valid_refresh_token',
         // 現在時刻から2時間後（まだ有効）
         expiresAt: DateTime.now().add(const Duration(hours: 2)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -461,6 +504,7 @@ void main() {
         refreshToken: 'old_refresh_token',
         // 現在時刻から30分後（1時間以内）
         expiresAt: DateTime.now().add(const Duration(minutes: 30)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -540,6 +584,7 @@ void main() {
         refreshToken: 'old_refresh_token',
         // 現在時刻から20分後（30分の閾値以内）
         expiresAt: DateTime.now().add(const Duration(minutes: 20)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -600,6 +645,7 @@ void main() {
         refreshToken: 'valid_refresh_token',
         // 現在時刻から40分後（30分の閾値より後）
         expiresAt: DateTime.now().add(const Duration(minutes: 40)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 30)),
         scope: 'test_scope',
       );
 
@@ -610,6 +656,245 @@ void main() {
 
       // Assert
       expect(result, validState);
+      verifyNever(
+        () => mockClient.refreshToken(
+          clientId: any(named: 'clientId'),
+          clientSecret: any(named: 'clientSecret'),
+          grantType: any(named: 'grantType'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      );
+    });
+
+    test('カスタムのrefreshTokenExpirationを考慮してリフレッシュを実行すること', () async {
+      // Arrange
+      final customConfig = const OAuthConfig(
+        clientId: 'test_client_id',
+        clientSecret: 'test_client_secret',
+        redirectUri: 'test://callback',
+        scope: 'test_scope',
+        accessTokenExpiration: Duration(hours: 1),
+        refreshTokenExpiration: Duration(days: 7), // カスタムのリフレッシュトークン有効期限
+      );
+
+      final customManager = OAuthManager(
+        config: customConfig,
+        storage: mockStorage,
+        client: mockClient,
+        authorizationUrlGenerator: mockUrlGenerator,
+      );
+
+      final almostExpiredState = OAuthState(
+        accessToken: 'old_access_token',
+        refreshToken: 'old_refresh_token',
+        // アクセストークンは有効だが、リフレッシュトークンが期限切れ間近
+        expiresAt: DateTime.now().add(const Duration(hours: 2)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 6)),
+        scope: 'test_scope',
+      );
+
+      final tokenResponse = OAuthTokenResponse(
+        accessToken: 'new_access_token',
+        refreshToken: 'new_refresh_token',
+        expiresIn: 3600,
+        scope: 'test_scope',
+        tokenType: 'Bearer',
+      );
+
+      when(() => mockStorage.load())
+          .thenAnswer((_) async => almostExpiredState);
+      when(
+        () => mockClient.refreshToken(
+          clientId: any(named: 'clientId'),
+          clientSecret: any(named: 'clientSecret'),
+          grantType: any(named: 'grantType'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenAnswer((_) async => tokenResponse);
+      when(() => mockStorage.save(any())).thenAnswer((_) async {});
+
+      // Act
+      final result = await customManager.getCurrentStateAndRefreshIfNeeded();
+
+      // Assert
+      expect(result?.accessToken, 'new_access_token');
+      verify(
+        () => mockClient.refreshToken(
+          clientId: customConfig.clientId,
+          clientSecret: customConfig.clientSecret,
+          grantType: OAuthGrantType.refreshToken,
+          refreshToken: almostExpiredState.refreshToken,
+        ),
+      ).called(1);
+    });
+
+    test('カスタムのrefreshTokenExpirationを考慮してリフレッシュをスキップすること', () async {
+      // Arrange
+      final customConfig = const OAuthConfig(
+        clientId: 'test_client_id',
+        clientSecret: 'test_client_secret',
+        redirectUri: 'test://callback',
+        scope: 'test_scope',
+        accessTokenExpiration: Duration(hours: 1),
+        refreshTokenExpiration: Duration(days: 7), // カスタムのリフレッシュトークン有効期限
+      );
+
+      final customManager = OAuthManager(
+        config: customConfig,
+        storage: mockStorage,
+        client: mockClient,
+        authorizationUrlGenerator: mockUrlGenerator,
+      );
+
+      final validState = OAuthState(
+        accessToken: 'valid_access_token',
+        refreshToken: 'valid_refresh_token',
+        // アクセストークンもリフレッシュトークンも十分な有効期限がある
+        expiresAt: DateTime.now().add(const Duration(hours: 2)),
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 10)),
+        scope: 'test_scope',
+      );
+
+      when(() => mockStorage.load()).thenAnswer((_) async => validState);
+
+      // Act
+      final result = await customManager.getCurrentStateAndRefreshIfNeeded();
+
+      // Assert
+      expect(result, validState);
+      verifyNever(
+        () => mockClient.refreshToken(
+          clientId: any(named: 'clientId'),
+          clientSecret: any(named: 'clientSecret'),
+          grantType: any(named: 'grantType'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      );
+    });
+
+    test('リフレッシュトークンが期限切れの場合、OAuthRefreshTokenExpiredExceptionをスローすること',
+        () async {
+      // Arrange
+      final expiredState = OAuthState(
+        accessToken: 'old_access_token',
+        refreshToken: 'old_refresh_token',
+        expiresAt: DateTime.now(),
+        refreshTokenExpiresAt:
+            DateTime.now().subtract(const Duration(days: 1)), // 期限切れ
+        scope: 'test_scope',
+      );
+
+      when(() => mockStorage.load()).thenAnswer((_) async => expiredState);
+      when(
+        () => mockClient.refreshToken(
+          clientId: any(named: 'clientId'),
+          clientSecret: any(named: 'clientSecret'),
+          grantType: any(named: 'grantType'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenThrow(OAuthRefreshTokenExpiredException());
+
+      // Act & Assert
+      expect(
+        () => manager.getCurrentStateAndRefreshIfNeeded(),
+        throwsA(
+          isA<OAuthRefreshTokenExpiredException>().having(
+            (e) => e.message,
+            'message',
+            'リフレッシュトークンが切れています',
+          ),
+        ),
+      );
+    });
+
+    test('リフレッシュトークンの有効期限がしきい値より短い場合、更新を実行すること', () async {
+      // Arrange
+      final customConfig = const OAuthConfig(
+        clientId: 'test_client_id',
+        clientSecret: 'test_client_secret',
+        redirectUri: 'test://callback',
+        scope: 'test_scope',
+        refreshTokenExpiration: Duration(days: 30), // 30日の有効期限
+      );
+
+      final customManager = OAuthManager(
+        config: customConfig,
+        storage: mockStorage,
+        client: mockClient,
+        authorizationUrlGenerator: mockUrlGenerator,
+      );
+
+      final almostExpiredState = OAuthState(
+        accessToken: 'old_access_token',
+        refreshToken: 'old_refresh_token',
+        expiresAt: DateTime.now().add(const Duration(hours: 2)),
+        // リフレッシュトークンの有効期限が25日後（30日のしきい値より短い）
+        refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 25)),
+        scope: 'test_scope',
+      );
+
+      final tokenResponse = OAuthTokenResponse(
+        accessToken: 'new_access_token',
+        refreshToken: 'new_refresh_token',
+        expiresIn: 3600,
+        scope: 'test_scope',
+        tokenType: 'Bearer',
+      );
+
+      when(() => mockStorage.load())
+          .thenAnswer((_) async => almostExpiredState);
+      when(
+        () => mockClient.refreshToken(
+          clientId: any(named: 'clientId'),
+          clientSecret: any(named: 'clientSecret'),
+          grantType: any(named: 'grantType'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenAnswer((_) async => tokenResponse);
+      when(() => mockStorage.save(any())).thenAnswer((_) async {});
+
+      // Act
+      final result = await customManager.getCurrentStateAndRefreshIfNeeded();
+
+      // Assert
+      expect(result?.accessToken, 'new_access_token');
+      verify(
+        () => mockClient.refreshToken(
+          clientId: customConfig.clientId,
+          clientSecret: customConfig.clientSecret,
+          grantType: OAuthGrantType.refreshToken,
+          refreshToken: almostExpiredState.refreshToken,
+        ),
+      ).called(1);
+      verify(() => mockStorage.save(any())).called(1);
+    });
+
+    test('リフレッシュトークンの有効期限が切れている場合、OAuthRefreshTokenExpiredExceptionをスローすること',
+        () async {
+      // Arrange
+      final expiredState = OAuthState(
+        accessToken: 'old_access_token',
+        refreshToken: 'old_refresh_token',
+        expiresAt: DateTime.now().add(const Duration(hours: 2)),
+        // リフレッシュトークンの有効期限が切れている
+        refreshTokenExpiresAt: DateTime.now().subtract(const Duration(days: 1)),
+        scope: 'test_scope',
+      );
+
+      when(() => mockStorage.load()).thenAnswer((_) async => expiredState);
+
+      // Act & Assert
+      expect(
+        () => manager.getCurrentStateAndRefreshIfNeeded(),
+        throwsA(
+          isA<OAuthRefreshTokenExpiredException>().having(
+            (e) => e.message,
+            'message',
+            'リフレッシュトークンが切れています',
+          ),
+        ),
+      );
+
       verifyNever(
         () => mockClient.refreshToken(
           clientId: any(named: 'clientId'),

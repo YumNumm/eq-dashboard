@@ -16,6 +16,9 @@ class OAuthState with _$OAuthState {
     /// アクセストークンの有効期限
     required DateTime expiresAt,
 
+    /// リフレッシュトークンの有効期限
+    required DateTime refreshTokenExpiresAt,
+
     /// 付与されたスコープ
     required String scope,
   }) = _OAuthState;

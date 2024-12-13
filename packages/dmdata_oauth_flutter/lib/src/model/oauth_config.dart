@@ -22,6 +22,10 @@ class OAuthConfig with _$OAuthConfig {
     /// アクセストークンの更新期限
     /// デフォルトは1時間
     @Default(Duration(hours: 1)) Duration accessTokenExpiration,
+
+    /// リフレッシュトークンの更新期限
+    /// デフォルトは1週間
+    @Default(Duration(days: 7)) Duration refreshTokenExpiration,
   }) = _OAuthConfig;
 
   factory OAuthConfig.fromJson(Map<String, dynamic> json) =>

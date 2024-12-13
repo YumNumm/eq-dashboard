@@ -38,10 +38,20 @@ class OAuthManager {
       return null;
     }
 
-    final expiresThreshold = currentState.expiresAt.subtract(
+    // アクセストークンの有効期限が切れている/切れそうな場合はリフレッシュ
+    final accessTokenExpiresThreshold = currentState.expiresAt.subtract(
       _config.accessTokenExpiration,
     );
-    if (expiresThreshold.isBefore(DateTime.now())) {
+    if (accessTokenExpiresThreshold.isBefore(DateTime.now())) {
+      return await refreshToken();
+    }
+
+    // リフレッシュトークンの有効期限が切れている/切れそうな場合はリフレッシュ
+    final refreshTokenExpiresThreshold =
+        currentState.refreshTokenExpiresAt.subtract(
+      _config.refreshTokenExpiration,
+    );
+    if (refreshTokenExpiresThreshold.isBefore(DateTime.now())) {
       return await refreshToken();
     }
 
@@ -75,6 +85,9 @@ class OAuthManager {
       expiresAt: DateTime.now().add(
         Duration(seconds: response.expiresIn),
       ),
+      refreshTokenExpiresAt: DateTime.now().add(
+        const Duration(days: 30), // リフレッシュトークンの有効期限は30日
+      ),
       scope: scope,
     );
 
@@ -89,11 +102,16 @@ class OAuthManager {
       throw Exception('リフレッシュトークンがありません');
     }
 
+    // リフレッシュトークンの有効期限が切れている場合は例外を返す
+    if (currentState!.refreshTokenExpiresAt.isBefore(DateTime.now())) {
+      throw OAuthRefreshTokenExpiredException();
+    }
+
     final response = await _client.refreshToken(
       clientId: _config.clientId,
       clientSecret: _config.clientSecret,
       grantType: OAuthGrantType.refreshToken,
-      refreshToken: currentState!.refreshToken,
+      refreshToken: currentState.refreshToken,
     );
 
     final state = OAuthState(
@@ -101,6 +119,9 @@ class OAuthManager {
       refreshToken: response.refreshToken ?? currentState.refreshToken,
       expiresAt: DateTime.now().add(
         Duration(seconds: response.expiresIn),
+      ),
+      refreshTokenExpiresAt: DateTime.now().add(
+        const Duration(days: 183), // リフレッシュトークンの有効期限は183日
       ),
       scope: response.scope ?? currentState.scope,
     );
@@ -167,4 +188,16 @@ class OAuthManager {
   void dispose() {
     _stateController.close();
   }
+}
+
+sealed class OAuthRefreshException implements Exception {
+  OAuthRefreshException({
+    required this.message,
+  });
+
+  final String message;
+}
+
+class OAuthRefreshTokenExpiredException extends OAuthRefreshException {
+  OAuthRefreshTokenExpiredException() : super(message: 'リフレッシュトークンが切れています');
 }

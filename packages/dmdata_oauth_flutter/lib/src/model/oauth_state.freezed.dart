@@ -29,6 +29,9 @@ mixin _$OAuthState {
   /// アクセストークンの有効期限
   DateTime get expiresAt => throw _privateConstructorUsedError;
 
+  /// リフレッシュトークンの有効期限
+  DateTime get refreshTokenExpiresAt => throw _privateConstructorUsedError;
+
   /// 付与されたスコープ
   String get scope => throw _privateConstructorUsedError;
 
@@ -52,6 +55,7 @@ abstract class $OAuthStateCopyWith<$Res> {
       {String accessToken,
       String refreshToken,
       DateTime expiresAt,
+      DateTime refreshTokenExpiresAt,
       String scope});
 }
 
@@ -73,6 +77,7 @@ class _$OAuthStateCopyWithImpl<$Res, $Val extends OAuthState>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? expiresAt = null,
+    Object? refreshTokenExpiresAt = null,
     Object? scope = null,
   }) {
     return _then(_value.copyWith(
@@ -87,6 +92,10 @@ class _$OAuthStateCopyWithImpl<$Res, $Val extends OAuthState>
       expiresAt: null == expiresAt
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      refreshTokenExpiresAt: null == refreshTokenExpiresAt
+          ? _value.refreshTokenExpiresAt
+          : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       scope: null == scope
           ? _value.scope
@@ -108,6 +117,7 @@ abstract class _$$OAuthStateImplCopyWith<$Res>
       {String accessToken,
       String refreshToken,
       DateTime expiresAt,
+      DateTime refreshTokenExpiresAt,
       String scope});
 }
 
@@ -127,6 +137,7 @@ class __$$OAuthStateImplCopyWithImpl<$Res>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? expiresAt = null,
+    Object? refreshTokenExpiresAt = null,
     Object? scope = null,
   }) {
     return _then(_$OAuthStateImpl(
@@ -141,6 +152,10 @@ class __$$OAuthStateImplCopyWithImpl<$Res>
       expiresAt: null == expiresAt
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      refreshTokenExpiresAt: null == refreshTokenExpiresAt
+          ? _value.refreshTokenExpiresAt
+          : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       scope: null == scope
           ? _value.scope
@@ -157,6 +172,7 @@ class _$OAuthStateImpl implements _OAuthState {
       {required this.accessToken,
       required this.refreshToken,
       required this.expiresAt,
+      required this.refreshTokenExpiresAt,
       required this.scope});
 
   factory _$OAuthStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -174,13 +190,17 @@ class _$OAuthStateImpl implements _OAuthState {
   @override
   final DateTime expiresAt;
 
+  /// リフレッシュトークンの有効期限
+  @override
+  final DateTime refreshTokenExpiresAt;
+
   /// 付与されたスコープ
   @override
   final String scope;
 
   @override
   String toString() {
-    return 'OAuthState(accessToken: $accessToken, refreshToken: $refreshToken, expiresAt: $expiresAt, scope: $scope)';
+    return 'OAuthState(accessToken: $accessToken, refreshToken: $refreshToken, expiresAt: $expiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, scope: $scope)';
   }
 
   @override
@@ -194,13 +214,15 @@ class _$OAuthStateImpl implements _OAuthState {
                 other.refreshToken == refreshToken) &&
             (identical(other.expiresAt, expiresAt) ||
                 other.expiresAt == expiresAt) &&
+            (identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) ||
+                other.refreshTokenExpiresAt == refreshTokenExpiresAt) &&
             (identical(other.scope, scope) || other.scope == scope));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, accessToken, refreshToken, expiresAt, scope);
+  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken,
+      expiresAt, refreshTokenExpiresAt, scope);
 
   /// Create a copy of OAuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -223,6 +245,7 @@ abstract class _OAuthState implements OAuthState {
       {required final String accessToken,
       required final String refreshToken,
       required final DateTime expiresAt,
+      required final DateTime refreshTokenExpiresAt,
       required final String scope}) = _$OAuthStateImpl;
 
   factory _OAuthState.fromJson(Map<String, dynamic> json) =
@@ -239,6 +262,10 @@ abstract class _OAuthState implements OAuthState {
   /// アクセストークンの有効期限
   @override
   DateTime get expiresAt;
+
+  /// リフレッシュトークンの有効期限
+  @override
+  DateTime get refreshTokenExpiresAt;
 
   /// 付与されたスコープ
   @override

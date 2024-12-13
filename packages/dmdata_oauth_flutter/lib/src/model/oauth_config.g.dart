@@ -21,6 +21,11 @@ _$OAuthConfigImpl _$$OAuthConfigImplFromJson(Map<String, dynamic> json) =>
               (v) => v == null
                   ? const Duration(hours: 1)
                   : Duration(microseconds: (v as num).toInt())),
+          refreshTokenExpiration: $checkedConvert(
+              'refresh_token_expiration',
+              (v) => v == null
+                  ? const Duration(days: 7)
+                  : Duration(microseconds: (v as num).toInt())),
         );
         return val;
       },
@@ -28,7 +33,8 @@ _$OAuthConfigImpl _$$OAuthConfigImplFromJson(Map<String, dynamic> json) =>
         'clientId': 'client_id',
         'clientSecret': 'client_secret',
         'redirectUri': 'redirect_uri',
-        'accessTokenExpiration': 'access_token_expiration'
+        'accessTokenExpiration': 'access_token_expiration',
+        'refreshTokenExpiration': 'refresh_token_expiration'
       },
     );
 
@@ -39,4 +45,6 @@ Map<String, dynamic> _$$OAuthConfigImplToJson(_$OAuthConfigImpl instance) =>
       'redirect_uri': instance.redirectUri,
       'scope': instance.scope,
       'access_token_expiration': instance.accessTokenExpiration.inMicroseconds,
+      'refresh_token_expiration':
+          instance.refreshTokenExpiration.inMicroseconds,
     };

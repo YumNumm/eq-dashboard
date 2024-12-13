@@ -16,6 +16,8 @@ _$OAuthStateImpl _$$OAuthStateImplFromJson(Map<String, dynamic> json) =>
           refreshToken: $checkedConvert('refresh_token', (v) => v as String),
           expiresAt:
               $checkedConvert('expires_at', (v) => DateTime.parse(v as String)),
+          refreshTokenExpiresAt: $checkedConvert(
+              'refresh_token_expires_at', (v) => DateTime.parse(v as String)),
           scope: $checkedConvert('scope', (v) => v as String),
         );
         return val;
@@ -23,7 +25,8 @@ _$OAuthStateImpl _$$OAuthStateImplFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {
         'accessToken': 'access_token',
         'refreshToken': 'refresh_token',
-        'expiresAt': 'expires_at'
+        'expiresAt': 'expires_at',
+        'refreshTokenExpiresAt': 'refresh_token_expires_at'
       },
     );
 
@@ -32,5 +35,7 @@ Map<String, dynamic> _$$OAuthStateImplToJson(_$OAuthStateImpl instance) =>
       'access_token': instance.accessToken,
       'refresh_token': instance.refreshToken,
       'expires_at': instance.expiresAt.toIso8601String(),
+      'refresh_token_expires_at':
+          instance.refreshTokenExpiresAt.toIso8601String(),
       'scope': instance.scope,
     };
