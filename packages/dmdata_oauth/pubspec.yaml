@@ -1,0 +1,12 @@
+name: dmdata_oauth
+version: 1.0.0
+publish_to: "none"
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  app_links: ^6.3.3
+  oauth2: ^2.0.3
+dev_dependencies:
+  yumemi_lints: ^2.2.0

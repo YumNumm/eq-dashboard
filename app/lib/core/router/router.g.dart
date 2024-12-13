@@ -38,7 +38,7 @@ extension $HomeRouteExtension on HomeRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'fdde5eb65ea504f47414170d4a49e40beed7224e';
+String _$routerHash() => r'd914ebdbbb8570d308bce3b4e56f23e9d6bc2f0c';
 
 /// See also [router].
 @ProviderFor(router)
