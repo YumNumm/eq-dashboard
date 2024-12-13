@@ -8,8 +8,8 @@ environment:
 
 dependencies:
   app_links: ^6.3.3
-  dmdata_oauth:
-    path: ../packages/dmdata_oauth
+  dmdata_oauth_flutter:
+    path: ../packages/dmdata_oauth_flutter
   flutter:
     sdk: flutter
   flutter_acrylic: ^1.1.4

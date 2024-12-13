@@ -262,10 +262,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.7"
-  dmdata_oauth:
+  dmdata_oauth_flutter:
     dependency: "direct main"
     description:
-      path: "../packages/dmdata_oauth"
+      path: "../packages/dmdata_oauth_flutter"
       relative: true
     source: path
     version: "1.0.0"
