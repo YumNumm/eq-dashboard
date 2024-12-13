@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.7.0-209.1.beta
+  sdk: ^3.6.0
 
 dependencies:
   flutter:
@@ -18,16 +18,16 @@ dependencies:
   riverpod_annotation: ^2.6.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
-  go_router_builder: ^2.7.1
+  altive_lints: ^1.16.0
   build_runner: ^2.4.13
+  custom_lint: ^0.7.0
+  flutter_lints: ^5.0.0
   freezed: ^2.5.7
+  go_router_builder: ^2.7.1
   json_serializable: ^6.9.0
   riverpod_generator: ^2.6.3
-  custom_lint: ^0.7.0
   riverpod_lint: ^2.6.3
+  yumemi_lints: ^2.2.0
 
 flutter:
   uses-material-design: true

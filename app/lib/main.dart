@@ -1,20 +1,23 @@
+import 'dart:io';
+
+import 'package:eqdashboard/app.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_acrylic/flutter_acrylic.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux)) {
+    await Window.initialize();
+    await Window.setEffect(effect: WindowEffect.acrylic);
+    await Window.makeTitlebarTransparent();
+    await Window.enableFullSizeContentView();
   }
+
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }

@@ -8,8 +8,8 @@ command:
   bootstrap:
     runPubGetInParallel: false
     environment:
-      sdk: ^3.7.0-209.1.beta
-      flutter: ^3.28.0-0.1.pre
+      sdk: ^3.6.0
+      flutter: ^3.27.0
 
 scripts:
   analyze:
