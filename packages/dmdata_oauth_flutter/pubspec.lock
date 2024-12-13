@@ -246,7 +246,7 @@ packages:
     source: path
     version: "1.0.0"
   eqdashboard_lints:
-    dependency: "direct overridden"
+    dependency: "direct dev"
     description:
       path: "../eqdashboard_lints"
       relative: true

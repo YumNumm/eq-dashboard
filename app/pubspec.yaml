@@ -9,6 +9,7 @@ environment:
 dependencies:
   app_links: ^6.3.3
   cupertino_icons: ^1.0.8
+  dio: ^5.7.0
   dmdata_oauth_flutter:
     path: ../packages/dmdata_oauth_flutter
   flutter:
@@ -23,6 +24,7 @@ dependencies:
   macos_ui: ^2.0.9
   riverpod_annotation: ^2.6.1
   shared_preferences: ^2.3.3
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   altive_lints: ^1.16.0
