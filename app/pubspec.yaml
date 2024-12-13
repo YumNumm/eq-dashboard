@@ -33,7 +33,8 @@ dev_dependencies:
   json_serializable: ^6.9.0
   riverpod_generator: ^2.6.3
   riverpod_lint: ^2.6.3
-  yumemi_lints: ^2.2.0
+  eqdashboard_lints:
+    path: ../packages/eqdashboard_lints
 
 flutter:
   uses-material-design: true

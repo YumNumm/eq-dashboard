@@ -3,3 +3,5 @@
 
 # Dart
 .dart_tool/
+
+pubspec_overrides.yaml
