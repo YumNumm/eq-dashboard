@@ -33,7 +33,7 @@ mixin _$OAuthState {
   DateTime get refreshTokenExpiresAt => throw _privateConstructorUsedError;
 
   /// 付与されたスコープ
-  String get scope => throw _privateConstructorUsedError;
+  List<String> get scopes => throw _privateConstructorUsedError;
 
   /// Serializes this OAuthState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +56,7 @@ abstract class $OAuthStateCopyWith<$Res> {
       String refreshToken,
       DateTime expiresAt,
       DateTime refreshTokenExpiresAt,
-      String scope});
+      List<String> scopes});
 }
 
 /// @nodoc
@@ -78,7 +78,7 @@ class _$OAuthStateCopyWithImpl<$Res, $Val extends OAuthState>
     Object? refreshToken = null,
     Object? expiresAt = null,
     Object? refreshTokenExpiresAt = null,
-    Object? scope = null,
+    Object? scopes = null,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
@@ -97,10 +97,10 @@ class _$OAuthStateCopyWithImpl<$Res, $Val extends OAuthState>
           ? _value.refreshTokenExpiresAt
           : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      scope: null == scope
-          ? _value.scope
-          : scope // ignore: cast_nullable_to_non_nullable
-              as String,
+      scopes: null == scopes
+          ? _value.scopes
+          : scopes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -118,7 +118,7 @@ abstract class _$$OAuthStateImplCopyWith<$Res>
       String refreshToken,
       DateTime expiresAt,
       DateTime refreshTokenExpiresAt,
-      String scope});
+      List<String> scopes});
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class __$$OAuthStateImplCopyWithImpl<$Res>
     Object? refreshToken = null,
     Object? expiresAt = null,
     Object? refreshTokenExpiresAt = null,
-    Object? scope = null,
+    Object? scopes = null,
   }) {
     return _then(_$OAuthStateImpl(
       accessToken: null == accessToken
@@ -157,10 +157,10 @@ class __$$OAuthStateImplCopyWithImpl<$Res>
           ? _value.refreshTokenExpiresAt
           : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      scope: null == scope
-          ? _value.scope
-          : scope // ignore: cast_nullable_to_non_nullable
-              as String,
+      scopes: null == scopes
+          ? _value._scopes
+          : scopes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -173,7 +173,8 @@ class _$OAuthStateImpl implements _OAuthState {
       required this.refreshToken,
       required this.expiresAt,
       required this.refreshTokenExpiresAt,
-      required this.scope});
+      required final List<String> scopes})
+      : _scopes = scopes;
 
   factory _$OAuthStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$OAuthStateImplFromJson(json);
@@ -195,12 +196,19 @@ class _$OAuthStateImpl implements _OAuthState {
   final DateTime refreshTokenExpiresAt;
 
   /// 付与されたスコープ
+  final List<String> _scopes;
+
+  /// 付与されたスコープ
   @override
-  final String scope;
+  List<String> get scopes {
+    if (_scopes is EqualUnmodifiableListView) return _scopes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scopes);
+  }
 
   @override
   String toString() {
-    return 'OAuthState(accessToken: $accessToken, refreshToken: $refreshToken, expiresAt: $expiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, scope: $scope)';
+    return 'OAuthState(accessToken: $accessToken, refreshToken: $refreshToken, expiresAt: $expiresAt, refreshTokenExpiresAt: $refreshTokenExpiresAt, scopes: $scopes)';
   }
 
   @override
@@ -216,13 +224,18 @@ class _$OAuthStateImpl implements _OAuthState {
                 other.expiresAt == expiresAt) &&
             (identical(other.refreshTokenExpiresAt, refreshTokenExpiresAt) ||
                 other.refreshTokenExpiresAt == refreshTokenExpiresAt) &&
-            (identical(other.scope, scope) || other.scope == scope));
+            const DeepCollectionEquality().equals(other._scopes, _scopes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken,
-      expiresAt, refreshTokenExpiresAt, scope);
+  int get hashCode => Object.hash(
+      runtimeType,
+      accessToken,
+      refreshToken,
+      expiresAt,
+      refreshTokenExpiresAt,
+      const DeepCollectionEquality().hash(_scopes));
 
   /// Create a copy of OAuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -246,7 +259,7 @@ abstract class _OAuthState implements OAuthState {
       required final String refreshToken,
       required final DateTime expiresAt,
       required final DateTime refreshTokenExpiresAt,
-      required final String scope}) = _$OAuthStateImpl;
+      required final List<String> scopes}) = _$OAuthStateImpl;
 
   factory _OAuthState.fromJson(Map<String, dynamic> json) =
       _$OAuthStateImpl.fromJson;
@@ -269,7 +282,7 @@ abstract class _OAuthState implements OAuthState {
 
   /// 付与されたスコープ
   @override
-  String get scope;
+  List<String> get scopes;
 
   /// Create a copy of OAuthState
   /// with the given fields replaced by the non-null parameter values.

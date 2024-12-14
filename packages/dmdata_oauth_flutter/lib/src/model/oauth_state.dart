@@ -20,7 +20,7 @@ class OAuthState with _$OAuthState {
     required DateTime refreshTokenExpiresAt,
 
     /// 付与されたスコープ
-    required String scope,
+    required List<String> scopes,
   }) = _OAuthState;
 
   factory OAuthState.fromJson(Map<String, dynamic> json) =>

@@ -57,7 +57,7 @@ class DmdataSettingsScreen extends ConsumerWidget {
                         Text(
                           'RefreshTokenExpire: ${state.refreshTokenExpiresAt}',
                         ),
-                        Text('Scope: ${state.scope}'),
+                        Text('Scope: ${state.scopes}'),
                         const SizedBox(height: 16),
                         PushButton(
                           controlSize: ControlSize.large,

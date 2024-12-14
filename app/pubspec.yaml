@@ -7,7 +7,6 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
-  app_links: ^6.3.3
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   dmdata_oauth_flutter:

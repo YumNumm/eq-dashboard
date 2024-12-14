@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
-import 'package:eqdashboard/core/provider/app_links.dart';
 import 'package:eqdashboard/features/auth/provider/oauth_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 part 'auth_notifier.g.dart';
 
@@ -21,24 +19,8 @@ class Auth extends _$Auth {
     state = const AsyncLoading();
     final manager = ref.watch(oauthManagerProvider);
     state = await AsyncValue.guard(() async {
-      // URLを生成
-      final (url, codeVerifier!) = await manager.generateAuthorizationUrl(
-        codeChallengeMethod: CodeChallengeMethod.plain,
-        useCodeChallenge: true,
-      );
-      // launch
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      );
-
-      ref.listen(appLinksStreamProvider, (_, v) {
-        final uri = v.valueOrNull;
-        if (uri == null) return;
-        handleAuthorizationCallback(uri, codeVerifier);
-      });
-
-      return null;
+      final result = await manager.startAuthorization();
+      return result;
     });
   }
 

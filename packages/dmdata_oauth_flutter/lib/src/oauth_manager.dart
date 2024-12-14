@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:math' as math;
 
-import 'package:crypto/crypto.dart';
 import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
+import 'package:flutter_appauth/flutter_appauth.dart' as appAuth;
 
 import 'model/oauth_config.dart';
 import 'model/oauth_state.dart';
@@ -16,16 +13,16 @@ class OAuthManager {
     required OAuthConfig config,
     required OAuthStorage storage,
     required DmdataOauthApiClient client,
-    required DmdataOAuthAuthorizationUrlGenerator authorizationUrlGenerator,
+    required appAuth.FlutterAppAuth appAuth,
   })  : _config = config,
         _storage = storage,
         _client = client,
-        _authorizationUrlGenerator = authorizationUrlGenerator;
+        _appAuth = appAuth;
 
   final OAuthConfig _config;
   final OAuthStorage _storage;
   final DmdataOauthApiClient _client;
-  final DmdataOAuthAuthorizationUrlGenerator _authorizationUrlGenerator;
+  final appAuth.FlutterAppAuth _appAuth;
 
   final _stateController = StreamController<OAuthState?>.broadcast();
 
@@ -91,11 +88,28 @@ class OAuthManager {
       refreshTokenExpiresAt: DateTime.now().add(
         const Duration(days: 30), // リフレッシュトークンの有効期限は30日
       ),
-      scope: scope,
+      scopes: scope.split(' '),
     );
 
     await _storage.save(state);
     _stateController.add(state);
+  }
+
+  Future<OAuthState> startAuthorization() async {
+    final result = await _appAuth.authorizeAndExchangeCode(
+      appAuth.AuthorizationTokenRequest(
+        _config.clientId,
+        _config.redirectUri,
+        scopes: _config.scopes,
+      ),
+    );
+    return OAuthState(
+      accessToken: result.accessToken!,
+      refreshToken: result.refreshToken!,
+      expiresAt: result.accessTokenExpirationDateTime!,
+      refreshTokenExpiresAt: DateTime.now().add(Duration(days: 183)),
+      scopes: result.scopes!,
+    );
   }
 
   /// アクセストークンをリフレッシュ
@@ -126,7 +140,7 @@ class OAuthManager {
       refreshTokenExpiresAt: DateTime.now().add(
         const Duration(days: 183), // リフレッシュトークンの有効期限は183日
       ),
-      scope: response.scope ?? currentState.scope,
+      scopes: response.scope?.split(' ') ?? currentState.scopes,
     );
 
     await _storage.save(state);
@@ -148,63 +162,6 @@ class OAuthManager {
 
     await _storage.clear();
     _stateController.add(null);
-  }
-
-  /// 認可URLを生成
-  (Uri url, String? codeChallenge) generateAuthorizationUrl({
-    /// PKCEを使用するかどうか
-    bool useCodeChallenge = true,
-
-    /// PKCEを使用する場合のcode_challengeのエンコード方式
-    CodeChallengeMethod? codeChallengeMethod = CodeChallengeMethod.S256,
-  }) {
-    assert(
-      useCodeChallenge ? codeChallengeMethod != null : true,
-      'PKCEを使用する場合はcode_challenge_methodも指定する必要があります',
-    );
-
-    final state = _generateRandomString(32);
-    final codeChallenge = useCodeChallenge ? _generateRandomString(32) : null;
-    log('state: $state', name: 'OAuthManager');
-    log('codeChallenge: $codeChallenge', name: 'OAuthManager');
-
-    final url = _authorizationUrlGenerator.generate(
-      clientId: _config.clientId,
-      redirectUri: _config.redirectUri,
-      scope: _config.scope,
-      state: state,
-      responseMode: ResponseMode.query,
-      codeChallenge: useCodeChallenge ? codeChallenge : null,
-      codeChallengeMethod: useCodeChallenge ? codeChallengeMethod : null,
-    );
-
-    if (codeChallengeMethod == CodeChallengeMethod.S256) {
-      final codeVerifier = base64Url
-          .encode(
-            sha256.convert(ascii.encode(codeChallenge!)).bytes,
-          )
-          .replaceAll("=", "")
-          .replaceAll("+", "-")
-          .replaceAll("/", "_");
-      log('codeVerifier: $codeVerifier', name: 'OAuthManager');
-      return (url, codeVerifier);
-    } else if (codeChallengeMethod == CodeChallengeMethod.plain) {
-      return (url, codeChallenge);
-    }
-
-    return (url, null);
-  }
-
-  String _generateRandomString(int length) {
-    const chars =
-        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final random = math.Random.secure();
-    return String.fromCharCodes(
-      Iterable.generate(
-        length,
-        (_) => chars.codeUnitAt(random.nextInt(chars.length)),
-      ),
-    );
   }
 
   void dispose() {

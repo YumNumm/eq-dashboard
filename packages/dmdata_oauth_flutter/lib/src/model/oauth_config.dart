@@ -7,6 +7,15 @@ part 'oauth_config.g.dart';
 @freezed
 class OAuthConfig with _$OAuthConfig {
   const factory OAuthConfig({
+    /// 認可エンドポイント
+    required String authorizationEndpoint,
+
+    /// トークンエンドポイント
+    required String tokenEndpoint,
+
+    /// 失効エンドポイント
+    required String revokeEndpoint,
+
     /// クライアントID
     required String clientId,
 
@@ -17,7 +26,7 @@ class OAuthConfig with _$OAuthConfig {
     required String redirectUri,
 
     /// 要求するスコープ
-    required String scope,
+    required List<String> scopes,
 
     /// アクセストークンの更新期限
     /// デフォルトは1時間

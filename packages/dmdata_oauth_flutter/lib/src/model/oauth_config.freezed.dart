@@ -20,6 +20,15 @@ OAuthConfig _$OAuthConfigFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OAuthConfig {
+  /// 認可エンドポイント
+  String get authorizationEndpoint => throw _privateConstructorUsedError;
+
+  /// トークンエンドポイント
+  String get tokenEndpoint => throw _privateConstructorUsedError;
+
+  /// 失効エンドポイント
+  String get revokeEndpoint => throw _privateConstructorUsedError;
+
   /// クライアントID
   String get clientId => throw _privateConstructorUsedError;
 
@@ -30,7 +39,7 @@ mixin _$OAuthConfig {
   String get redirectUri => throw _privateConstructorUsedError;
 
   /// 要求するスコープ
-  String get scope => throw _privateConstructorUsedError;
+  List<String> get scopes => throw _privateConstructorUsedError;
 
   /// アクセストークンの更新期限
   /// デフォルトは1時間
@@ -57,10 +66,13 @@ abstract class $OAuthConfigCopyWith<$Res> {
       _$OAuthConfigCopyWithImpl<$Res, OAuthConfig>;
   @useResult
   $Res call(
-      {String clientId,
+      {String authorizationEndpoint,
+      String tokenEndpoint,
+      String revokeEndpoint,
+      String clientId,
       String? clientSecret,
       String redirectUri,
-      String scope,
+      List<String> scopes,
       Duration accessTokenExpiration,
       Duration refreshTokenExpiration});
 }
@@ -80,14 +92,29 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? authorizationEndpoint = null,
+    Object? tokenEndpoint = null,
+    Object? revokeEndpoint = null,
     Object? clientId = null,
     Object? clientSecret = freezed,
     Object? redirectUri = null,
-    Object? scope = null,
+    Object? scopes = null,
     Object? accessTokenExpiration = null,
     Object? refreshTokenExpiration = null,
   }) {
     return _then(_value.copyWith(
+      authorizationEndpoint: null == authorizationEndpoint
+          ? _value.authorizationEndpoint
+          : authorizationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String,
+      tokenEndpoint: null == tokenEndpoint
+          ? _value.tokenEndpoint
+          : tokenEndpoint // ignore: cast_nullable_to_non_nullable
+              as String,
+      revokeEndpoint: null == revokeEndpoint
+          ? _value.revokeEndpoint
+          : revokeEndpoint // ignore: cast_nullable_to_non_nullable
+              as String,
       clientId: null == clientId
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
@@ -100,10 +127,10 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
           ? _value.redirectUri
           : redirectUri // ignore: cast_nullable_to_non_nullable
               as String,
-      scope: null == scope
-          ? _value.scope
-          : scope // ignore: cast_nullable_to_non_nullable
-              as String,
+      scopes: null == scopes
+          ? _value.scopes
+          : scopes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       accessTokenExpiration: null == accessTokenExpiration
           ? _value.accessTokenExpiration
           : accessTokenExpiration // ignore: cast_nullable_to_non_nullable
@@ -125,10 +152,13 @@ abstract class _$$OAuthConfigImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String clientId,
+      {String authorizationEndpoint,
+      String tokenEndpoint,
+      String revokeEndpoint,
+      String clientId,
       String? clientSecret,
       String redirectUri,
-      String scope,
+      List<String> scopes,
       Duration accessTokenExpiration,
       Duration refreshTokenExpiration});
 }
@@ -146,14 +176,29 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? authorizationEndpoint = null,
+    Object? tokenEndpoint = null,
+    Object? revokeEndpoint = null,
     Object? clientId = null,
     Object? clientSecret = freezed,
     Object? redirectUri = null,
-    Object? scope = null,
+    Object? scopes = null,
     Object? accessTokenExpiration = null,
     Object? refreshTokenExpiration = null,
   }) {
     return _then(_$OAuthConfigImpl(
+      authorizationEndpoint: null == authorizationEndpoint
+          ? _value.authorizationEndpoint
+          : authorizationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String,
+      tokenEndpoint: null == tokenEndpoint
+          ? _value.tokenEndpoint
+          : tokenEndpoint // ignore: cast_nullable_to_non_nullable
+              as String,
+      revokeEndpoint: null == revokeEndpoint
+          ? _value.revokeEndpoint
+          : revokeEndpoint // ignore: cast_nullable_to_non_nullable
+              as String,
       clientId: null == clientId
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
@@ -166,10 +211,10 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
           ? _value.redirectUri
           : redirectUri // ignore: cast_nullable_to_non_nullable
               as String,
-      scope: null == scope
-          ? _value.scope
-          : scope // ignore: cast_nullable_to_non_nullable
-              as String,
+      scopes: null == scopes
+          ? _value._scopes
+          : scopes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       accessTokenExpiration: null == accessTokenExpiration
           ? _value.accessTokenExpiration
           : accessTokenExpiration // ignore: cast_nullable_to_non_nullable
@@ -186,15 +231,31 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OAuthConfigImpl implements _OAuthConfig {
   const _$OAuthConfigImpl(
-      {required this.clientId,
+      {required this.authorizationEndpoint,
+      required this.tokenEndpoint,
+      required this.revokeEndpoint,
+      required this.clientId,
       this.clientSecret,
       required this.redirectUri,
-      required this.scope,
+      required final List<String> scopes,
       this.accessTokenExpiration = const Duration(hours: 1),
-      this.refreshTokenExpiration = const Duration(days: 7)});
+      this.refreshTokenExpiration = const Duration(days: 7)})
+      : _scopes = scopes;
 
   factory _$OAuthConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$OAuthConfigImplFromJson(json);
+
+  /// 認可エンドポイント
+  @override
+  final String authorizationEndpoint;
+
+  /// トークンエンドポイント
+  @override
+  final String tokenEndpoint;
+
+  /// 失効エンドポイント
+  @override
+  final String revokeEndpoint;
 
   /// クライアントID
   @override
@@ -209,8 +270,15 @@ class _$OAuthConfigImpl implements _OAuthConfig {
   final String redirectUri;
 
   /// 要求するスコープ
+  final List<String> _scopes;
+
+  /// 要求するスコープ
   @override
-  final String scope;
+  List<String> get scopes {
+    if (_scopes is EqualUnmodifiableListView) return _scopes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scopes);
+  }
 
   /// アクセストークンの更新期限
   /// デフォルトは1時間
@@ -226,7 +294,7 @@ class _$OAuthConfigImpl implements _OAuthConfig {
 
   @override
   String toString() {
-    return 'OAuthConfig(clientId: $clientId, clientSecret: $clientSecret, redirectUri: $redirectUri, scope: $scope, accessTokenExpiration: $accessTokenExpiration, refreshTokenExpiration: $refreshTokenExpiration)';
+    return 'OAuthConfig(authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, revokeEndpoint: $revokeEndpoint, clientId: $clientId, clientSecret: $clientSecret, redirectUri: $redirectUri, scopes: $scopes, accessTokenExpiration: $accessTokenExpiration, refreshTokenExpiration: $refreshTokenExpiration)';
   }
 
   @override
@@ -234,13 +302,19 @@ class _$OAuthConfigImpl implements _OAuthConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OAuthConfigImpl &&
+            (identical(other.authorizationEndpoint, authorizationEndpoint) ||
+                other.authorizationEndpoint == authorizationEndpoint) &&
+            (identical(other.tokenEndpoint, tokenEndpoint) ||
+                other.tokenEndpoint == tokenEndpoint) &&
+            (identical(other.revokeEndpoint, revokeEndpoint) ||
+                other.revokeEndpoint == revokeEndpoint) &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
             (identical(other.clientSecret, clientSecret) ||
                 other.clientSecret == clientSecret) &&
             (identical(other.redirectUri, redirectUri) ||
                 other.redirectUri == redirectUri) &&
-            (identical(other.scope, scope) || other.scope == scope) &&
+            const DeepCollectionEquality().equals(other._scopes, _scopes) &&
             (identical(other.accessTokenExpiration, accessTokenExpiration) ||
                 other.accessTokenExpiration == accessTokenExpiration) &&
             (identical(other.refreshTokenExpiration, refreshTokenExpiration) ||
@@ -249,8 +323,17 @@ class _$OAuthConfigImpl implements _OAuthConfig {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, clientId, clientSecret,
-      redirectUri, scope, accessTokenExpiration, refreshTokenExpiration);
+  int get hashCode => Object.hash(
+      runtimeType,
+      authorizationEndpoint,
+      tokenEndpoint,
+      revokeEndpoint,
+      clientId,
+      clientSecret,
+      redirectUri,
+      const DeepCollectionEquality().hash(_scopes),
+      accessTokenExpiration,
+      refreshTokenExpiration);
 
   /// Create a copy of OAuthConfig
   /// with the given fields replaced by the non-null parameter values.
@@ -270,15 +353,30 @@ class _$OAuthConfigImpl implements _OAuthConfig {
 
 abstract class _OAuthConfig implements OAuthConfig {
   const factory _OAuthConfig(
-      {required final String clientId,
+      {required final String authorizationEndpoint,
+      required final String tokenEndpoint,
+      required final String revokeEndpoint,
+      required final String clientId,
       final String? clientSecret,
       required final String redirectUri,
-      required final String scope,
+      required final List<String> scopes,
       final Duration accessTokenExpiration,
       final Duration refreshTokenExpiration}) = _$OAuthConfigImpl;
 
   factory _OAuthConfig.fromJson(Map<String, dynamic> json) =
       _$OAuthConfigImpl.fromJson;
+
+  /// 認可エンドポイント
+  @override
+  String get authorizationEndpoint;
+
+  /// トークンエンドポイント
+  @override
+  String get tokenEndpoint;
+
+  /// 失効エンドポイント
+  @override
+  String get revokeEndpoint;
 
   /// クライアントID
   @override
@@ -294,7 +392,7 @@ abstract class _OAuthConfig implements OAuthConfig {
 
   /// 要求するスコープ
   @override
-  String get scope;
+  List<String> get scopes;
 
   /// アクセストークンの更新期限
   /// デフォルトは1時間
