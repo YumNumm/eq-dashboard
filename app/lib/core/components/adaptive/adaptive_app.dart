@@ -24,7 +24,7 @@ class AdaptiveApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final platform = platformOverride ?? AdaptivePlatform.of(context);
+    final platform = platformOverride ?? AdaptivePlatformScope.of(context);
     final effectiveThemeMode = themeMode ?? ThemeMode.system;
     final brightness = switch (effectiveThemeMode) {
       ThemeMode.light => Brightness.light,

@@ -17,7 +17,7 @@ class AdaptiveDisclosurePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final platform = AdaptivePlatform.of(context);
+    final platform = AdaptivePlatformScope.of(context);
 
     return switch (platform) {
       AdaptivePlatformType.macos => _buildMacosDisclosurePage(context),
@@ -42,7 +42,7 @@ class AdaptiveDisclosurePage extends StatelessWidget {
                 return MacosListTile(
                   leading: item.icon != null ? Icon(item.icon) : null,
                   title: Text(item.label),
-                  onClick: () => context.go(item.path),
+                  onClick: () async => context.push<void>(item.path),
                 );
               },
             );
@@ -66,7 +66,7 @@ class AdaptiveDisclosurePage extends StatelessWidget {
               leading: item.icon != null ? Icon(item.icon) : null,
               title: Text(item.label),
               trailing: const CupertinoListTileChevron(),
-              onTap: () => context.go(item.path),
+              onTap: () async => context.push<void>(item.path),
             );
           },
         ),
@@ -86,7 +86,7 @@ class AdaptiveDisclosurePage extends StatelessWidget {
           return ListTile(
             leading: item.icon != null ? Icon(item.icon) : null,
             title: Text(item.label),
-            onTap: () => context.go(item.path),
+            onTap: () async => context.push<void>(item.path),
           );
         },
       ),

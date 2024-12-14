@@ -8,6 +8,6 @@ part 'shared_preferences.g.dart';
 SharedPreferences sharedPreferences(Ref ref) =>
     ref.watch(sharedPreferencesInternalProvider).requireValue;
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<SharedPreferences> sharedPreferencesInternal(Ref ref) async =>
     SharedPreferences.getInstance();

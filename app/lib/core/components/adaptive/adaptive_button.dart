@@ -61,7 +61,7 @@ class AdaptiveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final platform = platformOverride ?? AdaptivePlatform.of(context);
+    final platform = platformOverride ?? AdaptivePlatformScope.of(context);
 
     return switch (platform) {
       AdaptivePlatformType.macos => _buildMacOSButton(),

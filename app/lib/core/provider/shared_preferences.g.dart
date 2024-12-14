@@ -26,12 +26,12 @@ final sharedPreferencesProvider = Provider<SharedPreferences>.internal(
 // ignore: unused_element
 typedef SharedPreferencesRef = ProviderRef<SharedPreferences>;
 String _$sharedPreferencesInternalHash() =>
-    r'4a205d3e946588f511adf34d39f9760e1dcafb4d';
+    r'db77aff28ca438bacb9f727ea796f724b64cb1c9';
 
 /// See also [sharedPreferencesInternal].
 @ProviderFor(sharedPreferencesInternal)
 final sharedPreferencesInternalProvider =
-    AutoDisposeFutureProvider<SharedPreferences>.internal(
+    FutureProvider<SharedPreferences>.internal(
   sharedPreferencesInternal,
   name: r'sharedPreferencesInternalProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -43,7 +43,6 @@ final sharedPreferencesInternalProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef SharedPreferencesInternalRef
-    = AutoDisposeFutureProviderRef<SharedPreferences>;
+typedef SharedPreferencesInternalRef = FutureProviderRef<SharedPreferences>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

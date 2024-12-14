@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 class NavigationItem {
@@ -24,7 +25,7 @@ class NavigationItem {
   String toString() => path;
 }
 
-class AdaptiveRootScaffold extends HookWidget {
+class AdaptiveRootScaffold extends HookConsumerWidget {
   const AdaptiveRootScaffold({
     required this.child,
     required this.items,
@@ -36,43 +37,44 @@ class AdaptiveRootScaffold extends HookWidget {
   final List<NavigationItem> items;
   final Widget? title;
 
+  Iterable<NavigationItem> expandItem(
+    NavigationItem item,
+    // ignore: avoid_positional_boolean_parameters
+    bool includeRoot,
+  ) sync* {
+    final disclosureItems = item.disclosureItems;
+    if (disclosureItems != null) {
+      if (includeRoot) {
+        yield item;
+      }
+      yield* disclosureItems;
+    } else {
+      yield item;
+    }
+  }
+
+  List<NavigationItem> routes(AdaptivePlatformType platform) {
+    if (platform == AdaptivePlatformType.macos) {
+      // 子を持つNavigationItemは除外
+      return items.expand((item) => expandItem(item, false)).toList();
+    } else {
+      return items.expand((item) => expandItem(item, true)).toList();
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
-    final platform = AdaptivePlatform.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final platform = AdaptivePlatformScope.of(context);
     final selectedIndex = useState(0);
 
-    final tree = useMemoized(
-      () {
-        Iterable<NavigationItem> expandItem(
-          NavigationItem item,
-          // ignore: avoid_positional_boolean_parameters
-          bool includeRoot,
-        ) sync* {
-          final disclosureItems = item.disclosureItems;
-          if (disclosureItems != null) {
-            if (includeRoot) {
-              yield item;
-            }
-            yield* disclosureItems;
-          } else {
-            yield item;
-          }
-        }
-
-        if (platform == AdaptivePlatformType.macos) {
-          // 子を持つNavigationItemは除外
-          return items.expand((item) => expandItem(item, false)).toList();
-        } else {
-          return items.expand((item) => expandItem(item, true)).toList();
-        }
-      },
-      [platform, items],
-    );
+    ref.listen(adaptivePlatformProvider, (_, next) {
+      selectedIndex.value = 0;
+    });
 
     void onItemSelected(int index) {
       selectedIndex.value = index;
 
-      final item = tree[index];
+      final item = routes(platform)[index];
       context.go(item.path);
     }
 

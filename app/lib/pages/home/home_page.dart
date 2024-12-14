@@ -1,5 +1,7 @@
 import 'package:eqdashboard/core/components/adaptive/adaptive_root_scaffold.dart';
 import 'package:eqdashboard/core/router/router.dart';
+import 'package:eqdashboard/pages/home/children/dmdata_settings_screen.dart';
+import 'package:eqdashboard/pages/home/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +27,13 @@ class HomePage extends StatelessWidget {
     () {
       final disclosureItems = [
         NavigationItem(
-          label: 'DMDATA設定',
+          label: 'Project DM-S.S.S 設定',
           path: const DmdataSettingsRouteData().location,
+          icon: Icons.settings_applications,
+        ),
+        NavigationItem(
+          label: 'プラットフォーム選択',
+          path: const PlatformSelectorRouteData().location,
           icon: Icons.settings_applications,
         ),
       ];

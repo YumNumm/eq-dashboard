@@ -18,8 +18,8 @@ class App extends HookConsumerWidget {
       darkTheme: ThemeData.dark(useMaterial3: true),
     );
 
-    return AdaptivePlatform(
-      platform: AdaptivePlatformType.material,
+    return AdaptivePlatformScope(
+      platform: ref.watch(adaptivePlatformProvider),
       child: app,
     );
   }

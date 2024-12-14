@@ -34,6 +34,10 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               path: '/dmdata-settings',
               factory: $DmdataSettingsRouteDataExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: '/platform-selector',
+              factory: $PlatformSelectorRouteDataExtension._fromState,
+            ),
           ],
         ),
       ],
@@ -104,6 +108,24 @@ extension $DmdataSettingsRouteDataExtension on DmdataSettingsRouteData {
 
   String get location => GoRouteData.$location(
         '/dmdata-settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PlatformSelectorRouteDataExtension on PlatformSelectorRouteData {
+  static PlatformSelectorRouteData _fromState(GoRouterState state) =>
+      const PlatformSelectorRouteData();
+
+  String get location => GoRouteData.$location(
+        '/platform-selector',
       );
 
   void go(BuildContext context) => context.go(location);

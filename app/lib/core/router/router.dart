@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
 import 'package:eqdashboard/pages/home/children/dmdata_settings_screen.dart';
+import 'package:eqdashboard/pages/home/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
@@ -34,6 +35,7 @@ GoRouter router(Ref ref) => GoRouter(
           path: '/settings',
         ),
         TypedGoRoute<DmdataSettingsRouteData>(path: '/dmdata-settings'),
+        TypedGoRoute<PlatformSelectorRouteData>(path: '/platform-selector'),
       ],
     ),
   ],
@@ -79,18 +81,6 @@ class PageTwoRouteData extends GoRouteData {
     return NoTransitionPage(
       key: state.pageKey,
       child: const PageTwo(),
-    );
-  }
-}
-
-class DmdataSettingsRouteData extends GoRouteData {
-  const DmdataSettingsRouteData();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return NoTransitionPage(
-      key: state.pageKey,
-      child: const DmdataSettingsScreen(),
     );
   }
 }
