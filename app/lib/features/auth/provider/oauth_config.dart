@@ -13,6 +13,19 @@ class OAuthConfig extends _$OAuthConfig {
         revokeEndpoint: 'https://manager.dmdata.jp/account/oauth2/v1/revoke',
         clientId: 'CId.zEBBH6rIqV9kW2yAy-gK78tT3Vb5ifUQrKHa_3ia9eTA',
         redirectUri: 'net.yumnumm.eqdashboard://login-callback',
-        scopes: ['eew.get.forecast', 'eew.get.warning'],
+        scopes: [
+          'eew.get.forecast',
+          'eew.get.warning',
+          'contract.list',
+          'gd.earthquake',
+          'gd.eew',
+          'parameter.earthquake',
+          'socket.start',
+          'socket.list',
+          'socket.close',
+          'telegram.data',
+          'telegram.get.earthquake',
+          'telegram.list',
+        ],
       );
 }

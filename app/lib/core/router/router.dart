@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
-import 'package:eqdashboard/pages/home/children/dmdata_settings_screen.dart';
-import 'package:eqdashboard/pages/home/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
+import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
+import 'package:eqdashboard/pages/settings/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';

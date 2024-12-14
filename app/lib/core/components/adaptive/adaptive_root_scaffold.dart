@@ -1,6 +1,6 @@
 import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
 import 'package:eqdashboard/core/router/router.dart';
-import 'package:eqdashboard/pages/home/children/platform_selector_screen.dart';
+import 'package:eqdashboard/pages/settings/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

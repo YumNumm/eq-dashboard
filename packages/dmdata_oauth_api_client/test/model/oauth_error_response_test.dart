@@ -56,12 +56,14 @@ void main() {
       expect(
         json,
         equals(
-          '''
+          jsonEncode(
+            jsonDecode('''
           {
             "error":"invalid_request",
             "error_description":"The client_id is missing."
           }
-          ''',
+          '''),
+          ),
         ),
       );
     });

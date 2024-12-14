@@ -77,7 +77,8 @@ void main() {
       expect(
         json,
         equals(
-          '''
+          jsonEncode(
+            jsonDecode('''
           {
             "access_token":"ATn.TTTTTTTTTTTTTTTTTTTTTTTTTTT",
             "token_type":"Bearer",
@@ -85,7 +86,8 @@ void main() {
             "refresh_token":"ARh.RRRRRRRRRRRRRRRRRRRRRRRRRRR",
             "scope":"telegram.list telegram.get.earthquake telegram.data"
           }
-          ''',
+          '''),
+          ),
         ),
       );
     });
