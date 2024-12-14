@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
+import 'package:eqdashboard/core/components/app_icon.dart';
+import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,10 +42,35 @@ class DmdataSettingsScreen extends ConsumerWidget {
                         const SizedBox(height: 16),
                         PushButton(
                           controlSize: ControlSize.large,
-                          onPressed: () {
-                            ref
+                          onPressed: () async {
+                            final result = await ref
                                 .read(authProvider.notifier)
                                 .startAuthorization();
+                            if (result case Failure(:final error)) {
+                              if (error
+                                  is FlutterAppAuthUserCancelledException) {
+                                final title = 'ログインをキャンセルしました';
+                                final message = "Error code: " + error.code;
+                                await showMacosAlertDialog<void>(
+                                  context: context,
+                                  builder: (context) => MacosAlertDialog(
+                                    appIcon: AppIcon(size: 64),
+                                    title: Text(
+                                      title,
+                                    ),
+                                    message: Text(
+                                      message,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    primaryButton: PushButton(
+                                      controlSize: ControlSize.large,
+                                      child: Text('OK'),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
                           },
                           child: const Text('DMDATAにログイン'),
                         ),

@@ -7,6 +7,8 @@ import 'model/oauth_config.dart';
 import 'model/oauth_state.dart';
 import 'storage/oauth_storage.dart';
 
+export 'package:flutter_appauth_platform_interface/src/errors.dart';
+
 /// OAuth認証を管理するクラス
 class OAuthManager {
   OAuthManager({
@@ -95,21 +97,30 @@ class OAuthManager {
     _stateController.add(state);
   }
 
+  /// 認証を開始
+  /// can throws `FlutterAppAuthUserCancelledException`, `FlutterAppAuthPlatformException`
   Future<OAuthState> startAuthorization() async {
     final result = await _appAuth.authorizeAndExchangeCode(
       appAuth.AuthorizationTokenRequest(
         _config.clientId,
         _config.redirectUri,
         scopes: _config.scopes,
+        serviceConfiguration: appAuth.AuthorizationServiceConfiguration(
+          authorizationEndpoint: _config.authorizationEndpoint,
+          tokenEndpoint: _config.tokenEndpoint,
+        ),
       ),
     );
-    return OAuthState(
+    final oauthState =  OAuthState(
       accessToken: result.accessToken!,
       refreshToken: result.refreshToken!,
       expiresAt: result.accessTokenExpirationDateTime!,
       refreshTokenExpiresAt: DateTime.now().add(Duration(days: 183)),
       scopes: result.scopes!,
     );
+    await _storage.save(oauthState);
+    _stateController.add(oauthState);
+    return oauthState;
   }
 
   /// アクセストークンをリフレッシュ

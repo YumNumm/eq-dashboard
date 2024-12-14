@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
+import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/auth/provider/oauth_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,33 +14,16 @@ class Auth extends _$Auth {
     return state;
   }
 
-  Future<void> startAuthorization() async {
+  Future<Result<OAuthState, Exception>> startAuthorization() async {
     state = const AsyncLoading();
     final manager = ref.watch(oauthManagerProvider);
-    state = await AsyncValue.guard(() async {
-      final result = await manager.startAuthorization();
-      return result;
-    });
-  }
-
-  Future<void> handleAuthorizationCallback(Uri uri, String codeVerifier) async {
-    try {
-      log('handleAuthorizationCallback: $uri', name: 'AuthNotifier');
-      log('codeVerifier: $codeVerifier', name: 'AuthNotifier');
-
-      final manager = ref.watch(oauthManagerProvider);
-      final code = uri.queryParameters['code'];
-      if (code == null || code.isEmpty) {
-        throw Exception('code is empty');
-      }
-      final state = await manager.handleAuthorizationCode(
-        code: code,
-        codeVerifier: codeVerifier,
-      );
-      return state;
-    } catch (e, st) {
-      state = AsyncError(e, st);
+    final result = await Result.capture(
+      () => manager.startAuthorization(),
+    );
+    if (result case Success()) {
+      state = AsyncData(result.value);
     }
+    return result;
   }
 
   Future<void> logout() async {

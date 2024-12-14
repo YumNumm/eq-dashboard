@@ -1,4 +1,4 @@
-import 'package:eqdashboard/features/auth/view/dmdata_settings_screen.dart';
+import 'package:eqdashboard/pages/home/children/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
