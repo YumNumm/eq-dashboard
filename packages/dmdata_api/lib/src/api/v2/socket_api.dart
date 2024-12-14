@@ -26,7 +26,7 @@ abstract class SocketApiClient {
     /// 次のリソースを取得する。レスポンス内のnextTokenの値を指定する
     @Query('cursorToken') String? cursorToken,
 
-    /// アイテムの数。最大100まで
+    /// アイテムの数。���大100まで
     @Query('limit') int? limit,
   });
 
