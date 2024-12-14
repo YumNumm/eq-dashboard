@@ -10,6 +10,8 @@ dependencies:
   collection: ^1.19.0
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
+  dmdata_api:
+    path: ../packages/dmdata_api
   dmdata_oauth_flutter:
     path: ../packages/dmdata_oauth_flutter
   flutter:
