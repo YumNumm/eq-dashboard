@@ -1,23 +1,35 @@
 import 'dart:io';
 
 import 'package:eqdashboard/app.dart';
+import 'package:eqdashboard/core/provider/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:macos_ui/macos_ui.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (!kIsWeb && (Platform.isMacOS || Platform.isWindows || Platform.isLinux)) {
-    await Window.initialize();
-    await Window.setEffect(effect: WindowEffect.acrylic);
-    await Window.makeTitlebarTransparent();
-    await Window.enableFullSizeContentView();
+
+  if (!kIsWeb && Platform.isMacOS) {
+    await _configureMacosWindowUtils();
   }
 
+  final container = ProviderContainer();
+
+
+      await container.read(sharedPreferencesInternalProvider.future);
+
   runApp(
-    const ProviderScope(
-      child: App(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const App(),
     ),
   );
+}
+
+Future<void> _configureMacosWindowUtils() async {
+  const config = MacosWindowUtilsConfig(
+    toolbarStyle: NSWindowToolbarStyle.expanded,
+  );
+  await config.apply();
 }

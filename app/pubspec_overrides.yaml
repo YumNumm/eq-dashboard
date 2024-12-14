@@ -1,0 +1,3 @@
+# melos_managed_dependency_overrides: dmdata_oauth_flutter,eqdashboard_lints,dmdata_oauth_api_client
+dependency_overrides:
+  {dmdata_oauth_api_client: {path: ../packages/dmdata_oauth_api_client}, dmdata_oauth_flutter: {path: ../packages/dmdata_oauth_flutter}, eqdashboard_lints: {path: ../packages/eqdashboard_lints}}

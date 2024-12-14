@@ -9,19 +9,123 @@ part of 'router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $homeRoute,
+      $appShellRouteData,
     ];
 
-RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/',
-      factory: $HomeRouteExtension._fromState,
+RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
+      factory: $AppShellRouteDataExtension._fromState,
+      branches: [
+        StatefulShellBranchData.$branch(
+          navigatorKey: MainBranch.$navigatorKey,
+          routes: [
+            GoRouteData.$route(
+              path: '/',
+              factory: $PageOneRouteDataExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/page-two',
+              factory: $PageTwoRouteDataExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/settings',
+              factory: $SettingsDisclosurePageRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/dmdata-settings',
+              factory: $DmdataSettingsRouteDataExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/platform-selector',
+              factory: $PlatformSelectorRouteDataExtension._fromState,
+            ),
+          ],
+        ),
+      ],
     );
 
-extension $HomeRouteExtension on HomeRoute {
-  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+extension $AppShellRouteDataExtension on AppShellRouteData {
+  static AppShellRouteData _fromState(GoRouterState state) =>
+      const AppShellRouteData();
+}
+
+extension $PageOneRouteDataExtension on PageOneRouteData {
+  static PageOneRouteData _fromState(GoRouterState state) =>
+      const PageOneRouteData();
 
   String get location => GoRouteData.$location(
         '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PageTwoRouteDataExtension on PageTwoRouteData {
+  static PageTwoRouteData _fromState(GoRouterState state) =>
+      const PageTwoRouteData();
+
+  String get location => GoRouteData.$location(
+        '/page-two',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SettingsDisclosurePageRouteExtension on SettingsDisclosurePageRoute {
+  static SettingsDisclosurePageRoute _fromState(GoRouterState state) =>
+      const SettingsDisclosurePageRoute();
+
+  String get location => GoRouteData.$location(
+        '/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $DmdataSettingsRouteDataExtension on DmdataSettingsRouteData {
+  static DmdataSettingsRouteData _fromState(GoRouterState state) =>
+      const DmdataSettingsRouteData();
+
+  String get location => GoRouteData.$location(
+        '/dmdata-settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PlatformSelectorRouteDataExtension on PlatformSelectorRouteData {
+  static PlatformSelectorRouteData _fromState(GoRouterState state) =>
+      const PlatformSelectorRouteData();
+
+  String get location => GoRouteData.$location(
+        '/platform-selector',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -38,7 +142,7 @@ extension $HomeRouteExtension on HomeRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'fdde5eb65ea504f47414170d4a49e40beed7224e';
+String _$routerHash() => r'5afe12e57e724ea4035bda0510fcacf7e7f3c85f';
 
 /// See also [router].
 @ProviderFor(router)

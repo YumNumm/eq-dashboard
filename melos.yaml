@@ -37,6 +37,7 @@ scripts:
 packages:
   - app
   - packages/*
+  - packages/*/*
 
 ide:
   intellij:
