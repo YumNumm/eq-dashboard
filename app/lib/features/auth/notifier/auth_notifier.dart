@@ -34,4 +34,15 @@ class Auth extends _$Auth {
       state = const AsyncData(null);
     });
   }
+
+  /// トークンの更新が必要な場合は更新して、更新後の状態を返す
+  /// 更新が不要な場合はnullを返す
+  Future<OAuthState?> updateTokenIfNeeded() async {
+    final manager = ref.watch(oauthManagerProvider);
+    final result = await manager.getCurrentStateAndRefreshIfNeeded();
+    if (result != null) {
+      state = AsyncData(result);
+    }
+    return state.valueOrNull;
+  }
 }

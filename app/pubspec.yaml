@@ -22,6 +22,7 @@ dependencies:
   freezed_annotation: ^2.4.4
   go_router: ^14.6.2
   hooks_riverpod: ^2.6.1
+  intl: ^0.20.1
   json_annotation: ^4.9.0
   macos_ui: ^2.0.9
   riverpod_annotation: ^2.6.1
