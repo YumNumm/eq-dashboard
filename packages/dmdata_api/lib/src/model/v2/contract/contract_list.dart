@@ -6,17 +6,17 @@ part 'contract_list.freezed.dart';
 part 'contract_list.g.dart';
 
 @freezed
-class ContractList with _$ContractList implements DmdataResponse {
-  const factory ContractList({
+class ContractListResponse with _$ContractListResponse implements DmdataResponse {
+  const factory ContractListResponse({
     required String responseId,
     required String responseTime,
     required String status,
     @Default([]) List<ContractItem> items,
     DMMError? error,
-  }) = _ContractList;
+  }) = _ContractListResponse;
 
-  factory ContractList.fromJson(Map<String, dynamic> json) =>
-      _$ContractListFromJson(json);
+  factory ContractListResponse.fromJson(Map<String, dynamic> json) =>
+      _$ContractListResponseFromJson(json);
 }
 
 @freezed

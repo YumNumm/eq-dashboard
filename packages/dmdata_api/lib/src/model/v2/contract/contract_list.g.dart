@@ -8,12 +8,13 @@ part of 'contract_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ContractListImpl _$$ContractListImplFromJson(Map<String, dynamic> json) =>
+_$ContractListResponseImpl _$$ContractListResponseImplFromJson(
+        Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$ContractListImpl',
+      r'_$ContractListResponseImpl',
       json,
       ($checkedConvert) {
-        final val = _$ContractListImpl(
+        final val = _$ContractListResponseImpl(
           responseId: $checkedConvert('responseId', (v) => v as String),
           responseTime: $checkedConvert('responseTime', (v) => v as String),
           status: $checkedConvert('status', (v) => v as String),
@@ -35,7 +36,8 @@ _$ContractListImpl _$$ContractListImplFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$$ContractListImplToJson(_$ContractListImpl instance) =>
+Map<String, dynamic> _$$ContractListResponseImplToJson(
+        _$ContractListResponseImpl instance) =>
     <String, dynamic>{
       'responseId': instance.responseId,
       'responseTime': instance.responseTime,

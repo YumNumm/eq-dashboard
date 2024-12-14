@@ -14,33 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ContractList _$ContractListFromJson(Map<String, dynamic> json) {
-  return _ContractList.fromJson(json);
+ContractListResponse _$ContractListResponseFromJson(Map<String, dynamic> json) {
+  return _ContractListResponse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ContractList {
+mixin _$ContractListResponse {
   String get responseId => throw _privateConstructorUsedError;
   String get responseTime => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   List<ContractItem> get items => throw _privateConstructorUsedError;
   DMMError? get error => throw _privateConstructorUsedError;
 
-  /// Serializes this ContractList to a JSON map.
+  /// Serializes this ContractListResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of ContractList
+  /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ContractListCopyWith<ContractList> get copyWith =>
+  $ContractListResponseCopyWith<ContractListResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ContractListCopyWith<$Res> {
-  factory $ContractListCopyWith(
-          ContractList value, $Res Function(ContractList) then) =
-      _$ContractListCopyWithImpl<$Res, ContractList>;
+abstract class $ContractListResponseCopyWith<$Res> {
+  factory $ContractListResponseCopyWith(ContractListResponse value,
+          $Res Function(ContractListResponse) then) =
+      _$ContractListResponseCopyWithImpl<$Res, ContractListResponse>;
   @useResult
   $Res call(
       {String responseId,
@@ -53,16 +53,17 @@ abstract class $ContractListCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ContractListCopyWithImpl<$Res, $Val extends ContractList>
-    implements $ContractListCopyWith<$Res> {
-  _$ContractListCopyWithImpl(this._value, this._then);
+class _$ContractListResponseCopyWithImpl<$Res,
+        $Val extends ContractListResponse>
+    implements $ContractListResponseCopyWith<$Res> {
+  _$ContractListResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ContractList
+  /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -97,7 +98,7 @@ class _$ContractListCopyWithImpl<$Res, $Val extends ContractList>
     ) as $Val);
   }
 
-  /// Create a copy of ContractList
+  /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -113,11 +114,11 @@ class _$ContractListCopyWithImpl<$Res, $Val extends ContractList>
 }
 
 /// @nodoc
-abstract class _$$ContractListImplCopyWith<$Res>
-    implements $ContractListCopyWith<$Res> {
-  factory _$$ContractListImplCopyWith(
-          _$ContractListImpl value, $Res Function(_$ContractListImpl) then) =
-      __$$ContractListImplCopyWithImpl<$Res>;
+abstract class _$$ContractListResponseImplCopyWith<$Res>
+    implements $ContractListResponseCopyWith<$Res> {
+  factory _$$ContractListResponseImplCopyWith(_$ContractListResponseImpl value,
+          $Res Function(_$ContractListResponseImpl) then) =
+      __$$ContractListResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -132,14 +133,14 @@ abstract class _$$ContractListImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ContractListImplCopyWithImpl<$Res>
-    extends _$ContractListCopyWithImpl<$Res, _$ContractListImpl>
-    implements _$$ContractListImplCopyWith<$Res> {
-  __$$ContractListImplCopyWithImpl(
-      _$ContractListImpl _value, $Res Function(_$ContractListImpl) _then)
+class __$$ContractListResponseImplCopyWithImpl<$Res>
+    extends _$ContractListResponseCopyWithImpl<$Res, _$ContractListResponseImpl>
+    implements _$$ContractListResponseImplCopyWith<$Res> {
+  __$$ContractListResponseImplCopyWithImpl(_$ContractListResponseImpl _value,
+      $Res Function(_$ContractListResponseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ContractList
+  /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -150,7 +151,7 @@ class __$$ContractListImplCopyWithImpl<$Res>
     Object? items = null,
     Object? error = freezed,
   }) {
-    return _then(_$ContractListImpl(
+    return _then(_$ContractListResponseImpl(
       responseId: null == responseId
           ? _value.responseId
           : responseId // ignore: cast_nullable_to_non_nullable
@@ -177,8 +178,8 @@ class __$$ContractListImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ContractListImpl implements _ContractList {
-  const _$ContractListImpl(
+class _$ContractListResponseImpl implements _ContractListResponse {
+  const _$ContractListResponseImpl(
       {required this.responseId,
       required this.responseTime,
       required this.status,
@@ -186,8 +187,8 @@ class _$ContractListImpl implements _ContractList {
       this.error})
       : _items = items;
 
-  factory _$ContractListImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ContractListImplFromJson(json);
+  factory _$ContractListResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ContractListResponseImplFromJson(json);
 
   @override
   final String responseId;
@@ -209,14 +210,14 @@ class _$ContractListImpl implements _ContractList {
 
   @override
   String toString() {
-    return 'ContractList(responseId: $responseId, responseTime: $responseTime, status: $status, items: $items, error: $error)';
+    return 'ContractListResponse(responseId: $responseId, responseTime: $responseTime, status: $status, items: $items, error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ContractListImpl &&
+            other is _$ContractListResponseImpl &&
             (identical(other.responseId, responseId) ||
                 other.responseId == responseId) &&
             (identical(other.responseTime, responseTime) ||
@@ -231,32 +232,34 @@ class _$ContractListImpl implements _ContractList {
   int get hashCode => Object.hash(runtimeType, responseId, responseTime, status,
       const DeepCollectionEquality().hash(_items), error);
 
-  /// Create a copy of ContractList
+  /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ContractListImplCopyWith<_$ContractListImpl> get copyWith =>
-      __$$ContractListImplCopyWithImpl<_$ContractListImpl>(this, _$identity);
+  _$$ContractListResponseImplCopyWith<_$ContractListResponseImpl>
+      get copyWith =>
+          __$$ContractListResponseImplCopyWithImpl<_$ContractListResponseImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ContractListImplToJson(
+    return _$$ContractListResponseImplToJson(
       this,
     );
   }
 }
 
-abstract class _ContractList implements ContractList {
-  const factory _ContractList(
+abstract class _ContractListResponse implements ContractListResponse {
+  const factory _ContractListResponse(
       {required final String responseId,
       required final String responseTime,
       required final String status,
       final List<ContractItem> items,
-      final DMMError? error}) = _$ContractListImpl;
+      final DMMError? error}) = _$ContractListResponseImpl;
 
-  factory _ContractList.fromJson(Map<String, dynamic> json) =
-      _$ContractListImpl.fromJson;
+  factory _ContractListResponse.fromJson(Map<String, dynamic> json) =
+      _$ContractListResponseImpl.fromJson;
 
   @override
   String get responseId;
@@ -269,12 +272,12 @@ abstract class _ContractList implements ContractList {
   @override
   DMMError? get error;
 
-  /// Create a copy of ContractList
+  /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ContractListImplCopyWith<_$ContractListImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ContractListResponseImplCopyWith<_$ContractListResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 ContractItem _$ContractItemFromJson(Map<String, dynamic> json) {

@@ -29,7 +29,7 @@ void main() {
         ],
       };
 
-      final response = ContractList.fromJson(json);
+      final response = ContractListResponse.fromJson(json);
 
       expect(response.responseId, '2c343ee3f1007df5');
       expect(response.responseTime, '2021-04-01T00:00:00.000Z');
@@ -58,7 +58,7 @@ void main() {
         },
       };
 
-      final response = ContractList.fromJson(json);
+      final response = ContractListResponse.fromJson(json);
 
       expect(response.responseId, '66d23c0cede77d82');
       expect(response.responseTime, '2021-04-01T00:00:00.000Z');
@@ -68,7 +68,7 @@ void main() {
     });
 
     test('JSONシリアライズが正常に動作すること', () {
-      const response = ContractList(
+      const response = ContractListResponse(
         responseId: '2c343ee3f1007df5',
         responseTime: '2021-04-01T00:00:00.000Z',
         status: 'ok',
@@ -129,7 +129,7 @@ void main() {
         ],
       };
 
-      final response = ContractList.fromJson(json);
+      final response = ContractListResponse.fromJson(json);
       final item = response.items.first;
 
       expect(item.id, null);
