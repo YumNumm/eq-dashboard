@@ -7,9 +7,8 @@ part 'oauth_config.g.dart';
 class OAuthConfig extends _$OAuthConfig {
   @override
   oauth.OAuthConfig build() => oauth.OAuthConfig(
-        clientId: 'YOUR_CLIENT_ID',
-        clientSecret: 'YOUR_CLIENT_SECRET',
+        clientId: 'CId.zEBBH6rIqV9kW2yAy-gK78tT3Vb5ifUQrKHa_3ia9eTA',
         redirectUri: 'net.yumnumm.eqdashboard://login-callback',
-        scope: 'telegram.earthquakes.get',
+        scope: ['eew.get.forecast', 'eew.get.warning'].join(' '),
       );
 }

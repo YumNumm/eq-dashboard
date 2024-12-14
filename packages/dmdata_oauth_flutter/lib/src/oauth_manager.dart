@@ -1,6 +1,9 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:math' as math;
 
+import 'package:crypto/crypto.dart';
 import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
 
 import 'model/oauth_config.dart';
@@ -66,7 +69,7 @@ class OAuthManager {
     final response = await _client.requestToken(
       clientId: _config.clientId,
       clientSecret: _config.clientSecret,
-      grantType: OAuthGrantType.authorizationCode,
+      grantType: 'authorization_code',
       code: code,
       codeVerifier: codeVerifier,
       redirectUri: _config.redirectUri,
@@ -148,7 +151,7 @@ class OAuthManager {
   }
 
   /// 認可URLを生成
-  Uri generateAuthorizationUrl({
+  (Uri url, String? codeChallenge) generateAuthorizationUrl({
     /// PKCEを使用するかどうか
     bool useCodeChallenge = true,
 
@@ -161,22 +164,41 @@ class OAuthManager {
     );
 
     final state = _generateRandomString(32);
+    final codeChallenge = useCodeChallenge ? _generateRandomString(32) : null;
+    log('state: $state', name: 'OAuthManager');
+    log('codeChallenge: $codeChallenge', name: 'OAuthManager');
 
-    return _authorizationUrlGenerator.generate(
+    final url = _authorizationUrlGenerator.generate(
       clientId: _config.clientId,
       redirectUri: _config.redirectUri,
       scope: _config.scope,
       state: state,
       responseMode: ResponseMode.query,
-      codeChallenge: useCodeChallenge ? _generateRandomString(32) : null,
+      codeChallenge: useCodeChallenge ? codeChallenge : null,
       codeChallengeMethod: useCodeChallenge ? codeChallengeMethod : null,
     );
+
+    if (codeChallengeMethod == CodeChallengeMethod.S256) {
+      final codeVerifier = base64Url
+          .encode(
+            sha256.convert(ascii.encode(codeChallenge!)).bytes,
+          )
+          .replaceAll("=", "")
+          .replaceAll("+", "-")
+          .replaceAll("/", "_");
+      log('codeVerifier: $codeVerifier', name: 'OAuthManager');
+      return (url, codeVerifier);
+    } else if (codeChallengeMethod == CodeChallengeMethod.plain) {
+      return (url, codeChallenge);
+    }
+
+    return (url, null);
   }
 
   String _generateRandomString(int length) {
     const chars =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final random = Random.secure();
+    final random = math.Random.secure();
     return String.fromCharCodes(
       Iterable.generate(
         length,

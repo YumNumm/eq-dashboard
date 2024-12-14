@@ -1,10 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class DMDataSettingsScreen extends ConsumerWidget {
-  const DMDataSettingsScreen({super.key});
+class DmdataSettingsScreen extends ConsumerWidget {
+  const DmdataSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -12,7 +13,11 @@ class DMDataSettingsScreen extends ConsumerWidget {
 
     return MacosScaffold(
       toolBar: const ToolBar(
-        title: Text('DMDATA設定'),
+        title: Text('Project DM-D.S.S 設定'),
+        allowWallpaperTintingOverrides: true,
+        enableBlur: true,
+        automaticallyImplyLeading: true,
+        titleWidth: double.infinity,
       ),
       children: [
         ContentArea(
@@ -42,6 +47,18 @@ class DMDataSettingsScreen extends ConsumerWidget {
                           child: const Text('DMDATAにログイン'),
                         ),
                       ] else ...[
+                        Text(
+                          'Access Token: ${state.accessToken.substring(0, 6)}...',
+                        ),
+                        Text(
+                          'Refresh Token: ${state.refreshToken.substring(0, 6)}...',
+                        ),
+                        Text('Expire: ${state.expiresAt}'),
+                        Text(
+                          'RefreshTokenExpire: ${state.refreshTokenExpiresAt}',
+                        ),
+                        Text('Scope: ${state.scope}'),
+                        const SizedBox(height: 16),
                         PushButton(
                           controlSize: ControlSize.large,
                           onPressed: () {
@@ -56,9 +73,35 @@ class DMDataSettingsScreen extends ConsumerWidget {
                 loading: () => const Center(
                   child: ProgressCircle(),
                 ),
-                error: (error, stack) => Center(
-                  child: Text('エラーが発生しました: $error'),
-                ),
+                error: (error, stack) {
+                  final Widget child;
+                  if (error is DioException) {
+                    child = Center(
+                      child: SelectableText(
+                        'エラーが発生しました: ${error.response?.data}',
+                        style: MacosTheme.of(context).typography.body,
+                      ),
+                    );
+                  } else {
+                    child = Center(
+                      child: SelectableText(
+                        'エラーが発生しました: $error',
+                        style: MacosTheme.of(context).typography.body,
+                      ),
+                    );
+                  }
+                  return Column(
+                    children: [
+                      child,
+                      const SizedBox(height: 16),
+                      PushButton(
+                        controlSize: ControlSize.large,
+                        onPressed: () => ref.invalidate(authProvider),
+                        child: const Text('再試行'),
+                      ),
+                    ],
+                  );
+                },
               ),
             );
           },

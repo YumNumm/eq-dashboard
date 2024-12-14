@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
+import 'package:eqdashboard/core/provider/app_links.dart';
 import 'package:eqdashboard/features/auth/provider/oauth_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,27 +22,44 @@ class Auth extends _$Auth {
     final manager = ref.watch(oauthManagerProvider);
     state = await AsyncValue.guard(() async {
       // URLを生成
-      final url = await manager.generateAuthorizationUrl(
-        codeChallengeMethod: CodeChallengeMethod.S256,
+      final (url, codeVerifier!) = await manager.generateAuthorizationUrl(
+        codeChallengeMethod: CodeChallengeMethod.plain,
         useCodeChallenge: true,
       );
       // launch
-      await launchUrl(url);
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+
+      ref.listen(appLinksStreamProvider, (_, v) {
+        final uri = v.valueOrNull;
+        if (uri == null) return;
+        handleAuthorizationCallback(uri, codeVerifier);
+      });
 
       return null;
     });
   }
 
-  Future<void> handleAuthorizationCallback(Uri uri) async {
-    final manager = ref.watch(oauthManagerProvider);
-    final code = uri.queryParameters['code'];
-    if (code == null || code.isEmpty) {
-      throw Exception('code is empty');
+  Future<void> handleAuthorizationCallback(Uri uri, String codeVerifier) async {
+    try {
+      log('handleAuthorizationCallback: $uri', name: 'AuthNotifier');
+      log('codeVerifier: $codeVerifier', name: 'AuthNotifier');
+
+      final manager = ref.watch(oauthManagerProvider);
+      final code = uri.queryParameters['code'];
+      if (code == null || code.isEmpty) {
+        throw Exception('code is empty');
+      }
+      final state = await manager.handleAuthorizationCode(
+        code: code,
+        codeVerifier: codeVerifier,
+      );
+      return state;
+    } catch (e, st) {
+      state = AsyncError(e, st);
     }
-    final state = await manager.handleAuthorizationCode(
-      code: code,
-    );
-    return state;
   }
 
   Future<void> logout() async {

@@ -28,29 +28,22 @@ class HomePage extends StatelessWidget {
               SidebarItem(
                 label: Text('Page Two'),
               ),
+              SidebarItem(
+                label: Text('設定'),
+                disclosureItems: [
+                  SidebarItem(
+                    label: Text('DMDATA設定'),
+                  ),
+                ],
+              ),
             ],
           );
         },
       ),
-      child: MacosScaffold(
-        toolBar: const ToolBar(
-          title: Text('EQDashboard'),
-          actions: [
-            ToolBarIconButton(
-              label: 'Settings',
-              showLabel: true,
-              icon: Icon(CupertinoIcons.settings),
-              onPressed: null,
-            ),
-          ],
-        ),
-        children: [
-          ContentArea(
-            builder: (context, scrollController) {
-              return child;
-            },
-          ),
-        ],
+      child: ContentArea(
+        builder: (context, scrollController) {
+          return child;
+        },
       ),
     );
   }
@@ -63,6 +56,9 @@ class HomePage extends StatelessWidget {
     if (location.startsWith('/page-two')) {
       return 1;
     }
+    if (location.startsWith('/dmdata-settings')) {
+      return 2;
+    }
     return 0;
   }
 
@@ -72,6 +68,8 @@ class HomePage extends StatelessWidget {
         context.go('/page-one');
       case 1:
         context.go('/page-two');
+      case 2:
+        context.go('/dmdata-settings');
     }
   }
 }

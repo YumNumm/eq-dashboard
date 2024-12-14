@@ -1,3 +1,4 @@
+import 'package:eqdashboard/features/auth/view/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
@@ -20,6 +21,7 @@ GoRouter router(Ref ref) => GoRouter(
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<PageOneRouteData>(path: '/page-one'),
     TypedGoRoute<PageTwoRouteData>(path: '/page-two'),
+    TypedGoRoute<DmdataSettingsRouteData>(path: '/dmdata-settings'),
   ],
 )
 class MyShellRouteData extends ShellRouteData {
@@ -55,6 +57,18 @@ class PageTwoRouteData extends GoRouteData {
     return NoTransitionPage(
       key: state.pageKey,
       child: const PageTwo(),
+    );
+  }
+}
+
+class DmdataSettingsRouteData extends GoRouteData {
+  const DmdataSettingsRouteData();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return NoTransitionPage(
+      key: state.pageKey,
+      child: const DmdataSettingsScreen(),
     );
   }
 }

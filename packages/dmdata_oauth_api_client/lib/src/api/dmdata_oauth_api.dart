@@ -26,7 +26,7 @@ abstract class DmdataOauthApiClient {
     @Field('client_secret') String? clientSecret,
 
     /// 認可コードフローでは、`authorization_code`を指定する必要があります。
-    @Field('grant_type') required OAuthGrantType grantType,
+    @Field('grant_type') required String grantType,
 
     /// 認可コード要求で取得した`ACe.`で始まる認可コード。
     @Field('code') required String code,

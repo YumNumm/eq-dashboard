@@ -23,6 +23,10 @@ RouteBase get $myShellRouteData => ShellRouteData.$route(
           path: '/page-two',
           factory: $PageTwoRouteDataExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: '/dmdata-settings',
+          factory: $DmdataSettingsRouteDataExtension._fromState,
+        ),
       ],
     );
 
@@ -55,6 +59,24 @@ extension $PageTwoRouteDataExtension on PageTwoRouteData {
 
   String get location => GoRouteData.$location(
         '/page-two',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $DmdataSettingsRouteDataExtension on DmdataSettingsRouteData {
+  static DmdataSettingsRouteData _fromState(GoRouterState state) =>
+      const DmdataSettingsRouteData();
+
+  String get location => GoRouteData.$location(
+        '/dmdata-settings',
       );
 
   void go(BuildContext context) => context.go(location);

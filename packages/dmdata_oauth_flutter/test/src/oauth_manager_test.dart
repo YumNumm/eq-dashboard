@@ -120,7 +120,7 @@ void main() {
         () => mockClient.requestToken(
           clientId: config.clientId,
           clientSecret: config.clientSecret,
-          grantType: OAuthGrantType.authorizationCode,
+          grantType: 'authorization_code',
           code: 'test_code',
           codeVerifier: 'test_verifier',
           redirectUri: config.redirectUri,
