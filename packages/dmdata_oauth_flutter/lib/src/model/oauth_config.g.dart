@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint, duplicate_ignore
+
 part of 'oauth_config.dart';
 
 // **************************************************************************
@@ -18,10 +20,10 @@ _$OAuthConfigImpl _$$OAuthConfigImplFromJson(Map<String, dynamic> json) =>
           revokeEndpoint:
               $checkedConvert('revoke_endpoint', (v) => v as String),
           clientId: $checkedConvert('client_id', (v) => v as String),
-          clientSecret: $checkedConvert('client_secret', (v) => v as String?),
           redirectUri: $checkedConvert('redirect_uri', (v) => v as String),
           scopes: $checkedConvert('scopes',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          clientSecret: $checkedConvert('client_secret', (v) => v as String?),
           accessTokenExpiration: $checkedConvert(
               'access_token_expiration',
               (v) => v == null
@@ -40,8 +42,8 @@ _$OAuthConfigImpl _$$OAuthConfigImplFromJson(Map<String, dynamic> json) =>
         'tokenEndpoint': 'token_endpoint',
         'revokeEndpoint': 'revoke_endpoint',
         'clientId': 'client_id',
-        'clientSecret': 'client_secret',
         'redirectUri': 'redirect_uri',
+        'clientSecret': 'client_secret',
         'accessTokenExpiration': 'access_token_expiration',
         'refreshTokenExpiration': 'refresh_token_expiration'
       },
@@ -53,9 +55,9 @@ Map<String, dynamic> _$$OAuthConfigImplToJson(_$OAuthConfigImpl instance) =>
       'token_endpoint': instance.tokenEndpoint,
       'revoke_endpoint': instance.revokeEndpoint,
       'client_id': instance.clientId,
-      'client_secret': instance.clientSecret,
       'redirect_uri': instance.redirectUri,
       'scopes': instance.scopes,
+      'client_secret': instance.clientSecret,
       'access_token_expiration': instance.accessTokenExpiration.inMicroseconds,
       'refresh_token_expiration':
           instance.refreshTokenExpiration.inMicroseconds,

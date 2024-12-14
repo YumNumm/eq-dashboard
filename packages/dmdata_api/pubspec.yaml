@@ -12,9 +12,9 @@ dependencies:
 
 dev_dependencies:
   altive_lints: ^1.16.0
+  build_runner: ^2.4.13
   eqdashboard_lints:
     path: ../eqdashboard_lints
-  build_runner: ^2.4.13
   freezed: ^2.5.7
   json_serializable: ^6.9.0
   retrofit_generator: ^9.1.5

@@ -18,7 +18,7 @@ class Auth extends _$Auth {
     state = const AsyncLoading();
     final manager = ref.watch(oauthManagerProvider);
     final result = await Result.capture(
-      () => manager.startAuthorization(),
+      manager.startAuthorization,
     );
     if (result case Success()) {
       state = AsyncData(result.value);
@@ -26,14 +26,12 @@ class Auth extends _$Auth {
     return result;
   }
 
-  Future<void> logout() async {
+  Future<Result<void, Exception>> logout() async {
     final manager = ref.watch(oauthManagerProvider);
     state = const AsyncLoading();
-    try {
+    return Result.capture(() async {
       await manager.signOut();
       state = const AsyncData(null);
-    } catch (e, st) {
-      state = AsyncError(e, st);
-    }
+    });
   }
 }

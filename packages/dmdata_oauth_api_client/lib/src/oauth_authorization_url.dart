@@ -1,4 +1,5 @@
 /// 認可コードの送信方法
+// ignore_for_file: lines_longer_than_80_chars
 enum ResponseMode {
   /// クエリパラメータとして送信（デフォルト）
   query,
@@ -14,6 +15,7 @@ enum ResponseMode {
 /// PKCEのcode_challengeのエンコード方式
 enum CodeChallengeMethod {
   /// SHA256でハッシュ化
+  // ignore: constant_identifier_names
   S256,
 
   /// 平文
@@ -23,9 +25,6 @@ enum CodeChallengeMethod {
 
 /// OAuth2の認可エンドポイントのURLを生成するクラス
 class DmdataOAuthAuthorizationUrlGenerator {
-  /// デフォルトの認可エンドポイントのベースURL
-  static const defaultBaseUrl =
-      'https://manager.dmdata.jp/account/oauth2/v1/auth';
 
   /// コンストラクタ
   ///
@@ -33,6 +32,9 @@ class DmdataOAuthAuthorizationUrlGenerator {
   const DmdataOAuthAuthorizationUrlGenerator({
     this.baseUrl = defaultBaseUrl,
   });
+  /// デフォルトの認可エンドポイントのベースURL
+  static const defaultBaseUrl =
+      'https://manager.dmdata.jp/account/oauth2/v1/auth';
 
   /// 認可エンドポイントのベースURL
   final String baseUrl;

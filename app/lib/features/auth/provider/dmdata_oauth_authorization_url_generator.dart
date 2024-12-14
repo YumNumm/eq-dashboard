@@ -8,4 +8,4 @@ part 'dmdata_oauth_authorization_url_generator.g.dart';
 oauth.DmdataOAuthAuthorizationUrlGenerator oauthAuthorizationUrlGenerator(
   Ref ref,
 ) =>
-    oauth.DmdataOAuthAuthorizationUrlGenerator();
+    const oauth.DmdataOAuthAuthorizationUrlGenerator();

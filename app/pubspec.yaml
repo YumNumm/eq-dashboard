@@ -7,6 +7,7 @@ environment:
   sdk: ^3.6.0
 
 dependencies:
+  collection: ^1.19.0
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   dmdata_oauth_flutter:
@@ -29,14 +30,14 @@ dev_dependencies:
   altive_lints: ^1.16.0
   build_runner: ^2.4.13
   custom_lint: ^0.7.0
+  eqdashboard_lints:
+    path: ../packages/eqdashboard_lints
   flutter_lints: ^5.0.0
   freezed: ^2.5.7
   go_router_builder: ^2.7.1
   json_serializable: ^6.9.0
   riverpod_generator: ^2.6.3
   riverpod_lint: ^2.6.3
-  eqdashboard_lints:
-    path: ../packages/eqdashboard_lints
 
 flutter:
   uses-material-design: true

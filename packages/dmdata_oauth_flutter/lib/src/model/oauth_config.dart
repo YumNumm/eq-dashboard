@@ -19,14 +19,10 @@ class OAuthConfig with _$OAuthConfig {
     /// クライアントID
     required String clientId,
 
-    /// クライアントシークレット
-    String? clientSecret,
-
     /// リダイレクトURI
-    required String redirectUri,
-
-    /// 要求するスコープ
-    required List<String> scopes,
+    required String redirectUri, /// 要求するスコープ
+    required List<String> scopes, /// クライアントシークレット
+    String? clientSecret,
 
     /// アクセストークンの更新期限
     /// デフォルトは1時間

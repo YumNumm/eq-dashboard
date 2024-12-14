@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
-import 'package:flutter_appauth/flutter_appauth.dart' as appAuth;
-
-import 'model/oauth_config.dart';
-import 'model/oauth_state.dart';
-import 'storage/oauth_storage.dart';
+import 'package:dmdata_oauth_flutter/src/model/oauth_config.dart';
+import 'package:dmdata_oauth_flutter/src/model/oauth_state.dart';
+import 'package:dmdata_oauth_flutter/src/storage/oauth_storage.dart';
+import 'package:flutter_appauth/flutter_appauth.dart' as app_auth;
 
 export 'package:flutter_appauth_platform_interface/src/errors.dart';
 
@@ -15,7 +14,7 @@ class OAuthManager {
     required OAuthConfig config,
     required OAuthStorage storage,
     required DmdataOauthApiClient client,
-    required appAuth.FlutterAppAuth appAuth,
+    required app_auth.FlutterAppAuth appAuth,
   })  : _config = config,
         _storage = storage,
         _client = client,
@@ -24,7 +23,7 @@ class OAuthManager {
   final OAuthConfig _config;
   final OAuthStorage _storage;
   final DmdataOauthApiClient _client;
-  final appAuth.FlutterAppAuth _appAuth;
+  final app_auth.FlutterAppAuth _appAuth;
 
   final _stateController = StreamController<OAuthState?>.broadcast();
 
@@ -45,7 +44,7 @@ class OAuthManager {
       _config.accessTokenExpiration,
     );
     if (accessTokenExpiresThreshold.isBefore(DateTime.now())) {
-      return await refreshToken();
+      return refreshToken();
     }
 
     // リフレッシュトークンの有効期限が切れている/切れそうな場合はリフレッシュ
@@ -54,7 +53,7 @@ class OAuthManager {
       _config.refreshTokenExpiration,
     );
     if (refreshTokenExpiresThreshold.isBefore(DateTime.now())) {
-      return await refreshToken();
+      return refreshToken();
     }
 
     return currentState;
@@ -98,24 +97,25 @@ class OAuthManager {
   }
 
   /// 認証を開始
-  /// can throws `FlutterAppAuthUserCancelledException`, `FlutterAppAuthPlatformException`
+  /// can throws `FlutterAppAuthUserCancelledException`,
+  /// `FlutterAppAuthPlatformException`
   Future<OAuthState> startAuthorization() async {
     final result = await _appAuth.authorizeAndExchangeCode(
-      appAuth.AuthorizationTokenRequest(
+      app_auth.AuthorizationTokenRequest(
         _config.clientId,
         _config.redirectUri,
         scopes: _config.scopes,
-        serviceConfiguration: appAuth.AuthorizationServiceConfiguration(
+        serviceConfiguration: app_auth.AuthorizationServiceConfiguration(
           authorizationEndpoint: _config.authorizationEndpoint,
           tokenEndpoint: _config.tokenEndpoint,
         ),
       ),
     );
-    final oauthState =  OAuthState(
+    final oauthState = OAuthState(
       accessToken: result.accessToken!,
       refreshToken: result.refreshToken!,
       expiresAt: result.accessTokenExpirationDateTime!,
-      refreshTokenExpiresAt: DateTime.now().add(Duration(days: 183)),
+      refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 183)),
       scopes: result.scopes!,
     );
     await _storage.save(oauthState);
@@ -175,8 +175,8 @@ class OAuthManager {
     _stateController.add(null);
   }
 
-  void dispose() {
-    _stateController.close();
+  Future<void> dispose() async {
+    await _stateController.close();
   }
 }
 

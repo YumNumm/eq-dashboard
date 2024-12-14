@@ -1,7 +1,8 @@
+import 'package:eqdashboard/core/components/adaptive/adaptive_app.dart';
+import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
 import 'package:eqdashboard/core/router/router.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:macos_ui/macos_ui.dart';
 
 class App extends HookConsumerWidget {
   const App({super.key});
@@ -10,11 +11,16 @@ class App extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
 
-    return MacosApp.router(
+    final app = AdaptiveApp.router(
       routerConfig: router,
       title: 'EQDashboard',
-      theme: MacosThemeData.light(),
-      darkTheme: MacosThemeData.dark(),
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+    );
+
+    return AdaptivePlatform(
+      platform: AdaptivePlatformType.material,
+      child: app,
     );
   }
 }

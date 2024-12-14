@@ -6,7 +6,7 @@ part 'oauth_config.g.dart';
 @Riverpod(keepAlive: true)
 class OAuthConfig extends _$OAuthConfig {
   @override
-  oauth.OAuthConfig build() => oauth.OAuthConfig(
+  oauth.OAuthConfig build() => const oauth.OAuthConfig(
         authorizationEndpoint:
             'https://manager.dmdata.jp/account/oauth2/v1/auth',
         tokenEndpoint: 'https://manager.dmdata.jp/account/oauth2/v1/token',

@@ -9,30 +9,39 @@ part of 'router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $myShellRouteData,
+      $appShellRouteData,
     ];
 
-RouteBase get $myShellRouteData => ShellRouteData.$route(
-      factory: $MyShellRouteDataExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: '/page-one',
-          factory: $PageOneRouteDataExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: '/page-two',
-          factory: $PageTwoRouteDataExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: '/dmdata-settings',
-          factory: $DmdataSettingsRouteDataExtension._fromState,
+RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
+      factory: $AppShellRouteDataExtension._fromState,
+      branches: [
+        StatefulShellBranchData.$branch(
+          navigatorKey: MainBranch.$navigatorKey,
+          routes: [
+            GoRouteData.$route(
+              path: '/',
+              factory: $PageOneRouteDataExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/page-two',
+              factory: $PageTwoRouteDataExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/settings',
+              factory: $SettingsDisclosurePageRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: '/dmdata-settings',
+              factory: $DmdataSettingsRouteDataExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
 
-extension $MyShellRouteDataExtension on MyShellRouteData {
-  static MyShellRouteData _fromState(GoRouterState state) =>
-      const MyShellRouteData();
+extension $AppShellRouteDataExtension on AppShellRouteData {
+  static AppShellRouteData _fromState(GoRouterState state) =>
+      const AppShellRouteData();
 }
 
 extension $PageOneRouteDataExtension on PageOneRouteData {
@@ -40,7 +49,7 @@ extension $PageOneRouteDataExtension on PageOneRouteData {
       const PageOneRouteData();
 
   String get location => GoRouteData.$location(
-        '/page-one',
+        '/',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -59,6 +68,24 @@ extension $PageTwoRouteDataExtension on PageTwoRouteData {
 
   String get location => GoRouteData.$location(
         '/page-two',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SettingsDisclosurePageRouteExtension on SettingsDisclosurePageRoute {
+  static SettingsDisclosurePageRoute _fromState(GoRouterState state) =>
+      const SettingsDisclosurePageRoute();
+
+  String get location => GoRouteData.$location(
+        '/settings',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -93,7 +120,7 @@ extension $DmdataSettingsRouteDataExtension on DmdataSettingsRouteData {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'd29690712189759c935eb540d96dfcbc6983513b';
+String _$routerHash() => r'5afe12e57e724ea4035bda0510fcacf7e7f3c85f';
 
 /// See also [router].
 @ProviderFor(router)

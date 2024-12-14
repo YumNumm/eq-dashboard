@@ -32,14 +32,14 @@ mixin _$OAuthConfig {
   /// クライアントID
   String get clientId => throw _privateConstructorUsedError;
 
-  /// クライアントシークレット
-  String? get clientSecret => throw _privateConstructorUsedError;
-
   /// リダイレクトURI
   String get redirectUri => throw _privateConstructorUsedError;
 
   /// 要求するスコープ
   List<String> get scopes => throw _privateConstructorUsedError;
+
+  /// クライアントシークレット
+  String? get clientSecret => throw _privateConstructorUsedError;
 
   /// アクセストークンの更新期限
   /// デフォルトは1時間
@@ -70,9 +70,9 @@ abstract class $OAuthConfigCopyWith<$Res> {
       String tokenEndpoint,
       String revokeEndpoint,
       String clientId,
-      String? clientSecret,
       String redirectUri,
       List<String> scopes,
+      String? clientSecret,
       Duration accessTokenExpiration,
       Duration refreshTokenExpiration});
 }
@@ -96,9 +96,9 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
     Object? tokenEndpoint = null,
     Object? revokeEndpoint = null,
     Object? clientId = null,
-    Object? clientSecret = freezed,
     Object? redirectUri = null,
     Object? scopes = null,
+    Object? clientSecret = freezed,
     Object? accessTokenExpiration = null,
     Object? refreshTokenExpiration = null,
   }) {
@@ -119,10 +119,6 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
               as String,
-      clientSecret: freezed == clientSecret
-          ? _value.clientSecret
-          : clientSecret // ignore: cast_nullable_to_non_nullable
-              as String?,
       redirectUri: null == redirectUri
           ? _value.redirectUri
           : redirectUri // ignore: cast_nullable_to_non_nullable
@@ -131,6 +127,10 @@ class _$OAuthConfigCopyWithImpl<$Res, $Val extends OAuthConfig>
           ? _value.scopes
           : scopes // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      clientSecret: freezed == clientSecret
+          ? _value.clientSecret
+          : clientSecret // ignore: cast_nullable_to_non_nullable
+              as String?,
       accessTokenExpiration: null == accessTokenExpiration
           ? _value.accessTokenExpiration
           : accessTokenExpiration // ignore: cast_nullable_to_non_nullable
@@ -156,9 +156,9 @@ abstract class _$$OAuthConfigImplCopyWith<$Res>
       String tokenEndpoint,
       String revokeEndpoint,
       String clientId,
-      String? clientSecret,
       String redirectUri,
       List<String> scopes,
+      String? clientSecret,
       Duration accessTokenExpiration,
       Duration refreshTokenExpiration});
 }
@@ -180,9 +180,9 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
     Object? tokenEndpoint = null,
     Object? revokeEndpoint = null,
     Object? clientId = null,
-    Object? clientSecret = freezed,
     Object? redirectUri = null,
     Object? scopes = null,
+    Object? clientSecret = freezed,
     Object? accessTokenExpiration = null,
     Object? refreshTokenExpiration = null,
   }) {
@@ -203,10 +203,6 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
           ? _value.clientId
           : clientId // ignore: cast_nullable_to_non_nullable
               as String,
-      clientSecret: freezed == clientSecret
-          ? _value.clientSecret
-          : clientSecret // ignore: cast_nullable_to_non_nullable
-              as String?,
       redirectUri: null == redirectUri
           ? _value.redirectUri
           : redirectUri // ignore: cast_nullable_to_non_nullable
@@ -215,6 +211,10 @@ class __$$OAuthConfigImplCopyWithImpl<$Res>
           ? _value._scopes
           : scopes // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      clientSecret: freezed == clientSecret
+          ? _value.clientSecret
+          : clientSecret // ignore: cast_nullable_to_non_nullable
+              as String?,
       accessTokenExpiration: null == accessTokenExpiration
           ? _value.accessTokenExpiration
           : accessTokenExpiration // ignore: cast_nullable_to_non_nullable
@@ -235,9 +235,9 @@ class _$OAuthConfigImpl implements _OAuthConfig {
       required this.tokenEndpoint,
       required this.revokeEndpoint,
       required this.clientId,
-      this.clientSecret,
       required this.redirectUri,
       required final List<String> scopes,
+      this.clientSecret,
       this.accessTokenExpiration = const Duration(hours: 1),
       this.refreshTokenExpiration = const Duration(days: 7)})
       : _scopes = scopes;
@@ -261,10 +261,6 @@ class _$OAuthConfigImpl implements _OAuthConfig {
   @override
   final String clientId;
 
-  /// クライアントシークレット
-  @override
-  final String? clientSecret;
-
   /// リダイレクトURI
   @override
   final String redirectUri;
@@ -280,6 +276,10 @@ class _$OAuthConfigImpl implements _OAuthConfig {
     return EqualUnmodifiableListView(_scopes);
   }
 
+  /// クライアントシークレット
+  @override
+  final String? clientSecret;
+
   /// アクセストークンの更新期限
   /// デフォルトは1時間
   @override
@@ -294,7 +294,7 @@ class _$OAuthConfigImpl implements _OAuthConfig {
 
   @override
   String toString() {
-    return 'OAuthConfig(authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, revokeEndpoint: $revokeEndpoint, clientId: $clientId, clientSecret: $clientSecret, redirectUri: $redirectUri, scopes: $scopes, accessTokenExpiration: $accessTokenExpiration, refreshTokenExpiration: $refreshTokenExpiration)';
+    return 'OAuthConfig(authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, revokeEndpoint: $revokeEndpoint, clientId: $clientId, redirectUri: $redirectUri, scopes: $scopes, clientSecret: $clientSecret, accessTokenExpiration: $accessTokenExpiration, refreshTokenExpiration: $refreshTokenExpiration)';
   }
 
   @override
@@ -310,11 +310,11 @@ class _$OAuthConfigImpl implements _OAuthConfig {
                 other.revokeEndpoint == revokeEndpoint) &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
-            (identical(other.clientSecret, clientSecret) ||
-                other.clientSecret == clientSecret) &&
             (identical(other.redirectUri, redirectUri) ||
                 other.redirectUri == redirectUri) &&
             const DeepCollectionEquality().equals(other._scopes, _scopes) &&
+            (identical(other.clientSecret, clientSecret) ||
+                other.clientSecret == clientSecret) &&
             (identical(other.accessTokenExpiration, accessTokenExpiration) ||
                 other.accessTokenExpiration == accessTokenExpiration) &&
             (identical(other.refreshTokenExpiration, refreshTokenExpiration) ||
@@ -329,9 +329,9 @@ class _$OAuthConfigImpl implements _OAuthConfig {
       tokenEndpoint,
       revokeEndpoint,
       clientId,
-      clientSecret,
       redirectUri,
       const DeepCollectionEquality().hash(_scopes),
+      clientSecret,
       accessTokenExpiration,
       refreshTokenExpiration);
 
@@ -357,9 +357,9 @@ abstract class _OAuthConfig implements OAuthConfig {
       required final String tokenEndpoint,
       required final String revokeEndpoint,
       required final String clientId,
-      final String? clientSecret,
       required final String redirectUri,
       required final List<String> scopes,
+      final String? clientSecret,
       final Duration accessTokenExpiration,
       final Duration refreshTokenExpiration}) = _$OAuthConfigImpl;
 
@@ -382,10 +382,6 @@ abstract class _OAuthConfig implements OAuthConfig {
   @override
   String get clientId;
 
-  /// クライアントシークレット
-  @override
-  String? get clientSecret;
-
   /// リダイレクトURI
   @override
   String get redirectUri;
@@ -393,6 +389,10 @@ abstract class _OAuthConfig implements OAuthConfig {
   /// 要求するスコープ
   @override
   List<String> get scopes;
+
+  /// クライアントシークレット
+  @override
+  String? get clientSecret;
 
   /// アクセストークンの更新期限
   /// デフォルトは1時間

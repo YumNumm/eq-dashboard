@@ -9,7 +9,7 @@ part of 'dmdata_oauth_authorization_url_generator.dart';
 // **************************************************************************
 
 String _$oauthAuthorizationUrlGeneratorHash() =>
-    r'5dd61f76c434ee5957b567499751ea11d78686f7';
+    r'9a2bce00948c7f83ef9f2ef3bfa8473b9910b08c';
 
 /// See also [oauthAuthorizationUrlGenerator].
 @ProviderFor(oauthAuthorizationUrlGenerator)

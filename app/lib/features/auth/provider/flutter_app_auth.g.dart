@@ -8,7 +8,7 @@ part of 'flutter_app_auth.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$flutterAppAuthHash() => r'43fba6ab7bf0b8b0d44c6fac5826df0b4ed099ec';
+String _$flutterAppAuthHash() => r'42c4bcf3acaec6cccac6fc4c8f4d0c26c4d1862d';
 
 /// See also [flutterAppAuth].
 @ProviderFor(flutterAppAuth)

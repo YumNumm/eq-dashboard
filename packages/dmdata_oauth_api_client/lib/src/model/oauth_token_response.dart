@@ -9,12 +9,16 @@ class OAuthTokenResponse with _$OAuthTokenResponse {
   const factory OAuthTokenResponse({
     /// アクセストークン (ATn.で始まる)
     required String accessToken,
+
     /// トークンタイプ (Bearer固定)
     required String tokenType,
+
     /// アクセストークンの有効期間（秒）
     required int expiresIn,
+
     /// リフレッシュトークン (ARh.で始まる)
     String? refreshToken,
+
     /// 付与されたスコープ（スペース区切り）
     String? scope,
   }) = _OAuthTokenResponse;

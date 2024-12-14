@@ -44,7 +44,7 @@ void main() {
 
     test('JSONにエンコードできる', () {
       // Arrange
-      final response = OAuthErrorResponse(
+      const response = OAuthErrorResponse(
         error: 'invalid_request',
         errorDescription: 'The client_id is missing.',
       );
@@ -56,10 +56,12 @@ void main() {
       expect(
         json,
         equals(
-          '{'
-          '"error":"invalid_request",'
-          '"error_description":"The client_id is missing."'
-          '}',
+          '''
+          {
+            "error":"invalid_request",
+            "error_description":"The client_id is missing."
+          }
+          ''',
         ),
       );
     });

@@ -62,7 +62,7 @@ void main() {
 
     test('JSONにエンコードできる', () {
       // Arrange
-      final response = OAuthTokenResponse(
+      const response = OAuthTokenResponse(
         accessToken: 'ATn.TTTTTTTTTTTTTTTTTTTTTTTTTTT',
         tokenType: 'Bearer',
         expiresIn: 21600,
@@ -77,13 +77,15 @@ void main() {
       expect(
         json,
         equals(
-          '{'
-          '"access_token":"ATn.TTTTTTTTTTTTTTTTTTTTTTTTTTT",'
-          '"token_type":"Bearer",'
-          '"expires_in":21600,'
-          '"refresh_token":"ARh.RRRRRRRRRRRRRRRRRRRRRRRRRRR",'
-          '"scope":"telegram.list telegram.get.earthquake telegram.data"'
-          '}',
+          '''
+          {
+            "access_token":"ATn.TTTTTTTTTTTTTTTTTTTTTTTTTTT",
+            "token_type":"Bearer",
+            "expires_in":21600,
+            "refresh_token":"ARh.RRRRRRRRRRRRRRRRRRRRRRRRRRR",
+            "scope":"telegram.list telegram.get.earthquake telegram.data"
+          }
+          ''',
         ),
       );
     });

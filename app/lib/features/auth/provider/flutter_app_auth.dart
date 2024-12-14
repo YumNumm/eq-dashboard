@@ -5,4 +5,4 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'flutter_app_auth.g.dart';
 
 @Riverpod(keepAlive: true)
-FlutterAppAuth flutterAppAuth(Ref ref) => FlutterAppAuth();
+FlutterAppAuth flutterAppAuth(Ref ref) => const FlutterAppAuth();

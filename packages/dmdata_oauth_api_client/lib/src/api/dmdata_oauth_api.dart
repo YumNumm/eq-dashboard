@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart' hide Headers;
-import 'package:retrofit/retrofit.dart';
+// ignore_for_file: lines_longer_than_80_chars
 
-import '../model/oauth_token_response.dart';
+import 'package:dio/dio.dart' hide Headers;
+import 'package:dmdata_oauth_api_client/src/model/oauth_token_response.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'dmdata_oauth_api.g.dart';
 
@@ -22,9 +23,6 @@ abstract class DmdataOauthApiClient {
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
     @Field('client_id') required String clientId,
 
-    /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
-    @Field('client_secret') String? clientSecret,
-
     /// 認可コードフローでは、`authorization_code`を指定する必要があります。
     @Field('grant_type') required String grantType,
 
@@ -33,6 +31,9 @@ abstract class DmdataOauthApiClient {
 
     /// 認可コード要求する際にパラメータに入力した`redirect_uri`を指定します。クライアントに設定したリダイレクトURIが1個のみで、実際のリダイレクト先と一致する場合は必要ではありません。
     @Field('redirect_uri') required String redirectUri,
+
+    /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
+    @Field('client_secret') String? clientSecret,
 
     /// 認可コード要求時に、PKCEが使用されていた場合は必須です。
     @Field('code_verifier') String? codeVerifier,
@@ -45,14 +46,14 @@ abstract class DmdataOauthApiClient {
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
     @Field('client_id') required String clientId,
 
-    /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
-    @Field('client_secret') String? clientSecret,
-
     /// リフレッシュトークンフローでは、`refresh_token`を指定する必要があります。
     @Field('grant_type') required OAuthGrantType grantType,
 
     /// 認可コード要求で取得した`ARh.`で始まるリフレッシュトークン。
     @Field('refresh_token') required String refreshToken,
+
+    /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
+    @Field('client_secret') String? clientSecret,
   });
 
   /// クライアント・クレデンシャルズフローでアクセストークンを取得します。
@@ -80,11 +81,11 @@ abstract class DmdataOauthApiClient {
     /// OAuth クライアント毎に割り当てられた、`CId.`で始まるID
     @Field('client_id') required String clientId,
 
-    /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
-    @Field('client_secret') String? clientSecret,
-
     /// `ATn.`で始まるアクセストークンか、`ARh.`で始まるリフレッシュトークン。
     @Field('token') required String token,
+
+    /// OAuth クライアント毎に割り当てられた、`CSt.`で始まるシークレットキー。クライアントの種類が「機密」の場合は必須です。
+    @Field('client_secret') String? clientSecret,
   });
 }
 

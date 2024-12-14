@@ -4,7 +4,7 @@ import 'package:eqdashboard/core/components/app_icon.dart';
 import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 class DmdataSettingsScreen extends ConsumerWidget {
@@ -17,16 +17,14 @@ class DmdataSettingsScreen extends ConsumerWidget {
     return MacosScaffold(
       toolBar: const ToolBar(
         title: Text('Project DM-D.S.S 設定'),
-        allowWallpaperTintingOverrides: true,
         enableBlur: true,
-        automaticallyImplyLeading: true,
         titleWidth: double.infinity,
       ),
       children: [
         ContentArea(
           builder: (context, scrollController) {
             return Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20),
               child: authState.when(
                 data: (state) {
                   return Column(
@@ -46,16 +44,17 @@ class DmdataSettingsScreen extends ConsumerWidget {
                             final result = await ref
                                 .read(authProvider.notifier)
                                 .startAuthorization();
-                            if (result case Failure(:final error)) {
+                            if (result case Failure(:final error)
+                                when context.mounted) {
                               if (error
                                   is FlutterAppAuthUserCancelledException) {
-                                final title = 'ログインをキャンセルしました';
-                                final message = "Error code: " + error.code;
+                                const title = 'ログインをキャンセルしました';
+                                final message = 'Error code: ${error.code}';
                                 await showMacosAlertDialog<void>(
                                   context: context,
                                   builder: (context) => MacosAlertDialog(
-                                    appIcon: AppIcon(size: 64),
-                                    title: Text(
+                                    appIcon: const AppIcon(size: 64),
+                                    title: const Text(
                                       title,
                                     ),
                                     message: Text(
@@ -64,7 +63,7 @@ class DmdataSettingsScreen extends ConsumerWidget {
                                     ),
                                     primaryButton: PushButton(
                                       controlSize: ControlSize.large,
-                                      child: Text('OK'),
+                                      child: const Text('OK'),
                                       onPressed: () => Navigator.pop(context),
                                     ),
                                   ),
@@ -76,10 +75,12 @@ class DmdataSettingsScreen extends ConsumerWidget {
                         ),
                       ] else ...[
                         Text(
-                          'Access Token: ${state.accessToken.substring(0, 6)}...',
+                          'Access Token: '
+                          '${state.accessToken.substring(0, 6)}...',
                         ),
                         Text(
-                          'Refresh Token: ${state.refreshToken.substring(0, 6)}...',
+                          'Refresh Token: '
+                          '${state.refreshToken.substring(0, 6)}...',
                         ),
                         Text('Expire: ${state.expiresAt}'),
                         Text(
@@ -89,9 +90,8 @@ class DmdataSettingsScreen extends ConsumerWidget {
                         const SizedBox(height: 16),
                         PushButton(
                           controlSize: ControlSize.large,
-                          onPressed: () {
-                            ref.read(authProvider.notifier).logout();
-                          },
+                          onPressed: () async =>
+                              ref.read(authProvider.notifier).logout(),
                           child: const Text('ログアウト'),
                         ),
                       ],

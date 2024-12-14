@@ -1,4 +1,4 @@
-import '../model/oauth_state.dart';
+import 'package:dmdata_oauth_flutter/src/model/oauth_state.dart';
 
 /// OAuth認証の状態を永続化するためのインターフェース
 abstract class OAuthStorage {
