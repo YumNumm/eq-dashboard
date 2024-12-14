@@ -1,7 +1,6 @@
 import 'package:eqdashboard/core/components/adaptive/adaptive_button.dart';
 import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
 import 'package:eqdashboard/core/components/adaptive/adaptive_scaffold.dart';
-import 'package:eqdashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

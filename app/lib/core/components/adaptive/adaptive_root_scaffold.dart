@@ -1,4 +1,7 @@
 import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/router/router.dart';
+import 'package:eqdashboard/pages/home/children/platform_selector_screen.dart';
+import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -53,7 +56,7 @@ class AdaptiveRootScaffold extends HookConsumerWidget {
     }
   }
 
-  List<NavigationItem> routes(AdaptivePlatformType platform) {
+  List<NavigationItem> getRouteList(AdaptivePlatformType platform) {
     if (platform == AdaptivePlatformType.macos) {
       // 子を持つNavigationItemは除外
       return items.expand((item) => expandItem(item, false)).toList();
@@ -68,13 +71,23 @@ class AdaptiveRootScaffold extends HookConsumerWidget {
     final selectedIndex = useState(0);
 
     ref.listen(adaptivePlatformProvider, (_, next) {
-      selectedIndex.value = 0;
+      final routes = getRouteList(next);
+      final currentRouteLocation = switch (next) {
+        AdaptivePlatformType.macos =>
+          const PlatformSelectorRouteData().location,
+        AdaptivePlatformType.cupertino ||
+        AdaptivePlatformType.material =>
+          const SettingsDisclosurePageRoute().location,
+      };
+      selectedIndex.value = routes.indexWhere(
+        (route) => route.path == currentRouteLocation,
+      );
     });
 
     void onItemSelected(int index) {
       selectedIndex.value = index;
 
-      final item = routes(platform)[index];
+      final item = getRouteList(platform)[index];
       context.go(item.path);
     }
 

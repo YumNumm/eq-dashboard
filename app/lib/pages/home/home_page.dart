@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
     () {
       final disclosureItems = [
         NavigationItem(
-          label: 'Project DM-S.S.S 設定',
+          label: 'Project DM-D.S.S 設定',
           path: const DmdataSettingsRouteData().location,
           icon: Icons.settings_applications,
         ),
