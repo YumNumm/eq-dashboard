@@ -1,5 +1,4 @@
 import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
-import 'package:eqdashboard/core/theme/platform_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +12,6 @@ class PlatformApp extends StatelessWidget {
     this.platformOverride,
     this.theme,
     this.darkTheme,
-    this.platformTheme,
     this.themeMode,
   });
 
@@ -22,7 +20,6 @@ class PlatformApp extends StatelessWidget {
   final AdaptivePlatformType? platformOverride;
   final ThemeData? theme;
   final ThemeData? darkTheme;
-  final PlatformTheme? platformTheme;
   final ThemeMode? themeMode;
 
   @override
@@ -35,31 +32,43 @@ class PlatformApp extends StatelessWidget {
       ThemeMode.system => MediaQuery.platformBrightnessOf(context),
     };
 
-    final effectivePlatformTheme = platformTheme ??
-        (brightness == Brightness.light
-            ? PlatformTheme.light
-            : PlatformTheme.dark);
-
-    return switch (platform) {
+    final app = switch (platform) {
       AdaptivePlatformType.macos => MacosApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: effectivePlatformTheme.toMacosTheme(),
-          darkTheme: PlatformTheme.dark.toMacosTheme(),
+          theme: MacosThemeData.light(),
+          darkTheme: MacosThemeData.dark(),
           themeMode: effectiveThemeMode,
         ),
       AdaptivePlatformType.cupertino => CupertinoApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: effectivePlatformTheme.toCupertinoTheme(),
+          theme: CupertinoThemeData(
+            brightness: brightness,
+            primaryColor: theme?.primaryColor ??
+                (brightness == Brightness.light
+                    ? CupertinoColors.systemBlue
+                    : CupertinoColors.systemBlue.darkColor),
+          ),
         ),
       AdaptivePlatformType.material => MaterialApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: theme ?? effectivePlatformTheme.toMaterialTheme(),
-          darkTheme: darkTheme ?? PlatformTheme.dark.toMaterialTheme(),
+          theme: theme ?? ThemeData.light(useMaterial3: true),
+          darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
           themeMode: effectiveThemeMode,
         ),
     };
+
+    // inject MaterialTheme
+    if (platform != AdaptivePlatformType.material) {
+      return Theme(
+        data: brightness == Brightness.light
+            ? ThemeData.light(useMaterial3: true)
+            : ThemeData.dark(useMaterial3: true),
+        child: app,
+      );
+    }
+    return app;
   }
 }
