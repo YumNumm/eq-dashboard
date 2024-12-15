@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 enum BentoGridSize {
-  small, // 1x1
-  medium, // 1x2
-  large, // 2x2
+  small(1, 1), // 1x1
+  medium(1, 2), // 1x2
+  large(2, 2), // 2x2
+  xLarge(2, 3), // 2x3
+  ;
+
+  const BentoGridSize(this.columnSpan, this.rowSpan);
+
+  final int columnSpan;
+  final int rowSpan;
 }
 
 enum BentoGridMode {
@@ -22,28 +29,6 @@ class BentoGridItem {
   final Widget child;
   final BentoGridSize size;
   final String id;
-
-  // グリッドアイテムの幅を取得
-  int getColumnSpan() {
-    switch (size) {
-      case BentoGridSize.small:
-      case BentoGridSize.medium:
-        return 1;
-      case BentoGridSize.large:
-        return 2;
-    }
-  }
-
-  // グリッドアイテムの高さを取得
-  int getRowSpan() {
-    switch (size) {
-      case BentoGridSize.small:
-        return 1;
-      case BentoGridSize.medium:
-      case BentoGridSize.large:
-        return 2;
-    }
-  }
 }
 
 class AdaptiveBentoGridView extends HookWidget {
@@ -87,10 +72,10 @@ class AdaptiveBentoGridView extends HookWidget {
                 )
               : null,
         ),
-        width: item.getColumnSpan() * cellSize +
-            (item.getColumnSpan() - 1) * spacing,
+        width: item.size.columnSpan * cellSize +
+            (item.size.columnSpan - 1) * spacing,
         height:
-            item.getRowSpan() * cellSize + (item.getRowSpan() - 1) * spacing,
+            item.size.rowSpan * cellSize + (item.size.rowSpan - 1) * spacing,
         child: item.child,
       );
 

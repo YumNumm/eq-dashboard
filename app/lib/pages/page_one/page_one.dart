@@ -34,6 +34,14 @@ class PageOne extends HookWidget {
           child: Center(child: Text('3')),
         ),
       ),
+      const BentoGridItem(
+        id: '4',
+        size: BentoGridSize.xLarge,
+        child: ColoredBox(
+          color: Colors.indigo,
+          child: Center(child: Text('4')),
+        ),
+      ),
     ]);
 
     void onItemsReordered(List<BentoGridItem> newItems) {
