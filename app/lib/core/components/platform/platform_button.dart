@@ -1,62 +1,62 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveButton extends StatelessWidget {
-  const AdaptiveButton._({
+class PlatformButton extends StatelessWidget {
+  const PlatformButton._({
     required this.onPressed,
     required this.child,
-    required _AdaptiveButtonType type,
+    required _PlatformButtonType type,
     super.key,
     this.platformOverride,
   }) : _type = type;
 
-  factory AdaptiveButton.filled({
+  factory PlatformButton.filled({
     required VoidCallback? onPressed,
     required Widget child,
     Key? key,
     AdaptivePlatformType? platformOverride,
   }) =>
-      AdaptiveButton._(
+      PlatformButton._(
         key: key,
         onPressed: onPressed,
-        type: _AdaptiveButtonType.filled,
+        type: _PlatformButtonType.filled,
         platformOverride: platformOverride,
         child: child,
       );
 
-  factory AdaptiveButton.outlined({
+  factory PlatformButton.outlined({
     required VoidCallback? onPressed,
     required Widget child,
     Key? key,
     AdaptivePlatformType? platformOverride,
   }) =>
-      AdaptiveButton._(
+      PlatformButton._(
         key: key,
         onPressed: onPressed,
-        type: _AdaptiveButtonType.outlined,
+        type: _PlatformButtonType.outlined,
         platformOverride: platformOverride,
         child: child,
       );
 
-  factory AdaptiveButton.text({
+  factory PlatformButton.text({
     required VoidCallback? onPressed,
     required Widget child,
     Key? key,
     AdaptivePlatformType? platformOverride,
   }) =>
-      AdaptiveButton._(
+      PlatformButton._(
         key: key,
         onPressed: onPressed,
-        type: _AdaptiveButtonType.text,
+        type: _PlatformButtonType.text,
         platformOverride: platformOverride,
         child: child,
       );
 
   final VoidCallback? onPressed;
   final Widget child;
-  final _AdaptiveButtonType _type;
+  final _PlatformButtonType _type;
   final AdaptivePlatformType? platformOverride;
 
   @override
@@ -72,20 +72,20 @@ class AdaptiveButton extends StatelessWidget {
 
   Widget _buildMacOSButton() {
     switch (_type) {
-      case _AdaptiveButtonType.filled:
+      case _PlatformButtonType.filled:
         return PushButton(
           controlSize: ControlSize.regular,
           onPressed: onPressed,
           child: child,
         );
-      case _AdaptiveButtonType.outlined:
+      case _PlatformButtonType.outlined:
         return PushButton(
           controlSize: ControlSize.regular,
           onPressed: onPressed,
           secondary: true,
           child: child,
         );
-      case _AdaptiveButtonType.text:
+      case _PlatformButtonType.text:
         return PushButton(
           controlSize: ControlSize.regular,
           onPressed: onPressed,
@@ -97,12 +97,12 @@ class AdaptiveButton extends StatelessWidget {
 
   Widget _buildCupertinoButton() {
     switch (_type) {
-      case _AdaptiveButtonType.filled:
+      case _PlatformButtonType.filled:
         return CupertinoButton.filled(
           onPressed: onPressed,
           child: child,
         );
-      case _AdaptiveButtonType.outlined:
+      case _PlatformButtonType.outlined:
         return DecoratedBox(
           decoration: BoxDecoration(
             border: Border.all(
@@ -115,7 +115,7 @@ class AdaptiveButton extends StatelessWidget {
             child: child,
           ),
         );
-      case _AdaptiveButtonType.text:
+      case _PlatformButtonType.text:
         return CupertinoButton(
           onPressed: onPressed,
           child: child,
@@ -125,17 +125,17 @@ class AdaptiveButton extends StatelessWidget {
 
   Widget _buildMaterialButton() {
     switch (_type) {
-      case _AdaptiveButtonType.filled:
+      case _PlatformButtonType.filled:
         return FilledButton(
           onPressed: onPressed,
           child: child,
         );
-      case _AdaptiveButtonType.outlined:
+      case _PlatformButtonType.outlined:
         return OutlinedButton(
           onPressed: onPressed,
           child: child,
         );
-      case _AdaptiveButtonType.text:
+      case _PlatformButtonType.text:
         return TextButton(
           onPressed: onPressed,
           child: child,
@@ -144,7 +144,7 @@ class AdaptiveButton extends StatelessWidget {
   }
 }
 
-enum _AdaptiveButtonType {
+enum _PlatformButtonType {
   filled,
   outlined,
   text,

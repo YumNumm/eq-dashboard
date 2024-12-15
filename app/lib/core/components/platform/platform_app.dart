@@ -1,11 +1,11 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveApp extends StatelessWidget {
-  const AdaptiveApp.router({
+class PlatformApp extends StatelessWidget {
+  const PlatformApp.router({
     required this.routerConfig,
     required this.title,
     super.key,

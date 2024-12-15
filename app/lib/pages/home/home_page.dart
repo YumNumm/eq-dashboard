@@ -1,4 +1,4 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_root_scaffold.dart';
+import 'package:eqdashboard/core/components/platform/platform_root_scaffold.dart';
 import 'package:eqdashboard/core/router/router.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/settings/children/platform_selector_screen.dart';
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveRootScaffold(
+    return PlatformRootScaffold(
       items: navigationItems,
       child: child,
     );

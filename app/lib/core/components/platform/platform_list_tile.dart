@@ -1,10 +1,10 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveListTile extends StatelessWidget {
-  const AdaptiveListTile({
+class PlatformListTile extends StatelessWidget {
+  const PlatformListTile({
     required this.title,
     super.key,
     this.leading,

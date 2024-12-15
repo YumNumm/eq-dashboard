@@ -1,4 +1,4 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:eqdashboard/core/router/router.dart';
 import 'package:eqdashboard/pages/settings/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
@@ -28,8 +28,8 @@ class NavigationItem {
   String toString() => path;
 }
 
-class AdaptiveRootScaffold extends HookConsumerWidget {
-  const AdaptiveRootScaffold({
+class PlatformRootScaffold extends HookConsumerWidget {
+  const PlatformRootScaffold({
     required this.child,
     required this.items,
     super.key,

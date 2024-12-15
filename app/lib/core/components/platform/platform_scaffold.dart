@@ -1,11 +1,11 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_app_bar.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveScaffold extends StatelessWidget {
-  const AdaptiveScaffold({
+class PlatformScaffold extends StatelessWidget {
+  const PlatformScaffold({
     required this.child,
     super.key,
     this.title,
@@ -15,7 +15,7 @@ class AdaptiveScaffold extends StatelessWidget {
         sliverToolBar = null,
         children = null;
 
-  const AdaptiveScaffold.sliver({
+  const PlatformScaffold.sliver({
     required this.children,
     super.key,
     this.title,
@@ -30,7 +30,7 @@ class AdaptiveScaffold extends StatelessWidget {
   final Widget? title;
   final ToolBar? toolBar;
   final SliverToolBar? sliverToolBar;
-  final AdaptiveAppBar? appBar;
+  final PlatformAppBar? appBar;
   final bool _sliver;
 
   @override

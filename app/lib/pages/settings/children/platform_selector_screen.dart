@@ -1,6 +1,6 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_button.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_scaffold.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/platform_button.dart';
+import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,7 +24,7 @@ class PlatformSelectorScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentPlatform = ref.watch(adaptivePlatformProvider);
 
-    return AdaptiveScaffold(
+    return PlatformScaffold(
       title: const Text('プラットフォーム設定'),
       toolBar: const ToolBar(
         title: Text('プラットフォーム設定'),
@@ -47,7 +47,7 @@ class PlatformSelectorScreen extends HookConsumerWidget {
               runSpacing: 8,
               children: [
                 for (final platform in AdaptivePlatformType.values)
-                  AdaptiveButton.filled(
+                  PlatformButton.filled(
                     onPressed: platform == currentPlatform
                         ? null
                         : () async {

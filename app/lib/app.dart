@@ -1,5 +1,5 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_app.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/platform_app.dart';
 import 'package:eqdashboard/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,7 +11,7 @@ class App extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
 
-    final app = AdaptiveApp.router(
+    final app = PlatformApp.router(
       routerConfig: router,
       title: 'EQDashboard',
       theme: ThemeData.light(useMaterial3: true),

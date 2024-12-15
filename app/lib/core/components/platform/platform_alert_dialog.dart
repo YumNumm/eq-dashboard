@@ -1,11 +1,11 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
 import 'package:eqdashboard/core/components/app_icon.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveAlertDialog extends StatelessWidget {
-  const AdaptiveAlertDialog({
+class PlatformAlertDialog extends StatelessWidget {
+  const PlatformAlertDialog({
     required this.title,
     required this.message,
     super.key,
@@ -87,7 +87,7 @@ class AdaptiveAlertDialog extends StatelessWidget {
 }
 
 /// 汎用アラートダイアログを表示するためのユーティリティ関数
-Future<T?> showAdaptiveAlertDialog<T>({
+Future<T?> showPlatformAlertDialog<T>({
   required BuildContext context,
   required String title,
   required Widget message,
@@ -102,7 +102,7 @@ Future<T?> showAdaptiveAlertDialog<T>({
   return switch (platform) {
     AdaptivePlatformType.macos => showMacosAlertDialog(
         context: context,
-        builder: (context) => AdaptiveAlertDialog(
+        builder: (context) => PlatformAlertDialog(
           title: title,
           message: message,
           icon: icon,
@@ -114,7 +114,7 @@ Future<T?> showAdaptiveAlertDialog<T>({
       ),
     AdaptivePlatformType.cupertino => showCupertinoDialog(
         context: context,
-        builder: (context) => AdaptiveAlertDialog(
+        builder: (context) => PlatformAlertDialog(
           title: title,
           message: message,
           icon: icon,
@@ -126,7 +126,7 @@ Future<T?> showAdaptiveAlertDialog<T>({
       ),
     AdaptivePlatformType.material => showDialog(
         context: context,
-        builder: (context) => AdaptiveAlertDialog(
+        builder: (context) => PlatformAlertDialog(
           title: title,
           message: message,
           icon: icon,

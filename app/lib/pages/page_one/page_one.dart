@@ -1,6 +1,6 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_app_bar.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_bento_grid_view.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_scaffold.dart';
+import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
+import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
+import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -50,19 +50,19 @@ class PageOne extends HookWidget {
 
     final isEditMode = useState(false);
 
-    return AdaptiveScaffold(
-      appBar: AdaptiveAppBar(
+    return PlatformScaffold(
+      appBar: PlatformAppBar(
         title: const Text('Page One'),
         actions: [
           if (isEditMode.value)
-            AdaptiveAppBarItem(
+            PlatformAppBarItem(
               onPressed: () => isEditMode.value = false,
               icon: Icons.check,
               label: 'Done',
               tooltip: 'Done',
             )
           else
-            AdaptiveAppBarItem(
+            PlatformAppBarItem(
               onPressed: () => isEditMode.value = true,
               icon: Icons.edit,
               label: 'Edit',
@@ -70,7 +70,7 @@ class PageOne extends HookWidget {
             ),
         ],
       ),
-      child: AdaptiveBentoGridView(
+      child: BentoGridView(
         items: items.value,
         mode: isEditMode.value ? BentoGridMode.edit : BentoGridMode.view,
         onItemsReordered: onItemsReordered,

@@ -3,13 +3,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:dmdata_api/dmdata_api.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveErrorDialog extends StatelessWidget {
-  const AdaptiveErrorDialog({
+class PlatformErrorDialog extends StatelessWidget {
+  const PlatformErrorDialog({
     required this.error,
     super.key,
     this.onDioExceptionStatusOverride,
@@ -162,7 +162,7 @@ class AdaptiveErrorDialog extends StatelessWidget {
 }
 
 /// エラーダイアログを表示するためのユーティリティ関数
-Future<void> showAdaptiveErrorDialog({
+Future<void> showPlatformErrorDialog({
   required BuildContext context,
   required Object error,
   String? title,
@@ -175,7 +175,7 @@ Future<void> showAdaptiveErrorDialog({
   return switch (platform) {
     AdaptivePlatformType.macos => showMacosAlertDialog(
         context: context,
-        builder: (context) => AdaptiveErrorDialog(
+        builder: (context) => PlatformErrorDialog(
           error: error,
           title: title,
           suffixMessage: suffixMessage,
@@ -185,7 +185,7 @@ Future<void> showAdaptiveErrorDialog({
       ),
     AdaptivePlatformType.cupertino => showCupertinoDialog(
         context: context,
-        builder: (context) => AdaptiveErrorDialog(
+        builder: (context) => PlatformErrorDialog(
           error: error,
           title: title,
           suffixMessage: suffixMessage,
@@ -195,7 +195,7 @@ Future<void> showAdaptiveErrorDialog({
       ),
     AdaptivePlatformType.material => showDialog(
         context: context,
-        builder: (context) => AdaptiveErrorDialog(
+        builder: (context) => PlatformErrorDialog(
           error: error,
           title: title,
           suffixMessage: suffixMessage,

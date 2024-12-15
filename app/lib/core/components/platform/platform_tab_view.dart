@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AdaptiveTabItem {
-  const AdaptiveTabItem({
+class PlatformTabItem {
+  const PlatformTabItem({
     required this.label,
     required this.icon,
     this.selectedIcon,
@@ -17,8 +17,8 @@ class AdaptiveTabItem {
   final IconData? selectedIcon;
 }
 
-class AdaptiveTabView extends HookWidget {
-  const AdaptiveTabView({
+class PlatformTabView extends HookWidget {
+  const PlatformTabView({
     required this.tabs,
     required this.children,
     super.key,
@@ -26,7 +26,7 @@ class AdaptiveTabView extends HookWidget {
     this.initialIndex = 0,
   }) : assert(tabs.length == children.length, 'タブとコンテンツの数が一致しません');
 
-  final List<AdaptiveTabItem> tabs;
+  final List<PlatformTabItem> tabs;
   final List<Widget> children;
   final int initialIndex;
   final AdaptivePlatformType? platformOverride;

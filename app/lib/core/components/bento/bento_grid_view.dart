@@ -32,8 +32,8 @@ class BentoGridItem {
   final String id;
 }
 
-class AdaptiveBentoGridView extends HookWidget {
-  const AdaptiveBentoGridView({
+class BentoGridView extends HookWidget {
+  const BentoGridView({
     required this.items,
     super.key,
     this.spacing = 8.0,

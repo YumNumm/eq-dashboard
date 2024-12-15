@@ -1,4 +1,4 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_disclosure_page.dart';
+import 'package:eqdashboard/core/components/platform/platform_disclosure_page.dart';
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +22,7 @@ class SettingsDisclosurePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveDisclosurePage(
+    return PlatformDisclosurePage(
       title: '設定',
       disclosureItems: HomePage.navigationItems
           .firstWhere((e) => e.path.startsWith('/settings'))

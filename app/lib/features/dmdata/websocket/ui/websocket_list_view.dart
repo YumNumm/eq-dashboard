@@ -1,7 +1,6 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_error_card.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_list_tile.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_progress_indicator.dart';
-import 'package:eqdashboard/features/auth/notifier/contract_list_provider.dart';
+import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
+import 'package:eqdashboard/core/components/platform/platform_list_tile.dart';
+import 'package:eqdashboard/core/components/platform/platform_progress_indicator.dart';
 import 'package:eqdashboard/features/dmdata/websocket/notifier/websocket_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,7 +19,7 @@ class WebSocketListView extends HookConsumerWidget {
         itemCount: result.length,
         itemBuilder: (context, index) {
           final websocket = result[index];
-          return AdaptiveListTile(
+          return PlatformListTile(
             title: Text(
               websocket.appName ?? '',
             ),
@@ -43,10 +42,10 @@ class WebSocketListView extends HookConsumerWidget {
         },
       ),
       loading: () => const Center(
-        child: AdaptiveProgressIndicator(),
+        child: PlatformProgressIndicator(),
       ),
       error: (error, stack) => Center(
-        child: AdaptiveErrorCard.provider(
+        child: PlatformErrorCard.provider(
           error: error,
           provider: webSocketOpenedListProvider,
         ),

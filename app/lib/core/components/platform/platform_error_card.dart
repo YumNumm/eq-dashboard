@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_button.dart';
+import 'package:eqdashboard/core/components/platform/platform_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AdaptiveErrorCard extends StatelessWidget {
-  const AdaptiveErrorCard({
+class PlatformErrorCard extends StatelessWidget {
+  const PlatformErrorCard({
     required this.error,
     super.key,
     this.onRetry,
@@ -19,7 +19,7 @@ class AdaptiveErrorCard extends StatelessWidget {
   }) =>
       Consumer(
         builder: (context, ref, _) {
-          return AdaptiveErrorCard(
+          return PlatformErrorCard(
             error: error,
             onRetry: () => ref.invalidate(provider),
             retryText: retryText,
@@ -39,7 +39,7 @@ class AdaptiveErrorCard extends StatelessWidget {
         _buildDefaultErrorWidget(),
         if (onRetry != null) ...[
           const SizedBox(height: 16),
-          AdaptiveButton.filled(
+          PlatformButton.filled(
             onPressed: onRetry,
             child: Text(retryText),
           ),
