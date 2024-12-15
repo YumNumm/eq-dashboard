@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-@JsonEnum(valueField: 'value')
+@JsonEnum(valueField: 'type')
 enum JmaIntensity {
   one('1'),
   two('2'),
@@ -13,19 +13,20 @@ enum JmaIntensity {
   seven('7'),
   unknown('不明'),
   over('over'),
+  fiveUpperNoInput('!5-'),
   ;
 
-  const JmaIntensity(this.value);
+  const JmaIntensity(this.type);
 
   factory JmaIntensity.fromString(String value) =>
       JmaIntensity.values.firstWhere(
-        (e) => e.value == value,
+        (e) => e.type == value,
       );
 
-  final String value;
+  final String type;
 }
 
-@JsonEnum(valueField: 'value')
+@JsonEnum(valueField: 'type')
 enum JmaLgIntensity {
   zero('0'),
   one('1'),
@@ -36,10 +37,10 @@ enum JmaLgIntensity {
   over('over'),
   ;
 
-  const JmaLgIntensity(this.value);
+  const JmaLgIntensity(this.type);
 
   factory JmaLgIntensity.fromString(String value) =>
-      JmaLgIntensity.values.firstWhere((e) => e.value == value);
+      JmaLgIntensity.values.firstWhere((e) => e.type == value);
 
-  final String value;
+  final String type;
 }

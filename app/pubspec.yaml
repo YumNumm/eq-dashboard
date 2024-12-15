@@ -27,6 +27,7 @@ dependencies:
   intl: ^0.20.1
   json_annotation: ^4.9.0
   macos_ui: ^2.0.9
+  ntp: ^2.0.0
   riverpod_annotation: ^2.6.1
   shared_preferences: ^2.3.3
   synchronized: ^3.3.0+3
@@ -38,6 +39,7 @@ dev_dependencies:
   custom_lint: ^0.7.0
   eqdashboard_lints:
     path: ../packages/eqdashboard_lints
+  flutter_gen_runner: ^5.8.0
   flutter_lints: ^5.0.0
   freezed: ^2.5.7
   go_router_builder: ^2.7.1
@@ -49,3 +51,22 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: NotoSansJP
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansJP-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NotoSansJP-Black.ttf
+          weight: 900
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-ExtraBold.ttf
+          weight: 900
+
+flutter_gen:
+  output: lib/core/gen/
+  line_length: 80

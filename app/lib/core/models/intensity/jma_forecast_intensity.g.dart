@@ -43,4 +43,5 @@ const _$JmaIntensityEnumMap = {
   JmaIntensity.seven: '7',
   JmaIntensity.unknown: '不明',
   JmaIntensity.over: 'over',
+  JmaIntensity.fiveUpperNoInput: '!5-',
 };

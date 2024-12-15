@@ -1,6 +1,7 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
 import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
 import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
+import 'package:eqdashboard/features/eew/ui/eew_alive/eew_alive_bento_card.dart';
 import 'package:eqdashboard/features/eew/ui/eew_list_bento_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,13 +11,20 @@ class PageOne extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = useState<List<BentoGridItem>>([
-      const BentoGridItem(
-        id: '1',
-        size: BentoGridSize.xLarge,
-        child: EewListBentoCard(),
-      ),
-    ]);
+    final items = useState<List<BentoGridItem>>(
+      [
+        const BentoGridItem(
+          id: '1',
+          size: BentoGridSize.xLarge,
+          child: EewListBentoCard(),
+        ),
+        const BentoGridItem(
+          id: '2',
+          size: BentoGridSize.xLarge,
+          child: EewAliveBentoCard(),
+        ),
+      ],
+    );
 
     void onItemsReordered(List<BentoGridItem> newItems) {
       items.value = newItems;

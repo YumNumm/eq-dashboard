@@ -32,6 +32,16 @@ class PlatformApp extends StatelessWidget {
       ThemeMode.system => MediaQuery.platformBrightnessOf(context),
     };
 
+    final materialLightTheme = ThemeData.light(useMaterial3: true).copyWith(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+    );
+    final materialDarkTheme = ThemeData.dark(useMaterial3: true).copyWith(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blueAccent,
+        brightness: Brightness.dark,
+      ),
+    );
+
     const localizationsDelegates = [
       DefaultMaterialLocalizations.delegate,
       DefaultCupertinoLocalizations.delegate,
@@ -62,8 +72,8 @@ class PlatformApp extends StatelessWidget {
       AdaptivePlatformType.material => MaterialApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: theme ?? ThemeData.light(useMaterial3: true),
-          darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
+          theme: materialLightTheme,
+          darkTheme: materialDarkTheme,
           themeMode: effectiveThemeMode,
           localizationsDelegates: localizationsDelegates,
         ),
@@ -71,10 +81,11 @@ class PlatformApp extends StatelessWidget {
 
     // inject MaterialTheme
     if (platform != AdaptivePlatformType.material) {
+      print('inject MaterialTheme: $brightness');
       return Theme(
         data: brightness == Brightness.light
-            ? ThemeData.light(useMaterial3: true)
-            : ThemeData.dark(useMaterial3: true),
+            ? materialLightTheme
+            : materialDarkTheme,
         child: app,
       );
     }
