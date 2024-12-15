@@ -1,6 +1,6 @@
 import 'package:eqdashboard/core/components/platform/platform_root_scaffold.dart';
 import 'package:eqdashboard/core/router/router.dart';
-import 'package:eqdashboard/pages/settings/children/display_settings_route.dart';
+import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +32,9 @@ class HomePage extends StatelessWidget {
           icon: Icons.settings_applications,
         ),
         NavigationItem(
-          label: 'プラットフォーム選択',
+          label: '表示設定',
           path: const DisplaysettingsRoute().location,
-          icon: Icons.settings_applications,
+          icon: Icons.display_settings,
         ),
       ];
 

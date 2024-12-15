@@ -3,7 +3,7 @@
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
-import 'package:eqdashboard/pages/settings/children/display_settings_route.dart';
+import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/foundation.dart';
