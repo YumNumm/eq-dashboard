@@ -197,8 +197,8 @@ _$EewIntensityImpl _$$EewIntensityImplFromJson(Map<String, dynamic> json) =>
               (v) => ForecastMaxInt.fromJson(v as Map<String, dynamic>)),
           regions: $checkedConvert(
               'regions',
-              (v) => (v as List<dynamic>)
-                  .map((e) =>
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) =>
                       EewIntensityRegion.fromJson(e as Map<String, dynamic>))
                   .toList()),
           forecastMaxLgInt: $checkedConvert(

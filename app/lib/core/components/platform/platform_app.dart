@@ -1,4 +1,5 @@
 import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
+import 'package:eqdashboard/core/theme/platform_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,7 @@ class PlatformApp extends StatelessWidget {
     this.platformOverride,
     this.theme,
     this.darkTheme,
+    this.platformTheme,
     this.themeMode,
   });
 
@@ -20,6 +22,7 @@ class PlatformApp extends StatelessWidget {
   final AdaptivePlatformType? platformOverride;
   final ThemeData? theme;
   final ThemeData? darkTheme;
+  final PlatformTheme? platformTheme;
   final ThemeMode? themeMode;
 
   @override
@@ -32,30 +35,29 @@ class PlatformApp extends StatelessWidget {
       ThemeMode.system => MediaQuery.platformBrightnessOf(context),
     };
 
+    final effectivePlatformTheme = platformTheme ??
+        (brightness == Brightness.light
+            ? PlatformTheme.light
+            : PlatformTheme.dark);
+
     return switch (platform) {
       AdaptivePlatformType.macos => MacosApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: MacosThemeData.light(),
-          darkTheme: MacosThemeData.dark(),
+          theme: effectivePlatformTheme.toMacosTheme(),
+          darkTheme: PlatformTheme.dark.toMacosTheme(),
           themeMode: effectiveThemeMode,
         ),
       AdaptivePlatformType.cupertino => CupertinoApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: CupertinoThemeData(
-            brightness: brightness,
-            primaryColor: theme?.primaryColor ??
-                (brightness == Brightness.light
-                    ? CupertinoColors.systemBlue
-                    : CupertinoColors.systemBlue.darkColor),
-          ),
+          theme: effectivePlatformTheme.toCupertinoTheme(),
         ),
       AdaptivePlatformType.material => MaterialApp.router(
           routerConfig: routerConfig,
           title: title,
-          theme: theme ?? ThemeData.light(useMaterial3: true),
-          darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
+          theme: theme ?? effectivePlatformTheme.toMaterialTheme(),
+          darkTheme: darkTheme ?? PlatformTheme.dark.toMaterialTheme(),
           themeMode: effectiveThemeMode,
         ),
     };

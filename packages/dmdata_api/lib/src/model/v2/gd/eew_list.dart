@@ -173,7 +173,7 @@ class EewIntensity with _$EewIntensity {
     required ForecastMaxInt forecastMaxInt,
 
     /// 細分化地域内における予想
-    required List<EewIntensityRegion> regions,
+    required List<EewIntensityRegion>? regions,
 
     /// 最大予測長周期地震動階級
     /// VXSE43、VXSE45時のみで震源の深さが150km以下の時出現

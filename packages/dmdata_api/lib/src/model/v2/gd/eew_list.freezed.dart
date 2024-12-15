@@ -1852,7 +1852,7 @@ mixin _$EewIntensity {
   ForecastMaxInt get forecastMaxInt => throw _privateConstructorUsedError;
 
   /// 細分化地域内における予想
-  List<EewIntensityRegion> get regions => throw _privateConstructorUsedError;
+  List<EewIntensityRegion>? get regions => throw _privateConstructorUsedError;
 
   /// 最大予測長周期地震動階級
   /// VXSE43、VXSE45時のみで震源の深さが150km以下の時出現
@@ -1879,7 +1879,7 @@ abstract class $EewIntensityCopyWith<$Res> {
   @useResult
   $Res call(
       {ForecastMaxInt forecastMaxInt,
-      List<EewIntensityRegion> regions,
+      List<EewIntensityRegion>? regions,
       ForecastMaxLgInt? forecastMaxLgInt,
       EewIntensityAppendix? appendix});
 
@@ -1904,7 +1904,7 @@ class _$EewIntensityCopyWithImpl<$Res, $Val extends EewIntensity>
   @override
   $Res call({
     Object? forecastMaxInt = null,
-    Object? regions = null,
+    Object? regions = freezed,
     Object? forecastMaxLgInt = freezed,
     Object? appendix = freezed,
   }) {
@@ -1913,10 +1913,10 @@ class _$EewIntensityCopyWithImpl<$Res, $Val extends EewIntensity>
           ? _value.forecastMaxInt
           : forecastMaxInt // ignore: cast_nullable_to_non_nullable
               as ForecastMaxInt,
-      regions: null == regions
+      regions: freezed == regions
           ? _value.regions
           : regions // ignore: cast_nullable_to_non_nullable
-              as List<EewIntensityRegion>,
+              as List<EewIntensityRegion>?,
       forecastMaxLgInt: freezed == forecastMaxLgInt
           ? _value.forecastMaxLgInt
           : forecastMaxLgInt // ignore: cast_nullable_to_non_nullable
@@ -1977,7 +1977,7 @@ abstract class _$$EewIntensityImplCopyWith<$Res>
   @useResult
   $Res call(
       {ForecastMaxInt forecastMaxInt,
-      List<EewIntensityRegion> regions,
+      List<EewIntensityRegion>? regions,
       ForecastMaxLgInt? forecastMaxLgInt,
       EewIntensityAppendix? appendix});
 
@@ -2003,7 +2003,7 @@ class __$$EewIntensityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? forecastMaxInt = null,
-    Object? regions = null,
+    Object? regions = freezed,
     Object? forecastMaxLgInt = freezed,
     Object? appendix = freezed,
   }) {
@@ -2012,10 +2012,10 @@ class __$$EewIntensityImplCopyWithImpl<$Res>
           ? _value.forecastMaxInt
           : forecastMaxInt // ignore: cast_nullable_to_non_nullable
               as ForecastMaxInt,
-      regions: null == regions
+      regions: freezed == regions
           ? _value._regions
           : regions // ignore: cast_nullable_to_non_nullable
-              as List<EewIntensityRegion>,
+              as List<EewIntensityRegion>?,
       forecastMaxLgInt: freezed == forecastMaxLgInt
           ? _value.forecastMaxLgInt
           : forecastMaxLgInt // ignore: cast_nullable_to_non_nullable
@@ -2033,7 +2033,7 @@ class __$$EewIntensityImplCopyWithImpl<$Res>
 class _$EewIntensityImpl implements _EewIntensity {
   const _$EewIntensityImpl(
       {required this.forecastMaxInt,
-      required final List<EewIntensityRegion> regions,
+      required final List<EewIntensityRegion>? regions,
       this.forecastMaxLgInt,
       this.appendix})
       : _regions = regions;
@@ -2046,14 +2046,16 @@ class _$EewIntensityImpl implements _EewIntensity {
   final ForecastMaxInt forecastMaxInt;
 
   /// 細分化地域内における予想
-  final List<EewIntensityRegion> _regions;
+  final List<EewIntensityRegion>? _regions;
 
   /// 細分化地域内における予想
   @override
-  List<EewIntensityRegion> get regions {
+  List<EewIntensityRegion>? get regions {
+    final value = _regions;
+    if (value == null) return null;
     if (_regions is EqualUnmodifiableListView) return _regions;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_regions);
+    return EqualUnmodifiableListView(value);
   }
 
   /// 最大予測長周期地震動階級
@@ -2112,7 +2114,7 @@ class _$EewIntensityImpl implements _EewIntensity {
 abstract class _EewIntensity implements EewIntensity {
   const factory _EewIntensity(
       {required final ForecastMaxInt forecastMaxInt,
-      required final List<EewIntensityRegion> regions,
+      required final List<EewIntensityRegion>? regions,
       final ForecastMaxLgInt? forecastMaxLgInt,
       final EewIntensityAppendix? appendix}) = _$EewIntensityImpl;
 
@@ -2125,7 +2127,7 @@ abstract class _EewIntensity implements EewIntensity {
 
   /// 細分化地域内における予想
   @override
-  List<EewIntensityRegion> get regions;
+  List<EewIntensityRegion>? get regions;
 
   /// 最大予測長周期地震動階級
   /// VXSE43、VXSE45時のみで震源の深さが150km以下の時出現

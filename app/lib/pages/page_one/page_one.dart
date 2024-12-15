@@ -1,6 +1,7 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
 import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
 import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
+import 'package:eqdashboard/features/eew/ui/eew_list_bento_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -12,35 +13,8 @@ class PageOne extends HookWidget {
     final items = useState<List<BentoGridItem>>([
       const BentoGridItem(
         id: '1',
-        size: BentoGridSize.small,
-        child: ColoredBox(
-          color: Colors.red,
-          child: Center(child: Text('1')),
-        ),
-      ),
-      const BentoGridItem(
-        id: '2',
-        size: BentoGridSize.medium,
-        child: ColoredBox(
-          color: Colors.blue,
-          child: Center(child: Text('2')),
-        ),
-      ),
-      const BentoGridItem(
-        id: '3',
-        size: BentoGridSize.large,
-        child: ColoredBox(
-          color: Colors.green,
-          child: Center(child: Text('3')),
-        ),
-      ),
-      const BentoGridItem(
-        id: '4',
         size: BentoGridSize.xLarge,
-        child: ColoredBox(
-          color: Colors.indigo,
-          child: Center(child: Text('4')),
-        ),
+        child: EewListBentoCard(),
       ),
     ]);
 
