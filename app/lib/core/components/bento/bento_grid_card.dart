@@ -14,8 +14,6 @@ class BentoGridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Column(

@@ -32,6 +32,12 @@ class PlatformApp extends StatelessWidget {
       ThemeMode.system => MediaQuery.platformBrightnessOf(context),
     };
 
+    const localizationsDelegates = [
+      DefaultMaterialLocalizations.delegate,
+      DefaultCupertinoLocalizations.delegate,
+      DefaultWidgetsLocalizations.delegate,
+    ];
+
     final app = switch (platform) {
       AdaptivePlatformType.macos => MacosApp.router(
           routerConfig: routerConfig,
@@ -39,6 +45,7 @@ class PlatformApp extends StatelessWidget {
           theme: MacosThemeData.light(),
           darkTheme: MacosThemeData.dark(),
           themeMode: effectiveThemeMode,
+          localizationsDelegates: localizationsDelegates,
         ),
       AdaptivePlatformType.cupertino => CupertinoApp.router(
           routerConfig: routerConfig,
@@ -50,6 +57,7 @@ class PlatformApp extends StatelessWidget {
                     ? CupertinoColors.systemBlue
                     : CupertinoColors.systemBlue.darkColor),
           ),
+          localizationsDelegates: localizationsDelegates,
         ),
       AdaptivePlatformType.material => MaterialApp.router(
           routerConfig: routerConfig,
@@ -57,6 +65,7 @@ class PlatformApp extends StatelessWidget {
           theme: theme ?? ThemeData.light(useMaterial3: true),
           darkTheme: darkTheme ?? ThemeData.dark(useMaterial3: true),
           themeMode: effectiveThemeMode,
+          localizationsDelegates: localizationsDelegates,
         ),
     };
 

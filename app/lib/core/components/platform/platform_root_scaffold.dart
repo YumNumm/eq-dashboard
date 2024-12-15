@@ -1,4 +1,6 @@
+import 'package:cupertino_sidebar/cupertino_sidebar.dart';
 import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/screen_size.dart';
 import 'package:eqdashboard/core/router/router.dart';
 import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
@@ -8,7 +10,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:eqdashboard/core/components/platform/screen_size.dart';
 
 class NavigationItem {
   const NavigationItem({
@@ -148,8 +149,51 @@ class PlatformRootScaffold extends HookConsumerWidget {
     int selectedIndex,
     void Function(int) onItemSelected,
   ) {
+    final screenSize = ScreenSize.of(context);
+    final isCompact = screenSize == ScreenSizeType.compact;
     final currentIndex = selectedIndex;
 
+    if (!isCompact) {
+      return CupertinoPageScaffold(
+        child: Stack(
+          children: [
+            SafeArea(
+              child: child,
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: SafeArea(
+                child: DefaultTabController(
+                  length: items.length,
+                  child: Builder(
+                    builder: (context) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: CupertinoFloatingTabBar(
+                          isVibrant: true,
+                          onDestinationSelected: onItemSelected,
+                          tabs: [
+                            for (var i = 0; i < items.length; i++)
+                              CupertinoFloatingTab(
+                                child: Text(
+                                  items[i].label,
+                                  style: const TextStyle(),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // コンパクトサイズの場合は従来のタブバー方式を使用
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: [
@@ -165,13 +209,8 @@ class PlatformRootScaffold extends HookConsumerWidget {
       ),
       tabBuilder: (context, index) {
         final item = items[index];
-        return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: Text(item.label),
-          ),
-          child: SafeArea(
-            child: index == currentIndex ? child : const SizedBox(),
-          ),
+        return SafeArea(
+          child: index == currentIndex ? child : const SizedBox(),
         );
       },
     );
@@ -189,34 +228,38 @@ class PlatformRootScaffold extends HookConsumerWidget {
       appBar: AppBar(
         title: title,
       ),
-      bottomNavigationBar: isCompact ? BottomNavigationBar(
-        items: [
-          for (final item in items)
-            BottomNavigationBarItem(
-              icon: Icon(item.icon ?? Icons.circle),
-              activeIcon: Icon(item.selectedIcon ?? item.icon ?? Icons.circle),
-              label: item.label,
-            ),
-        ],
-        currentIndex: selectedIndex,
-        onTap: onItemSelected,
-      ) : null,
+      bottomNavigationBar: isCompact
+          ? BottomNavigationBar(
+              items: [
+                for (final item in items)
+                  BottomNavigationBarItem(
+                    icon: Icon(item.icon ?? Icons.circle),
+                    activeIcon:
+                        Icon(item.selectedIcon ?? item.icon ?? Icons.circle),
+                    label: item.label,
+                  ),
+              ],
+              currentIndex: selectedIndex,
+              onTap: onItemSelected,
+            )
+          : null,
       body: Row(
         children: [
-          if (!isCompact) NavigationRail(
-            extended: screenSize == ScreenSizeType.expanded,
-            destinations: [
-              for (final item in items)
-                NavigationRailDestination(
-                  icon: Icon(item.icon ?? Icons.circle),
-                  selectedIcon:
-                      Icon(item.selectedIcon ?? item.icon ?? Icons.circle),
-                  label: Text(item.label),
-                ),
-            ],
-            selectedIndex: selectedIndex,
-            onDestinationSelected: onItemSelected,
-          ),
+          if (!isCompact)
+            NavigationRail(
+              extended: screenSize == ScreenSizeType.expanded,
+              destinations: [
+                for (final item in items)
+                  NavigationRailDestination(
+                    icon: Icon(item.icon ?? Icons.circle),
+                    selectedIcon:
+                        Icon(item.selectedIcon ?? item.icon ?? Icons.circle),
+                    label: Text(item.label),
+                  ),
+              ],
+              selectedIndex: selectedIndex,
+              onDestinationSelected: onItemSelected,
+            ),
           Expanded(child: child),
         ],
       ),

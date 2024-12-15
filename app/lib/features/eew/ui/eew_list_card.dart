@@ -3,6 +3,19 @@ import 'package:eqdashboard/features/eew/data/model/eew_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+enum _EewDisplayTimeType {
+  originTime,
+  detectionTime,
+  updatedAt,
+  ;
+
+  String get displayName => switch (this) {
+        originTime => '発生時刻',
+        detectionTime => '検知時刻',
+        updatedAt => '最終更新',
+      };
+}
+
 class EewListCard extends StatelessWidget {
   const EewListCard({
     required this.item,
@@ -14,11 +27,37 @@ class EewListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final dateFormat = DateFormat('MM/dd HH:mm:ss');
+
+    final cardColor = item.isCanceled
+        ? Colors.red.withValues(alpha: 0.1)
+        : (item.isWarning ?? false)
+            ? Colors.red.withValues(alpha: 0.2)
+            : Colors.grey.withValues(alpha: 0.1);
+
+    final displayTime = switch ((
+      item.earthquake?.originTime,
+      item.earthquake?.detectionTime,
+      item.updatedAt
+    )) {
+      (final DateTime originTime, _, _) => (
+          _EewDisplayTimeType.originTime,
+          originTime
+        ),
+      (_, final DateTime detectionTime, _) => (
+          _EewDisplayTimeType.detectionTime,
+          detectionTime
+        ),
+      (_, _, final DateTime updatedAt) => (
+          _EewDisplayTimeType.updatedAt,
+          updatedAt
+        ),
+    };
 
     return Card(
       margin: EdgeInsets.zero,
-      color: _getCardColor(item),
+      color: cardColor,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -28,18 +67,24 @@ class EewListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  dateFormat.format(item.updatedAt),
-                  style: theme.textTheme.bodySmall,
+                  '${displayTime.$1.displayName}: '
+                  '${dateFormat.format(displayTime.$2.toLocal())}',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 if (item.isCanceled)
-                  const Chip(
-                    label: Text('キャンセル'),
-                    backgroundColor: Colors.red,
+                  Chip(
+                    label: const Text('キャンセル報'),
+                    labelStyle: TextStyle(color: colorScheme.onErrorContainer),
+                    backgroundColor: colorScheme.errorContainer,
                   )
                 else if (item.isLastReport)
-                  const Chip(
-                    label: Text('最終報'),
-                    backgroundColor: Colors.grey,
+                  Chip(
+                    label: const Text('最終報'),
+                    backgroundColor: colorScheme.primaryContainer,
+                    labelStyle:
+                        TextStyle(color: colorScheme.onPrimaryContainer),
                   ),
               ],
             ),
@@ -61,16 +106,6 @@ class EewListCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Color _getCardColor(EewListItem item) {
-    if (item.isCanceled) {
-      return Colors.red.withValues(alpha: 0.1);
-    }
-    if (item.isWarning ?? false) {
-      return Colors.red.withValues(alpha: 0.2);
-    }
-    return Colors.grey.withValues(alpha: 0.1);
   }
 
   Widget _buildEarthquakeInfo(EewEarthquake earthquake, ThemeData theme) {

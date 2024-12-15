@@ -214,6 +214,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  cupertino_sidebar:
+    dependency: "direct main"
+    description:
+      name: cupertino_sidebar
+      sha256: df3ed087b5b86d335f32862f81a84b6f08efc603090349ee21d9630abd9017c6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   custom_lint:
     dependency: "direct dev"
     description:
