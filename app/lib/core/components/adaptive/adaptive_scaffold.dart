@@ -1,3 +1,4 @@
+import 'package:eqdashboard/core/components/adaptive/adaptive_app_bar.dart';
 import 'package:eqdashboard/core/components/adaptive/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class AdaptiveScaffold extends StatelessWidget {
     super.key,
     this.title,
     this.toolBar,
+    this.appBar,
   })  : _sliver = false,
         sliverToolBar = null,
         children = null;
@@ -18,6 +20,7 @@ class AdaptiveScaffold extends StatelessWidget {
     super.key,
     this.title,
     this.sliverToolBar,
+    this.appBar,
   })  : _sliver = true,
         toolBar = null,
         child = null;
@@ -27,6 +30,7 @@ class AdaptiveScaffold extends StatelessWidget {
   final Widget? title;
   final ToolBar? toolBar;
   final SliverToolBar? sliverToolBar;
+  final AdaptiveAppBar? appBar;
   final bool _sliver;
 
   @override
@@ -42,7 +46,7 @@ class AdaptiveScaffold extends StatelessWidget {
 
     return switch (platform) {
       AdaptivePlatformType.macos => MacosScaffold(
-          toolBar: _sliver ? null : toolBar,
+          toolBar: _sliver ? null : appBar?.buildMacos(context),
           children: [
             ContentArea(
               builder: (context, scrollController) {
@@ -71,9 +75,7 @@ class AdaptiveScaffold extends StatelessWidget {
               ],
             )
           : CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                middle: title,
-              ),
+              navigationBar: appBar?.buildCupertino(context),
               child: SafeArea(child: child!),
             ),
       AdaptivePlatformType.material => _sliver
@@ -86,9 +88,7 @@ class AdaptiveScaffold extends StatelessWidget {
               ],
             )
           : Scaffold(
-              appBar: AppBar(
-                title: title,
-              ),
+              appBar: appBar ?? AppBar(title: title),
               body: child,
             ),
     };
