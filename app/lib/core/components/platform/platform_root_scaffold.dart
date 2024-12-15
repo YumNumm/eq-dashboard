@@ -1,6 +1,6 @@
 import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:eqdashboard/core/router/router.dart';
-import 'package:eqdashboard/pages/settings/children/platform_selector_screen.dart';
+import 'package:eqdashboard/pages/settings/children/display_settings_route.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,8 +73,7 @@ class PlatformRootScaffold extends HookConsumerWidget {
     ref.listen(adaptivePlatformProvider, (_, next) {
       final routes = getRouteList(next);
       final currentRouteLocation = switch (next) {
-        AdaptivePlatformType.macos =>
-          const PlatformSelectorRouteData().location,
+        AdaptivePlatformType.macos => const DisplaysettingsRoute().location,
         AdaptivePlatformType.cupertino ||
         AdaptivePlatformType.material =>
           const SettingsDisclosurePageRoute().location,
@@ -114,7 +113,7 @@ class PlatformRootScaffold extends HookConsumerWidget {
 
     return MacosWindow(
       sidebar: Sidebar(
-        minWidth: 150,
+        minWidth: 200,
         builder: (context, scrollController) {
           return SidebarItems(
             currentIndex: selectedIndex,

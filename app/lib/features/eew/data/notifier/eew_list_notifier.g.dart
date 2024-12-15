@@ -8,7 +8,7 @@ part of 'eew_list_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eewListNotifierHash() => r'2bbbfd78850f2f199fe692b1e2082ef1fbc2c38c';
+String _$eewListNotifierHash() => r'1586b3fd2e88f381ed23079f8f941a4c61b74722';
 
 /// See also [EewListNotifier].
 @ProviderFor(EewListNotifier)

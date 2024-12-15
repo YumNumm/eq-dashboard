@@ -9,27 +9,21 @@ class PlatformScaffold extends StatelessWidget {
     required this.child,
     super.key,
     this.title,
-    this.toolBar,
     this.appBar,
   })  : _sliver = false,
-        sliverToolBar = null,
         children = null;
 
   const PlatformScaffold.sliver({
     required this.children,
     super.key,
     this.title,
-    this.sliverToolBar,
     this.appBar,
   })  : _sliver = true,
-        toolBar = null,
         child = null;
 
   final Widget? child;
   final List<Widget>? children;
   final Widget? title;
-  final ToolBar? toolBar;
-  final SliverToolBar? sliverToolBar;
   final PlatformAppBar? appBar;
   final bool _sliver;
 
@@ -54,7 +48,7 @@ class PlatformScaffold extends StatelessWidget {
                   return CustomScrollView(
                     controller: scrollController,
                     slivers: [
-                      if (sliverToolBar != null) sliverToolBar!,
+                      if (appBar != null) appBar!.buildMacos(context),
                       ...children!,
                     ],
                   );

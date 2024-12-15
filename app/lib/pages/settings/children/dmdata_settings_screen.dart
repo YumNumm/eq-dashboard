@@ -1,6 +1,7 @@
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
 import 'package:eqdashboard/core/components/app_icon.dart';
 import 'package:eqdashboard/core/components/platform/platform_alert_dialog.dart';
+import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
 import 'package:eqdashboard/core/components/platform/platform_button.dart';
 import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
 import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
@@ -36,10 +37,8 @@ class DmdataSettingsScreen extends ConsumerWidget {
 
     return PlatformScaffold(
       title: const Text('Project DM-D.S.S 設定'),
-      toolBar: const ToolBar(
+      appBar: const PlatformAppBar(
         title: Text('Project DM-D.S.S 設定'),
-        enableBlur: true,
-        titleWidth: double.infinity,
       ),
       child: authState.when(
         data: (state) => const _DmdataSettingsContent(),

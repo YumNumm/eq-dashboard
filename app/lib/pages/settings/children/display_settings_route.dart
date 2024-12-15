@@ -1,35 +1,33 @@
 import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
+import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
 import 'package:eqdashboard/core/components/platform/platform_button.dart';
 import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:macos_ui/macos_ui.dart';
 
-class PlatformSelectorRouteData extends GoRouteData {
-  const PlatformSelectorRouteData();
+class DisplaysettingsRoute extends GoRouteData {
+  const DisplaysettingsRoute();
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NoTransitionPage(
-      child: PlatformSelectorScreen(),
+      child: DisplaySettingsRoute(),
     );
   }
 }
 
-class PlatformSelectorScreen extends HookConsumerWidget {
-  const PlatformSelectorScreen({super.key});
+class DisplaySettingsRoute extends HookConsumerWidget {
+  const DisplaySettingsRoute({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentPlatform = ref.watch(adaptivePlatformProvider);
 
     return PlatformScaffold(
-      title: const Text('プラットフォーム設定'),
-      toolBar: const ToolBar(
-        title: Text('プラットフォーム設定'),
-        enableBlur: true,
-        titleWidth: double.infinity,
+      title: const Text('表示設定'),
+      appBar: const PlatformAppBar(
+        title: Text('表示設定'),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20),
