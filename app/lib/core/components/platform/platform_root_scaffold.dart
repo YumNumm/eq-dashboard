@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'package:eqdashboard/core/components/platform/screen_size.dart';
 
 class NavigationItem {
   const NavigationItem({
@@ -181,14 +182,29 @@ class PlatformRootScaffold extends HookConsumerWidget {
     int selectedIndex,
     void Function(int) onItemSelected,
   ) {
+    final screenSize = ScreenSize.of(context);
+    final isCompact = screenSize == ScreenSizeType.compact;
+
     return Scaffold(
       appBar: AppBar(
         title: title,
       ),
+      bottomNavigationBar: isCompact ? BottomNavigationBar(
+        items: [
+          for (final item in items)
+            BottomNavigationBarItem(
+              icon: Icon(item.icon ?? Icons.circle),
+              activeIcon: Icon(item.selectedIcon ?? item.icon ?? Icons.circle),
+              label: item.label,
+            ),
+        ],
+        currentIndex: selectedIndex,
+        onTap: onItemSelected,
+      ) : null,
       body: Row(
         children: [
-          NavigationRail(
-            extended: true,
+          if (!isCompact) NavigationRail(
+            extended: screenSize == ScreenSizeType.expanded,
             destinations: [
               for (final item in items)
                 NavigationRailDestination(
