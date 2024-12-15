@@ -47,7 +47,7 @@ abstract class DmdataOauthApiClient {
     @Field('client_id') required String clientId,
 
     /// リフレッシュトークンフローでは、`refresh_token`を指定する必要があります。
-    @Field('grant_type') required OAuthGrantType grantType,
+    @Field('grant_type') required String grantType,
 
     /// 認可コード要求で取得した`ARh.`で始まるリフレッシュトークン。
     @Field('refresh_token') required String refreshToken,

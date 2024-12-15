@@ -32,6 +32,7 @@ class ContractListView extends HookConsumerWidget {
                 _buildInfoRow('接続数', '${contract.connectionCounts}接続'),
               ],
             ),
+            trailing: _buildContractIsValid(contract.isValid),
           );
         },
       ),
@@ -62,9 +63,30 @@ class ContractListView extends HookConsumerWidget {
               ),
             ),
           ),
-          Text(value),
+          Flexible(child: Text(value)),
         ],
       ),
     );
+  }
+
+  Widget _buildContractIsValid(bool isValid) {
+    return switch (isValid) {
+      true => const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.check),
+            SizedBox(width: 4),
+            Text('有効'),
+          ],
+        ),
+      false => const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.close),
+            SizedBox(width: 4),
+            Text('無効'),
+          ],
+        ),
+    };
   }
 }

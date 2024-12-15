@@ -76,7 +76,14 @@ class AdaptiveTabView extends HookWidget {
             currentIndex: currentIndex.value,
             onTap: (index) => currentIndex.value = index,
           ),
-          tabBuilder: (context, index) => children[index],
+          tabBuilder: (context, index) => Column(
+            children: [
+              Expanded(
+                child: children[index],
+              ),
+              const SizedBox(height: kToolbarHeight),
+            ],
+          ),
         ),
       AdaptivePlatformType.material => Column(
           children: [

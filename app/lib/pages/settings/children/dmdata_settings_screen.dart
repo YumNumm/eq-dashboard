@@ -8,6 +8,7 @@ import 'package:eqdashboard/core/components/app_icon.dart';
 import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
 import 'package:eqdashboard/features/dmdata/contract/ui/contract_list_view.dart';
+import 'package:eqdashboard/features/dmdata/contract/ui/websocket_avaiable_count_view.dart';
 import 'package:eqdashboard/features/dmdata/websocket/ui/websocket_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -164,12 +165,19 @@ class _UserInfoSection extends ConsumerWidget {
                 icon: Icons.web,
               ),
               AdaptiveTabItem(
-                label: 'Contract',
+                label: '契約状況',
                 icon: Icons.person,
               ),
             ],
             children: const [
-              WebSocketListView(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 16),
+                  WebsocketAvailableCountView(),
+                  Expanded(child: WebSocketListView()),
+                ],
+              ),
               ContractListView(),
             ],
           ),

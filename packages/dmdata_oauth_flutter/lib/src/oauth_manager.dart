@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
 import 'package:dmdata_oauth_flutter/src/model/oauth_config.dart';
 import 'package:dmdata_oauth_flutter/src/model/oauth_state.dart';
@@ -124,39 +126,56 @@ class OAuthManager {
   }
 
   /// アクセストークンをリフレッシュ
+  /// throws `OAuthException`
   Future<OAuthState> refreshToken() async {
-    final currentState = await _storage.load();
-    if (currentState?.refreshToken == null) {
-      throw Exception('リフレッシュトークンがありません');
+    try {
+      final currentState = await _storage.load();
+      if (currentState?.refreshToken == null) {
+        throw Exception('リフレッシュトークンがありません');
+      }
+
+      // リフレッシュトークンの有効期限が切れている場合は例外を返す
+      if (currentState!.refreshTokenExpiresAt.isBefore(DateTime.now())) {
+        throw OAuthRefreshTokenExpiredException();
+      }
+
+      final response = await _client.refreshToken(
+        clientId: _config.clientId,
+        clientSecret: _config.clientSecret,
+        grantType: OAuthGrantType.refreshToken.value,
+        refreshToken: currentState.refreshToken,
+      );
+
+      final state = OAuthState(
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken ?? currentState.refreshToken,
+        expiresAt: DateTime.now().add(
+          Duration(seconds: response.expiresIn),
+        ),
+        refreshTokenExpiresAt: DateTime.now().add(
+          const Duration(days: 183), // リフレッシュトークンの有効期限は183日
+        ),
+        scopes: response.scope?.split(' ') ?? currentState.scopes,
+      );
+
+      await _storage.save(state);
+      _stateController.add(state);
+      return state;
+    } on DioException catch (e) {
+      final data = e.response?.data;
+      if (data != null && data is Map<String, dynamic>) {
+        final error = OAuthErrorResponse.fromJson(data);
+        throw OAuthErrorResponseException(
+          error: error.error,
+          errorDescription: error.errorDescription,
+        );
+      }
+      log(
+        'OAuthRefreshException: ${e.response?.data}',
+        name: 'OAuthManager',
+      );
+      rethrow;
     }
-
-    // リフレッシュトークンの有効期限が切れている場合は例外を返す
-    if (currentState!.refreshTokenExpiresAt.isBefore(DateTime.now())) {
-      throw OAuthRefreshTokenExpiredException();
-    }
-
-    final response = await _client.refreshToken(
-      clientId: _config.clientId,
-      clientSecret: _config.clientSecret,
-      grantType: OAuthGrantType.refreshToken,
-      refreshToken: currentState.refreshToken,
-    );
-
-    final state = OAuthState(
-      accessToken: response.accessToken,
-      refreshToken: response.refreshToken ?? currentState.refreshToken,
-      expiresAt: DateTime.now().add(
-        Duration(seconds: response.expiresIn),
-      ),
-      refreshTokenExpiresAt: DateTime.now().add(
-        const Duration(days: 183), // リフレッシュトークンの有効期限は183日
-      ),
-      scopes: response.scope?.split(' ') ?? currentState.scopes,
-    );
-
-    await _storage.save(state);
-    _stateController.add(state);
-    return state;
   }
 
   /// 認証状態をクリア
@@ -180,14 +199,23 @@ class OAuthManager {
   }
 }
 
-sealed class OAuthRefreshException implements Exception {
-  OAuthRefreshException({
+sealed class OAuthException implements Exception {
+  OAuthException({
     required this.message,
   });
 
   final String message;
 }
 
-class OAuthRefreshTokenExpiredException extends OAuthRefreshException {
+class OAuthRefreshTokenExpiredException extends OAuthException {
   OAuthRefreshTokenExpiredException() : super(message: 'リフレッシュトークンが切れています');
+}
+
+class OAuthErrorResponseException extends OAuthException {
+  OAuthErrorResponseException({
+    required String error,
+    required this.errorDescription,
+  }) : super(message: error);
+
+  final String? errorDescription;
 }

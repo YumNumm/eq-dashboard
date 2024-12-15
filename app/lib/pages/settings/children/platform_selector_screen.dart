@@ -10,8 +10,10 @@ class PlatformSelectorRouteData extends GoRouteData {
   const PlatformSelectorRouteData();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const PlatformSelectorScreen();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NoTransitionPage(
+      child: PlatformSelectorScreen(),
+    );
   }
 }
 
@@ -35,6 +37,10 @@ class PlatformSelectorScreen extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('表示プラットフォーム'),
+            const SizedBox(height: 16),
+            const Text(
+              '表示するプラットフォームを変更すると、一時的にUIが乱れる場合があります。',
+            ),
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,

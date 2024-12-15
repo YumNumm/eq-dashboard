@@ -24,7 +24,7 @@ final dmdataApiProvider = Provider<DmdataApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef DmdataApiRef = ProviderRef<DmdataApi>;
-String _$dmdataDioHash() => r'5d48717b82e58a7c116acceb8be0d50217b5e689';
+String _$dmdataDioHash() => r'ca204f0c96cdead844e7e03052cd0e797848378a';
 
 /// See also [dmdataDio].
 @ProviderFor(dmdataDio)

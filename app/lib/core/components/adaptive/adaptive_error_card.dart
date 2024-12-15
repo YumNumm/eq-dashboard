@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
 import 'package:eqdashboard/core/components/adaptive/adaptive_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -50,11 +51,26 @@ class AdaptiveErrorCard extends StatelessWidget {
   Widget _buildDefaultErrorWidget() {
     if (error is DioException) {
       final dioError = error as DioException;
-      return Center(
-        child: SelectableText(
-          'エラーが発生しました: ${dioError.response?.data}',
-        ),
-      );
+      if (dioError.response != null) {
+        return Center(
+          child: SelectableText(
+            'エラーが発生しました: ${dioError.response?.data}',
+          ),
+        );
+      }
+      if (dioError.error is OAuthException) {
+        final oauthError = dioError.error! as OAuthException;
+        final message = switch (oauthError) {
+          OAuthErrorResponseException(:final errorDescription) =>
+            errorDescription,
+          OAuthRefreshTokenExpiredException() => 'リフレッシュトークンが有効期限切れです。',
+        };
+        return Center(
+          child: SelectableText(
+            'エラーが発生しました: ${oauthError.message}\n$message',
+          ),
+        );
+      }
     }
     return Center(
       child: SelectableText('エラーが発生しました: $error'),

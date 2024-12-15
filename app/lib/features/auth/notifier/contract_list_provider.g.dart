@@ -8,9 +8,33 @@ part of 'contract_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$contractListHash() => r'70b9b34b86c48aa0bc3049b090daf8555a6162c7';
+String _$availableContractListHash() =>
+    r'a3b985eea5482e8f88393c4c91bfd3cbcccd6b63';
 
-/// See also [contractList].
+/// すべての契約区分を取得する
+///
+/// Copied from [availableContractList].
+@ProviderFor(availableContractList)
+final availableContractListProvider =
+    AutoDisposeFutureProvider<ContractListResponse>.internal(
+  availableContractList,
+  name: r'availableContractListProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$availableContractListHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AvailableContractListRef
+    = AutoDisposeFutureProviderRef<ContractListResponse>;
+String _$contractListHash() => r'07ad979eef21f0a99e645c757109970f77e19526';
+
+/// 契約済みの契約区分を取得する
+///
+/// Copied from [contractList].
 @ProviderFor(contractList)
 final contractListProvider =
     AutoDisposeFutureProvider<ContractListResponse>.internal(
