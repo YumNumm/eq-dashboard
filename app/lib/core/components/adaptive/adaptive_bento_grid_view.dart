@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 enum BentoGridSize {
   small(1, 1), // 1x1
@@ -61,41 +62,51 @@ class AdaptiveBentoGridView extends HookWidget {
       [items],
     );
 
-    Widget buildItem(BentoGridItem item) {
-      final itemWidget = Container(
+    Widget buildItem(BentoGridItem item, int index) {
+      final itemWidget = DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: mode == BentoGridMode.edit
               ? Border.all(
-                  color: Colors.blueAccent.withValues(alpha: 0.3),
+                  color: Colors.blueAccent.withOpacity(0.3),
                   width: 2,
                 )
               : null,
         ),
-        width: item.size.columnSpan * cellSize +
-            (item.size.columnSpan - 1) * spacing,
-        height:
-            item.size.rowSpan * cellSize + (item.size.rowSpan - 1) * spacing,
         child: item.child,
       );
 
       if (mode == BentoGridMode.edit) {
         return Draggable<String>(
+          key: Key('item$index'),
           data: item.id,
+          dragAnchorStrategy: (draggable, context, position) {
+            final renderObject = context.findRenderObject()! as RenderBox;
+            final size = renderObject.size;
+            return Offset(size.width / 2, size.height / 2);
+          },
           feedback: Material(
             elevation: 4,
+            color: Colors.transparent,
             borderRadius: BorderRadius.circular(8),
             clipBehavior: Clip.antiAlias,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.blueAccent.withValues(alpha: 0.3),
-                  width: 2,
-                  strokeAlign: BorderSide.strokeAlignCenter,
+            child: SizedBox(
+              width: item.size.columnSpan * cellSize +
+                  (item.size.columnSpan - 1) * spacing,
+              height: item.size.rowSpan * cellSize +
+                  (item.size.rowSpan - 1) * spacing,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  border: Border.all(
+                    color: Colors.blueAccent.withOpacity(0.3),
+                    width: 2,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                borderRadius: BorderRadius.circular(8),
+                child: item.child,
               ),
-              child: itemWidget,
             ),
           ),
           childWhenDragging: Opacity(
@@ -129,22 +140,23 @@ class AdaptiveBentoGridView extends HookWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final availableWidth = constraints.maxWidth - padding.horizontal;
-        final maxColumns = (availableWidth / (cellSize + spacing)).floor();
-        final itemWidth =
-            (availableWidth - (maxColumns - 1) * spacing) / maxColumns;
-
+        final crossAxisCount =
+            ((constraints.maxWidth - padding.horizontal) / (cellSize + spacing))
+                .floor();
         return SingleChildScrollView(
           padding: padding,
-          child: SizedBox(
-            width: availableWidth,
-            child: Wrap(
-              spacing: spacing,
-              runSpacing: spacing,
-              children: [
-                for (final item in currentItems.value) buildItem(item),
-              ],
-            ),
+          child: StaggeredGrid.count(
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: spacing,
+            crossAxisSpacing: spacing,
+            children: [
+              for (var i = 0; i < currentItems.value.length; i++)
+                StaggeredGridTile.count(
+                  crossAxisCellCount: currentItems.value[i].size.columnSpan,
+                  mainAxisCellCount: currentItems.value[i].size.rowSpan,
+                  child: buildItem(currentItems.value[i], i),
+                ),
+            ],
           ),
         );
       },
