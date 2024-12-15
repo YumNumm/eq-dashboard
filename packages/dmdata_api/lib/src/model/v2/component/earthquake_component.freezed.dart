@@ -597,16 +597,21 @@ Coordinate _$CoordinateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Coordinate {
   /// 緯度要素
-  CoordinateValue get latitude => throw _privateConstructorUsedError;
+  CoordinateValue? get latitude => throw _privateConstructorUsedError;
 
   /// 経度要素
-  CoordinateValue get longitude => throw _privateConstructorUsedError;
+  CoordinateValue? get longitude => throw _privateConstructorUsedError;
 
   /// 高さ要素
-  Height get height => throw _privateConstructorUsedError;
+  Height? get height => throw _privateConstructorUsedError;
 
   /// 測地系
-  String get geodeticSystem => throw _privateConstructorUsedError;
+  /// 世界測地系 または 日本測地系 が入る
+  /// 2025年6月または7月以降は使用しない
+  String? get geodeticSystem => throw _privateConstructorUsedError;
+
+  /// 緯度経度が不明な場合は不明 が入る、その他電文定義により文字列が出現する
+  String? get condition => throw _privateConstructorUsedError;
 
   /// Serializes this Coordinate to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -625,14 +630,15 @@ abstract class $CoordinateCopyWith<$Res> {
       _$CoordinateCopyWithImpl<$Res, Coordinate>;
   @useResult
   $Res call(
-      {CoordinateValue latitude,
-      CoordinateValue longitude,
-      Height height,
-      String geodeticSystem});
+      {CoordinateValue? latitude,
+      CoordinateValue? longitude,
+      Height? height,
+      String? geodeticSystem,
+      String? condition});
 
-  $CoordinateValueCopyWith<$Res> get latitude;
-  $CoordinateValueCopyWith<$Res> get longitude;
-  $HeightCopyWith<$Res> get height;
+  $CoordinateValueCopyWith<$Res>? get latitude;
+  $CoordinateValueCopyWith<$Res>? get longitude;
+  $HeightCopyWith<$Res>? get height;
 }
 
 /// @nodoc
@@ -650,28 +656,33 @@ class _$CoordinateCopyWithImpl<$Res, $Val extends Coordinate>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? height = null,
-    Object? geodeticSystem = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? height = freezed,
+    Object? geodeticSystem = freezed,
+    Object? condition = freezed,
   }) {
     return _then(_value.copyWith(
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as CoordinateValue,
-      longitude: null == longitude
+              as CoordinateValue?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as CoordinateValue,
-      height: null == height
+              as CoordinateValue?,
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as Height,
-      geodeticSystem: null == geodeticSystem
+              as Height?,
+      geodeticSystem: freezed == geodeticSystem
           ? _value.geodeticSystem
           : geodeticSystem // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      condition: freezed == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -679,8 +690,12 @@ class _$CoordinateCopyWithImpl<$Res, $Val extends Coordinate>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $CoordinateValueCopyWith<$Res> get latitude {
-    return $CoordinateValueCopyWith<$Res>(_value.latitude, (value) {
+  $CoordinateValueCopyWith<$Res>? get latitude {
+    if (_value.latitude == null) {
+      return null;
+    }
+
+    return $CoordinateValueCopyWith<$Res>(_value.latitude!, (value) {
       return _then(_value.copyWith(latitude: value) as $Val);
     });
   }
@@ -689,8 +704,12 @@ class _$CoordinateCopyWithImpl<$Res, $Val extends Coordinate>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $CoordinateValueCopyWith<$Res> get longitude {
-    return $CoordinateValueCopyWith<$Res>(_value.longitude, (value) {
+  $CoordinateValueCopyWith<$Res>? get longitude {
+    if (_value.longitude == null) {
+      return null;
+    }
+
+    return $CoordinateValueCopyWith<$Res>(_value.longitude!, (value) {
       return _then(_value.copyWith(longitude: value) as $Val);
     });
   }
@@ -699,8 +718,12 @@ class _$CoordinateCopyWithImpl<$Res, $Val extends Coordinate>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $HeightCopyWith<$Res> get height {
-    return $HeightCopyWith<$Res>(_value.height, (value) {
+  $HeightCopyWith<$Res>? get height {
+    if (_value.height == null) {
+      return null;
+    }
+
+    return $HeightCopyWith<$Res>(_value.height!, (value) {
       return _then(_value.copyWith(height: value) as $Val);
     });
   }
@@ -715,17 +738,18 @@ abstract class _$$CoordinateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {CoordinateValue latitude,
-      CoordinateValue longitude,
-      Height height,
-      String geodeticSystem});
+      {CoordinateValue? latitude,
+      CoordinateValue? longitude,
+      Height? height,
+      String? geodeticSystem,
+      String? condition});
 
   @override
-  $CoordinateValueCopyWith<$Res> get latitude;
+  $CoordinateValueCopyWith<$Res>? get latitude;
   @override
-  $CoordinateValueCopyWith<$Res> get longitude;
+  $CoordinateValueCopyWith<$Res>? get longitude;
   @override
-  $HeightCopyWith<$Res> get height;
+  $HeightCopyWith<$Res>? get height;
 }
 
 /// @nodoc
@@ -741,28 +765,33 @@ class __$$CoordinateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? height = null,
-    Object? geodeticSystem = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? height = freezed,
+    Object? geodeticSystem = freezed,
+    Object? condition = freezed,
   }) {
     return _then(_$CoordinateImpl(
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as CoordinateValue,
-      longitude: null == longitude
+              as CoordinateValue?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as CoordinateValue,
-      height: null == height
+              as CoordinateValue?,
+      height: freezed == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as Height,
-      geodeticSystem: null == geodeticSystem
+              as Height?,
+      geodeticSystem: freezed == geodeticSystem
           ? _value.geodeticSystem
           : geodeticSystem // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      condition: freezed == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -771,33 +800,40 @@ class __$$CoordinateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CoordinateImpl implements _Coordinate {
   const _$CoordinateImpl(
-      {required this.latitude,
-      required this.longitude,
-      required this.height,
-      required this.geodeticSystem});
+      {this.latitude,
+      this.longitude,
+      this.height,
+      this.geodeticSystem,
+      this.condition});
 
   factory _$CoordinateImpl.fromJson(Map<String, dynamic> json) =>
       _$$CoordinateImplFromJson(json);
 
   /// 緯度要素
   @override
-  final CoordinateValue latitude;
+  final CoordinateValue? latitude;
 
   /// 経度要素
   @override
-  final CoordinateValue longitude;
+  final CoordinateValue? longitude;
 
   /// 高さ要素
   @override
-  final Height height;
+  final Height? height;
 
   /// 測地系
+  /// 世界測地系 または 日本測地系 が入る
+  /// 2025年6月または7月以降は使用しない
   @override
-  final String geodeticSystem;
+  final String? geodeticSystem;
+
+  /// 緯度経度が不明な場合は不明 が入る、その他電文定義により文字列が出現する
+  @override
+  final String? condition;
 
   @override
   String toString() {
-    return 'Coordinate(latitude: $latitude, longitude: $longitude, height: $height, geodeticSystem: $geodeticSystem)';
+    return 'Coordinate(latitude: $latitude, longitude: $longitude, height: $height, geodeticSystem: $geodeticSystem, condition: $condition)';
   }
 
   @override
@@ -811,13 +847,15 @@ class _$CoordinateImpl implements _Coordinate {
                 other.longitude == longitude) &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.geodeticSystem, geodeticSystem) ||
-                other.geodeticSystem == geodeticSystem));
+                other.geodeticSystem == geodeticSystem) &&
+            (identical(other.condition, condition) ||
+                other.condition == condition));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, latitude, longitude, height, geodeticSystem);
+  int get hashCode => Object.hash(
+      runtimeType, latitude, longitude, height, geodeticSystem, condition);
 
   /// Create a copy of Coordinate
   /// with the given fields replaced by the non-null parameter values.
@@ -837,29 +875,36 @@ class _$CoordinateImpl implements _Coordinate {
 
 abstract class _Coordinate implements Coordinate {
   const factory _Coordinate(
-      {required final CoordinateValue latitude,
-      required final CoordinateValue longitude,
-      required final Height height,
-      required final String geodeticSystem}) = _$CoordinateImpl;
+      {final CoordinateValue? latitude,
+      final CoordinateValue? longitude,
+      final Height? height,
+      final String? geodeticSystem,
+      final String? condition}) = _$CoordinateImpl;
 
   factory _Coordinate.fromJson(Map<String, dynamic> json) =
       _$CoordinateImpl.fromJson;
 
   /// 緯度要素
   @override
-  CoordinateValue get latitude;
+  CoordinateValue? get latitude;
 
   /// 経度要素
   @override
-  CoordinateValue get longitude;
+  CoordinateValue? get longitude;
 
   /// 高さ要素
   @override
-  Height get height;
+  Height? get height;
 
   /// 測地系
+  /// 世界測地系 または 日本測地系 が入る
+  /// 2025年6月または7月以降は使用しない
   @override
-  String get geodeticSystem;
+  String? get geodeticSystem;
+
+  /// 緯度経度が不明な場合は不明 が入る、その他電文定義により文字列が出現する
+  @override
+  String? get condition;
 
   /// Create a copy of Coordinate
   /// with the given fields replaced by the non-null parameter values.
@@ -1248,16 +1293,18 @@ Depth _$DepthFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Depth {
-  /// 種類
+  /// 深さ情報のタイプ。`深さ`で固定
   String get type => throw _privateConstructorUsedError;
 
-  /// 単位
+  /// 深さ情報の単位。`km`で固定
   String get unit => throw _privateConstructorUsedError;
 
-  /// 数値
-  String get value => throw _privateConstructorUsedError;
+  /// 震源の深さ
+  /// 不明時は Null とする
+  String? get value => throw _privateConstructorUsedError;
 
-  /// 例外的な表現をする場合の文字列
+  /// 深さの例外的表現。
+  /// 取りうる値は `ごく浅い`、`７００ｋｍ以上`、 `不明`
   String? get condition => throw _privateConstructorUsedError;
 
   /// Serializes this Depth to a JSON map.
@@ -1274,7 +1321,7 @@ abstract class $DepthCopyWith<$Res> {
   factory $DepthCopyWith(Depth value, $Res Function(Depth) then) =
       _$DepthCopyWithImpl<$Res, Depth>;
   @useResult
-  $Res call({String type, String unit, String value, String? condition});
+  $Res call({String type, String unit, String? value, String? condition});
 }
 
 /// @nodoc
@@ -1294,7 +1341,7 @@ class _$DepthCopyWithImpl<$Res, $Val extends Depth>
   $Res call({
     Object? type = null,
     Object? unit = null,
-    Object? value = null,
+    Object? value = freezed,
     Object? condition = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1306,10 +1353,10 @@ class _$DepthCopyWithImpl<$Res, $Val extends Depth>
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
               as String,
-      value: null == value
+      value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       condition: freezed == condition
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
@@ -1325,7 +1372,7 @@ abstract class _$$DepthImplCopyWith<$Res> implements $DepthCopyWith<$Res> {
       __$$DepthImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String type, String unit, String value, String? condition});
+  $Res call({String type, String unit, String? value, String? condition});
 }
 
 /// @nodoc
@@ -1343,7 +1390,7 @@ class __$$DepthImplCopyWithImpl<$Res>
   $Res call({
     Object? type = null,
     Object? unit = null,
-    Object? value = null,
+    Object? value = freezed,
     Object? condition = freezed,
   }) {
     return _then(_$DepthImpl(
@@ -1355,10 +1402,10 @@ class __$$DepthImplCopyWithImpl<$Res>
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
               as String,
-      value: null == value
+      value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       condition: freezed == condition
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
@@ -1379,19 +1426,21 @@ class _$DepthImpl implements _Depth {
   factory _$DepthImpl.fromJson(Map<String, dynamic> json) =>
       _$$DepthImplFromJson(json);
 
-  /// 種類
+  /// 深さ情報のタイプ。`深さ`で固定
   @override
   final String type;
 
-  /// 単位
+  /// 深さ情報の単位。`km`で固定
   @override
   final String unit;
 
-  /// 数値
+  /// 震源の深さ
+  /// 不明時は Null とする
   @override
-  final String value;
+  final String? value;
 
-  /// 例外的な表現をする場合の文字列
+  /// 深さの例外的表現。
+  /// 取りうる値は `ごく浅い`、`７００ｋｍ以上`、 `不明`
   @override
   final String? condition;
 
@@ -1436,24 +1485,26 @@ abstract class _Depth implements Depth {
   const factory _Depth(
       {required final String type,
       required final String unit,
-      required final String value,
+      required final String? value,
       final String? condition}) = _$DepthImpl;
 
   factory _Depth.fromJson(Map<String, dynamic> json) = _$DepthImpl.fromJson;
 
-  /// 種類
+  /// 深さ情報のタイプ。`深さ`で固定
   @override
   String get type;
 
-  /// 単位
+  /// 深さ情報の単位。`km`で固定
   @override
   String get unit;
 
-  /// 数値
+  /// 震源の深さ
+  /// 不明時は Null とする
   @override
-  String get value;
+  String? get value;
 
-  /// 例外的な表現をする場合の文字列
+  /// 深さの例外的表現。
+  /// 取りうる値は `ごく浅い`、`７００ｋｍ以上`、 `不明`
   @override
   String? get condition;
 

@@ -63,6 +63,7 @@ class _SocketApiClient implements SocketApiClient {
     String? status,
     String? cursorToken,
     int? limit,
+    String? nextToken,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -70,6 +71,7 @@ class _SocketApiClient implements SocketApiClient {
       r'status': status,
       r'cursorToken': cursorToken,
       r'limit': limit,
+      r'cursorToken': nextToken,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

@@ -32,6 +32,7 @@ class _TelegramApiClient implements TelegramApiClient {
     String? datetime,
     String? cursorToken,
     int? limit,
+    String? nextToken,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -42,6 +43,7 @@ class _TelegramApiClient implements TelegramApiClient {
       r'datetime': datetime,
       r'cursorToken': cursorToken,
       r'limit': limit,
+      r'cursorToken': nextToken,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

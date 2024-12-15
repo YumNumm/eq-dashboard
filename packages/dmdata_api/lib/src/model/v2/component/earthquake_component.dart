@@ -53,16 +53,21 @@ class Hypocenter with _$Hypocenter {
 class Coordinate with _$Coordinate {
   const factory Coordinate({
     /// 緯度要素
-    required CoordinateValue latitude,
+    CoordinateValue? latitude,
 
     /// 経度要素
-    required CoordinateValue longitude,
+    CoordinateValue? longitude,
 
     /// 高さ要素
-    required Height height,
+    Height? height,
 
     /// 測地系
-    required String geodeticSystem,
+    /// 世界測地系 または 日本測地系 が入る
+    /// 2025年6月または7月以降は使用しない
+    String? geodeticSystem,
+
+    /// 緯度経度が不明な場合は不明 が入る、その他電文定義により文字列が出現する
+    String? condition,
   }) = _Coordinate;
 
   factory Coordinate.fromJson(Map<String, dynamic> json) =>
@@ -105,16 +110,18 @@ class Height with _$Height {
 @freezed
 class Depth with _$Depth {
   const factory Depth({
-    /// 種類
+    /// 深さ情報のタイプ。`深さ`で固定
     required String type,
 
-    /// 単位
+    /// 深さ情報の単位。`km`で固定
     required String unit,
 
-    /// 数値
-    required String value,
+    /// 震源の深さ
+    /// 不明時は Null とする
+    required String? value,
 
-    /// 例外的な表現をする場合の文字列
+    /// 深さの例外的表現。
+    /// 取りうる値は `ごく浅い`、`７００ｋｍ以上`、 `不明`
     String? condition,
   }) = _Depth;
 

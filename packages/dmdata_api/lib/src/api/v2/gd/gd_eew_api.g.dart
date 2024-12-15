@@ -27,11 +27,13 @@ class _GdEewApiClient implements GdEewApiClient {
   Future<EewListResponse> getEewList({
     String? datetime,
     int? limit,
+    String? nextToken,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'datetime': datetime,
       r'limit': limit,
+      r'cursorToken': nextToken,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
@@ -64,9 +66,13 @@ class _GdEewApiClient implements GdEewApiClient {
   }
 
   @override
-  Future<EewEventResponse> getEewEvent(String eventId) async {
+  Future<EewEventResponse> getEewEvent(
+    String eventId,
+    String? nextToken,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'cursorToken': nextToken};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<EewEventResponse>(Options(

@@ -64,13 +64,13 @@ void main() {
       expect(component.hypocenter.code, '288');
 
       // Coordinateの検証
-      expect(component.hypocenter.coordinate.latitude.text, '38.0˚N');
-      expect(component.hypocenter.coordinate.latitude.value, '38.0000');
-      expect(component.hypocenter.coordinate.longitude.text, '142.9˚E');
-      expect(component.hypocenter.coordinate.longitude.value, '142.9000');
-      expect(component.hypocenter.coordinate.height.type, '高さ');
-      expect(component.hypocenter.coordinate.height.value, '-10000');
-      expect(component.hypocenter.coordinate.height.unit, 'm');
+      expect(component.hypocenter.coordinate.latitude?.text, '38.0˚N');
+      expect(component.hypocenter.coordinate.latitude?.value, '38.0000');
+      expect(component.hypocenter.coordinate.longitude?.text, '142.9˚E');
+      expect(component.hypocenter.coordinate.longitude?.value, '142.9000');
+      expect(component.hypocenter.coordinate.height?.type, '高さ');
+      expect(component.hypocenter.coordinate.height?.value, '-10000');
+      expect(component.hypocenter.coordinate.height?.unit, 'm');
       expect(component.hypocenter.coordinate.geodeticSystem, '日本測地系');
 
       // Depthの検証
