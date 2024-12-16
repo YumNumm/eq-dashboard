@@ -1,12 +1,18 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_card.dart';
+import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
 import 'package:eqdashboard/features/eew/data/model/eew_list_item.dart';
 import 'package:eqdashboard/features/eew/data/notifier/eew_alive_items.dart';
 import 'package:eqdashboard/features/eew/ui/eew_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class EewAliveBentoCard extends HookConsumerWidget {
-  const EewAliveBentoCard({super.key});
+class EewAliveBentoCard extends HookConsumerWidget with BentoCard {
+  const EewAliveBentoCard({
+    this.currentSize,
+    super.key,
+  });
+
+  final BentoGridSize? currentSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

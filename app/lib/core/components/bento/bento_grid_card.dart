@@ -68,7 +68,7 @@ class BentoGridCardHeader extends StatelessWidget {
               data: IconThemeData(color: effectiveForegroundColor),
               child: leading!,
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 8),
           ],
           Expanded(
             child: Column(

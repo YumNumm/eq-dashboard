@@ -81,7 +81,6 @@ class PlatformApp extends StatelessWidget {
 
     // inject MaterialTheme
     if (platform != AdaptivePlatformType.material) {
-      print('inject MaterialTheme: $brightness');
       return Theme(
         data: brightness == Brightness.light
             ? materialLightTheme
