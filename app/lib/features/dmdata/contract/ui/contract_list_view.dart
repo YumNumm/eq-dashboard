@@ -1,6 +1,6 @@
-import 'package:eqdashboard/core/components/adaptive/adaptive_error_card.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_list_tile.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_progress_indicator.dart';
+import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
+import 'package:eqdashboard/core/components/platform/platform_list_tile.dart';
+import 'package:eqdashboard/core/components/platform/platform_progress_indicator.dart';
 import 'package:eqdashboard/features/auth/notifier/contract_list_provider.dart';
 import 'package:eqdashboard/features/dmdata/contract/model/contract_ui_model.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class ContractListView extends HookConsumerWidget {
         itemBuilder: (context, index) {
           final contract =
               ContractUiModel.fromContractItem(result.items[index]);
-          return AdaptiveListTile(
+          return PlatformListTile(
             title: Text(
               contract.planName,
             ),
@@ -32,14 +32,15 @@ class ContractListView extends HookConsumerWidget {
                 _buildInfoRow('接続数', '${contract.connectionCounts}接続'),
               ],
             ),
+            trailing: _buildContractIsValid(contract.isValid),
           );
         },
       ),
       loading: () => const Center(
-        child: AdaptiveProgressIndicator(),
+        child: PlatformProgressIndicator(),
       ),
       error: (error, stack) => Center(
-        child: AdaptiveErrorCard.provider(
+        child: PlatformErrorCard.provider(
           error: error,
           provider: contractListProvider,
         ),
@@ -62,9 +63,30 @@ class ContractListView extends HookConsumerWidget {
               ),
             ),
           ),
-          Text(value),
+          Flexible(child: Text(value)),
         ],
       ),
     );
+  }
+
+  Widget _buildContractIsValid(bool isValid) {
+    return switch (isValid) {
+      true => const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.check),
+            SizedBox(width: 4),
+            Text('有効'),
+          ],
+        ),
+      false => const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.close),
+            SizedBox(width: 4),
+            Text('無効'),
+          ],
+        ),
+    };
   }
 }

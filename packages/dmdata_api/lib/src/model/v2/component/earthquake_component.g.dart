@@ -72,13 +72,24 @@ _$CoordinateImpl _$$CoordinateImplFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = _$CoordinateImpl(
-          latitude: $checkedConvert('latitude',
-              (v) => CoordinateValue.fromJson(v as Map<String, dynamic>)),
-          longitude: $checkedConvert('longitude',
-              (v) => CoordinateValue.fromJson(v as Map<String, dynamic>)),
+          latitude: $checkedConvert(
+              'latitude',
+              (v) => v == null
+                  ? null
+                  : CoordinateValue.fromJson(v as Map<String, dynamic>)),
+          longitude: $checkedConvert(
+              'longitude',
+              (v) => v == null
+                  ? null
+                  : CoordinateValue.fromJson(v as Map<String, dynamic>)),
           height: $checkedConvert(
-              'height', (v) => Height.fromJson(v as Map<String, dynamic>)),
-          geodeticSystem: $checkedConvert('geodeticSystem', (v) => v as String),
+              'height',
+              (v) => v == null
+                  ? null
+                  : Height.fromJson(v as Map<String, dynamic>)),
+          geodeticSystem:
+              $checkedConvert('geodeticSystem', (v) => v as String?),
+          condition: $checkedConvert('condition', (v) => v as String?),
         );
         return val;
       },
@@ -90,6 +101,7 @@ Map<String, dynamic> _$$CoordinateImplToJson(_$CoordinateImpl instance) =>
       'longitude': instance.longitude,
       'height': instance.height,
       'geodeticSystem': instance.geodeticSystem,
+      'condition': instance.condition,
     };
 
 _$CoordinateValueImpl _$$CoordinateValueImplFromJson(
@@ -140,7 +152,7 @@ _$DepthImpl _$$DepthImplFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = _$DepthImpl(
           type: $checkedConvert('type', (v) => v as String),
           unit: $checkedConvert('unit', (v) => v as String),
-          value: $checkedConvert('value', (v) => v as String),
+          value: $checkedConvert('value', (v) => v as String?),
           condition: $checkedConvert('condition', (v) => v as String?),
         );
         return val;

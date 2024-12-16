@@ -79,13 +79,13 @@ void main() {
 
     // 座標の検証
     final coordinate = hypocenter.coordinate;
-    expect(coordinate.latitude.text, '31.3˚N');
-    expect(coordinate.latitude.value, '31.3000');
-    expect(coordinate.longitude.text, '130.6˚E');
-    expect(coordinate.longitude.value, '130.6000');
-    expect(coordinate.height.type, '高さ');
-    expect(coordinate.height.unit, 'm');
-    expect(coordinate.height.value, '0');
+    expect(coordinate.latitude?.text, '31.3˚N');
+    expect(coordinate.latitude?.value, '31.3000');
+    expect(coordinate.longitude?.text, '130.6˚E');
+    expect(coordinate.longitude?.value, '130.6000');
+    expect(coordinate.height?.type, '高さ');
+    expect(coordinate.height?.unit, 'm');
+    expect(coordinate.height?.value, '0');
     expect(coordinate.geodeticSystem, '日本測地系');
 
     // 深さの検証

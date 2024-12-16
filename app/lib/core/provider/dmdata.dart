@@ -1,12 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dmdata_api/dmdata_api.dart';
-import 'package:eqdashboard/core/provider/dio.dart';
+import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:synchronized/synchronized.dart';
 
 part 'dmdata.g.dart';
 
@@ -18,7 +20,7 @@ DmdataApi dmdataApi(Ref ref) => DmdataApi(
 
 @Riverpod(keepAlive: true)
 Dio dmdataDio(Ref ref) {
-  final dio = ref.watch(dioProvider);
+  final dio = Dio();
   final authNotifier = ref.watch(authProvider.notifier);
 
   dio.interceptors.add(
@@ -29,10 +31,11 @@ Dio dmdataDio(Ref ref) {
 
 class _DmdataInterceptor extends Interceptor {
   _DmdataInterceptor({
-    required this.authNotifier,
-  });
+    required Auth authNotifier,
+  }) : _authNotifier = authNotifier;
 
-  final Auth authNotifier;
+  final Auth _authNotifier;
+  final _lock = Lock();
 
   @override
   void onRequest(
@@ -41,14 +44,31 @@ class _DmdataInterceptor extends Interceptor {
   ) =>
       unawaited(
         () async {
-          final result = await authNotifier.updateTokenIfNeeded();
-          if (result == null) {
-            throw Exception('ログインしてください');
-          }
-          options.headers[HttpHeaders.authorizationHeader] =
-              'Bearer ${result.accessToken}';
-
-          super.onRequest(options, handler);
+          log('onRequest: ${options.uri}', name: 'DmdataInterceptor');
+          final result = await Result.capture(
+            () async => _lock.synchronized(
+              () async => _authNotifier.updateTokenIfNeeded(),
+            ),
+          );
+          final _ = switch (result) {
+            Failure(:final error) => handler.reject(
+                DioException(
+                  requestOptions: options,
+                  error: error,
+                ),
+              ),
+            Success(:final value) when value != null => () {
+                options.headers[HttpHeaders.authorizationHeader] =
+                    'Bearer ${value.accessToken}';
+                super.onRequest(options, handler);
+              }(),
+            Success() => handler.reject(
+                DioException(
+                  requestOptions: options,
+                  error: Exception('Unauthorized'),
+                ),
+              ),
+          };
         }(),
       );
 }

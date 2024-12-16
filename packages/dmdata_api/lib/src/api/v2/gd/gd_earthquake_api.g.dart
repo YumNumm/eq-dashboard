@@ -29,6 +29,7 @@ class _GdEarthquakeApiClient implements GdEarthquakeApiClient {
     String? maxInt,
     String? date,
     int? limit,
+    String? nextToken,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -36,6 +37,7 @@ class _GdEarthquakeApiClient implements GdEarthquakeApiClient {
       r'maxInt': maxInt,
       r'date': date,
       r'limit': limit,
+      r'cursorToken': nextToken,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
@@ -68,9 +70,13 @@ class _GdEarthquakeApiClient implements GdEarthquakeApiClient {
   }
 
   @override
-  Future<EarthquakeEvent> getEarthquakeEvent(String eventId) async {
+  Future<EarthquakeEvent> getEarthquakeEvent(
+    String eventId,
+    String? nextToken,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'cursorToken': nextToken};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<EarthquakeEvent>(Options(

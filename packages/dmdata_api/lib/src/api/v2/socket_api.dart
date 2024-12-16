@@ -11,7 +11,9 @@ abstract class SocketApiClient {
 
   /// WebSocketに接続する場合のアクセスURLを取得します。
   @POST('/v2/socket')
-  Future<SocketStartResponse> startSocket(@Body() Map<String, dynamic> body);
+  Future<SocketStartResponse> startSocket(
+    @Body() Map<String, dynamic> body,
+  );
 
   /// WebSocketのリストを取得します。
   @GET('/v2/socket')
@@ -26,8 +28,12 @@ abstract class SocketApiClient {
     /// 次のリソースを取得する。レスポンス内のnextTokenの値を指定する
     @Query('cursorToken') String? cursorToken,
 
-    /// アイテムの数。���大100まで
+    /// アイテムの数。最大100まで
     @Query('limit') int? limit,
+
+    /// 次のページを取得するためのトークン
+    /// 前回のリクエストで返された`nextToken`を指定する
+    @Query('cursorToken') String? nextToken,
   });
 
   /// WebSocketを終了します。

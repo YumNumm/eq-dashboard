@@ -7,7 +7,8 @@ part 'gd_earthquake_api.g.dart';
 
 @RestApi()
 abstract class GdEarthquakeApiClient {
-  factory GdEarthquakeApiClient(Dio dio, {String baseUrl}) = _GdEarthquakeApiClient;
+  factory GdEarthquakeApiClient(Dio dio, {String baseUrl}) =
+      _GdEarthquakeApiClient;
 
   /// 地震情報のリストを取得します。
   @GET('/v2/gd/earthquake')
@@ -23,6 +24,10 @@ abstract class GdEarthquakeApiClient {
 
     /// 返す情報数を指定する。最大は100
     @Query('limit') int? limit,
+
+    /// 次のページを取得するためのトークン
+    /// 前回のリクエストで返された`nextToken`を指定する
+    @Query('cursorToken') String? nextToken,
   });
 
   /// 地震情報の詳細を取得します。
@@ -30,5 +35,9 @@ abstract class GdEarthquakeApiClient {
   Future<EarthquakeEvent> getEarthquakeEvent(
     /// 地震情報のEventIDを指定
     @Path('eventId') String eventId,
+
+    /// 次のページを取得するためのトークン
+    /// 前回のリクエストで返された`nextToken`を指定する
+    @Query('cursorToken') String? nextToken,
   );
 }

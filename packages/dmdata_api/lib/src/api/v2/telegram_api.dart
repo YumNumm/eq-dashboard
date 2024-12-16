@@ -37,5 +37,9 @@ abstract class TelegramApiClient {
 
     /// 返す電文数を指定する。最大は100
     @Query('limit') int? limit,
+
+    /// 次のページを取得するためのトークン
+    /// 前回のリクエストで返された`nextToken`を指定する
+    @Query('cursorToken') String? nextToken,
   });
 }

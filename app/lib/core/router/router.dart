@@ -3,8 +3,8 @@
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
+import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
-import 'package:eqdashboard/pages/settings/children/platform_selector_screen.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -20,28 +20,28 @@ final shellNavigatorKey = GlobalKey<NavigatorState>();
 @Riverpod(keepAlive: true)
 GoRouter router(Ref ref) => GoRouter(
       routes: $appRoutes,
-      initialLocation: const PageOneRouteData().location,
+      initialLocation: const HomePageRoute().location,
       debugLogDiagnostics: kDebugMode,
       navigatorKey: rootNavigatorKey,
     );
 
-@TypedStatefulShellRoute<AppShellRouteData>(
+@TypedStatefulShellRoute<AppShellRoute>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<MainBranch>(
       routes: [
-        TypedGoRoute<PageOneRouteData>(path: '/'),
-        TypedGoRoute<PageTwoRouteData>(path: '/page-two'),
+        TypedGoRoute<HomePageRoute>(path: '/'),
+        TypedGoRoute<PageTwoRoute>(path: '/page-two'),
         TypedGoRoute<SettingsDisclosurePageRoute>(
           path: '/settings',
         ),
-        TypedGoRoute<DmdataSettingsRouteData>(path: '/dmdata-settings'),
-        TypedGoRoute<PlatformSelectorRouteData>(path: '/platform-selector'),
+        TypedGoRoute<DmdataSettingsRouteData>(path: '/dmdata'),
+        TypedGoRoute<DisplaysettingsRoute>(path: '/display'),
       ],
     ),
   ],
 )
-class AppShellRouteData extends StatefulShellRouteData {
-  const AppShellRouteData();
+class AppShellRoute extends StatefulShellRouteData {
+  const AppShellRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
 
@@ -61,8 +61,8 @@ class MainBranch extends StatefulShellBranchData {
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 }
 
-class PageOneRouteData extends GoRouteData {
-  const PageOneRouteData();
+class HomePageRoute extends GoRouteData {
+  const HomePageRoute();
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -73,8 +73,8 @@ class PageOneRouteData extends GoRouteData {
   }
 }
 
-class PageTwoRouteData extends GoRouteData {
-  const PageTwoRouteData();
+class PageTwoRoute extends GoRouteData {
+  const PageTwoRoute();
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {

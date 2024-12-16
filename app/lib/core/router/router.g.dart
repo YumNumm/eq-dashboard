@@ -9,48 +9,46 @@ part of 'router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $appShellRouteData,
+      $appShellRoute,
     ];
 
-RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
-      factory: $AppShellRouteDataExtension._fromState,
+RouteBase get $appShellRoute => StatefulShellRouteData.$route(
+      factory: $AppShellRouteExtension._fromState,
       branches: [
         StatefulShellBranchData.$branch(
           navigatorKey: MainBranch.$navigatorKey,
           routes: [
             GoRouteData.$route(
               path: '/',
-              factory: $PageOneRouteDataExtension._fromState,
+              factory: $HomePageRouteExtension._fromState,
             ),
             GoRouteData.$route(
               path: '/page-two',
-              factory: $PageTwoRouteDataExtension._fromState,
+              factory: $PageTwoRouteExtension._fromState,
             ),
             GoRouteData.$route(
               path: '/settings',
               factory: $SettingsDisclosurePageRouteExtension._fromState,
             ),
             GoRouteData.$route(
-              path: '/dmdata-settings',
+              path: '/dmdata',
               factory: $DmdataSettingsRouteDataExtension._fromState,
             ),
             GoRouteData.$route(
-              path: '/platform-selector',
-              factory: $PlatformSelectorRouteDataExtension._fromState,
+              path: '/display',
+              factory: $DisplaysettingsRouteExtension._fromState,
             ),
           ],
         ),
       ],
     );
 
-extension $AppShellRouteDataExtension on AppShellRouteData {
-  static AppShellRouteData _fromState(GoRouterState state) =>
-      const AppShellRouteData();
+extension $AppShellRouteExtension on AppShellRoute {
+  static AppShellRoute _fromState(GoRouterState state) => const AppShellRoute();
 }
 
-extension $PageOneRouteDataExtension on PageOneRouteData {
-  static PageOneRouteData _fromState(GoRouterState state) =>
-      const PageOneRouteData();
+extension $HomePageRouteExtension on HomePageRoute {
+  static HomePageRoute _fromState(GoRouterState state) => const HomePageRoute();
 
   String get location => GoRouteData.$location(
         '/',
@@ -66,9 +64,8 @@ extension $PageOneRouteDataExtension on PageOneRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $PageTwoRouteDataExtension on PageTwoRouteData {
-  static PageTwoRouteData _fromState(GoRouterState state) =>
-      const PageTwoRouteData();
+extension $PageTwoRouteExtension on PageTwoRoute {
+  static PageTwoRoute _fromState(GoRouterState state) => const PageTwoRoute();
 
   String get location => GoRouteData.$location(
         '/page-two',
@@ -107,7 +104,7 @@ extension $DmdataSettingsRouteDataExtension on DmdataSettingsRouteData {
       const DmdataSettingsRouteData();
 
   String get location => GoRouteData.$location(
-        '/dmdata-settings',
+        '/dmdata',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -120,12 +117,12 @@ extension $DmdataSettingsRouteDataExtension on DmdataSettingsRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $PlatformSelectorRouteDataExtension on PlatformSelectorRouteData {
-  static PlatformSelectorRouteData _fromState(GoRouterState state) =>
-      const PlatformSelectorRouteData();
+extension $DisplaysettingsRouteExtension on DisplaysettingsRoute {
+  static DisplaysettingsRoute _fromState(GoRouterState state) =>
+      const DisplaysettingsRoute();
 
   String get location => GoRouteData.$location(
-        '/platform-selector',
+        '/display',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -142,7 +139,7 @@ extension $PlatformSelectorRouteDataExtension on PlatformSelectorRouteData {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'5afe12e57e724ea4035bda0510fcacf7e7f3c85f';
+String _$routerHash() => r'cae4a21bcd79ca12f0402b602ddbea4bf2084a89';
 
 /// See also [router].
 @ProviderFor(router)

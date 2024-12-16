@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dmdata_api/src/model/v2/gd/earthquake_event.dart';
 import 'package:test/test.dart';
 
@@ -110,13 +108,13 @@ void main() {
       final hypocenter = event.hypocenter;
       expect(hypocenter?.code, '787');
       expect(hypocenter?.name, '鹿児島湾');
-      expect(hypocenter?.coordinate.latitude.text, '31.3˚N');
-      expect(hypocenter?.coordinate.latitude.value, '31.3000');
-      expect(hypocenter?.coordinate.longitude.text, '130.6˚E');
-      expect(hypocenter?.coordinate.longitude.value, '130.6000');
-      expect(hypocenter?.coordinate.height.type, '高さ');
-      expect(hypocenter?.coordinate.height.value, '0');
-      expect(hypocenter?.coordinate.height.unit, 'm');
+      expect(hypocenter?.coordinate.latitude?.text, '31.3˚N');
+      expect(hypocenter?.coordinate.latitude?.value, '31.3000');
+      expect(hypocenter?.coordinate.longitude?.text, '130.6˚E');
+      expect(hypocenter?.coordinate.longitude?.value, '130.6000');
+      expect(hypocenter?.coordinate.height?.type, '高さ');
+      expect(hypocenter?.coordinate.height?.value, '0');
+      expect(hypocenter?.coordinate.height?.unit, 'm');
       expect(hypocenter?.coordinate.geodeticSystem, '日本測地系');
       expect(hypocenter?.depth.type, '深さ');
       expect(hypocenter?.depth.value, '0');

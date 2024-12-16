@@ -20,6 +20,10 @@ abstract class GdEewApiClient {
 
     /// 返す情報数を指定する。最大は100
     @Query('limit') int? limit,
+
+    /// 次のページを取得するためのトークン
+    /// 前回のリクエストで返された`nextToken`を指定する
+    @Query('cursorToken') String? nextToken,
   });
 
   /// 緊急地震速報のすべての報のリストを取得します。
@@ -27,5 +31,9 @@ abstract class GdEewApiClient {
   Future<EewEventResponse> getEewEvent(
     /// 緊急地震速報のEventIDを指定
     @Path('eventId') String eventId,
+
+    /// 次のページを取得するためのトークン
+    /// 前回のリクエストで返された`nextToken`を指定する
+    @Query('cursorToken') String? nextToken,
   );
 }

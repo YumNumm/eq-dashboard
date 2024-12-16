@@ -1,13 +1,15 @@
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_alert_dialog.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_button.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_error_card.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_scaffold.dart';
-import 'package:eqdashboard/core/components/adaptive/adaptive_tab_view.dart';
 import 'package:eqdashboard/core/components/app_icon.dart';
+import 'package:eqdashboard/core/components/platform/platform_alert_dialog.dart';
+import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
+import 'package:eqdashboard/core/components/platform/platform_button.dart';
+import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
+import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
+import 'package:eqdashboard/core/components/platform/platform_tab_view.dart';
 import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
 import 'package:eqdashboard/features/dmdata/contract/ui/contract_list_view.dart';
+import 'package:eqdashboard/features/dmdata/contract/ui/websocket_avaiable_count_view.dart';
 import 'package:eqdashboard/features/dmdata/websocket/ui/websocket_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -33,19 +35,17 @@ class DmdataSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
 
-    return AdaptiveScaffold(
+    return PlatformScaffold(
       title: const Text('Project DM-D.S.S 設定'),
-      toolBar: const ToolBar(
+      appBar: const PlatformAppBar(
         title: Text('Project DM-D.S.S 設定'),
-        enableBlur: true,
-        titleWidth: double.infinity,
       ),
       child: authState.when(
         data: (state) => const _DmdataSettingsContent(),
         loading: () => const Center(
           child: ProgressCircle(),
         ),
-        error: (error, stack) => AdaptiveErrorCard.provider(
+        error: (error, stack) => PlatformErrorCard.provider(
           error: error,
           provider: authProvider,
         ),
@@ -95,7 +95,7 @@ class _LoginSection extends ConsumerWidget {
         children: [
           const Text('現在ログインしていません'),
           const SizedBox(height: 16),
-          AdaptiveButton.filled(
+          PlatformButton.filled(
             onPressed: () async => _handleLogin(context, ref),
             child: const Text('DMDATAにログイン'),
           ),
@@ -108,7 +108,7 @@ class _LoginSection extends ConsumerWidget {
     final result = await ref.read(authProvider.notifier).startAuthorization();
     if (result case Failure(:final error) when context.mounted) {
       if (error is FlutterAppAuthUserCancelledException) {
-        await showAdaptiveAlertDialog<void>(
+        await showPlatformAlertDialog<void>(
           context: context,
           title: 'ログインをキャンセルしました',
           message: Text(
@@ -148,7 +148,7 @@ class _UserInfoSection extends ConsumerWidget {
         const SizedBox(height: 16),
         Padding(
           padding: const EdgeInsets.all(8),
-          child: AdaptiveButton.filled(
+          child: PlatformButton.filled(
             onPressed: () async => ref.read(authProvider.notifier).logout(),
             child: const Text('ログアウト'),
           ),
@@ -157,19 +157,26 @@ class _UserInfoSection extends ConsumerWidget {
         const Divider(),
         const SizedBox(height: 4),
         Expanded(
-          child: AdaptiveTabView(
+          child: PlatformTabView(
             tabs: const [
-              AdaptiveTabItem(
+              PlatformTabItem(
                 label: 'WebSocket',
                 icon: Icons.web,
               ),
-              AdaptiveTabItem(
-                label: 'Contract',
+              PlatformTabItem(
+                label: '契約状況',
                 icon: Icons.person,
               ),
             ],
             children: const [
-              WebSocketListView(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 16),
+                  WebsocketAvailableCountView(),
+                  Expanded(child: WebSocketListView()),
+                ],
+              ),
               ContractListView(),
             ],
           ),
