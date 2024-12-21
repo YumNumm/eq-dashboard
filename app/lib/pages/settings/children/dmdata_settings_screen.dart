@@ -7,7 +7,7 @@ import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
 import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
 import 'package:eqdashboard/core/components/platform/platform_tab_view.dart';
 import 'package:eqdashboard/core/util/result.dart';
-import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
+import 'package:eqdashboard/features/dmdata/auth/notifier/auth_notifier.dart';
 import 'package:eqdashboard/features/dmdata/contract/ui/contract_list_view.dart';
 import 'package:eqdashboard/features/dmdata/contract/ui/websocket_avaiable_count_view.dart';
 import 'package:eqdashboard/features/dmdata/websocket/ui/websocket_list_view.dart';
@@ -35,21 +35,25 @@ class DmdataSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
 
-    return PlatformScaffold(
+    return PlatformScaffold.sliver(
       title: const Text('Project DM-D.S.S 設定'),
       appBar: const PlatformAppBar(
         title: Text('Project DM-D.S.S 設定'),
       ),
-      child: authState.when(
-        data: (state) => const _DmdataSettingsContent(),
-        loading: () => const Center(
-          child: ProgressCircle(),
+      children: [
+        SliverFillRemaining(
+          child: authState.when(
+            data: (state) => const _DmdataSettingsContent(),
+            loading: () => const Center(
+              child: ProgressCircle(),
+            ),
+            error: (error, stack) => PlatformErrorCard.provider(
+              error: error,
+              provider: authProvider,
+            ),
+          ),
         ),
-        error: (error, stack) => PlatformErrorCard.provider(
-          error: error,
-          provider: authProvider,
-        ),
-      ),
+      ],
     );
   }
 }
@@ -75,8 +79,71 @@ class _DmdataSettingsContent extends ConsumerWidget {
         if (authState == null)
           const _LoginSection()
         else
-          const Expanded(
-            child: _UserInfoSection(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Access Token: '
+                          '${authState.accessToken.substring(0, 6)}...',
+                        ),
+                        Text(
+                          'Refresh Token: '
+                          '${authState.refreshToken.substring(0, 6)}...',
+                        ),
+                        Text('Expire: ${authState.expiresAt}'),
+                        Text(
+                          'RefreshTokenExpire: '
+                          '${authState.refreshTokenExpiresAt}',
+                        ),
+                        Text('Scope: ${authState.scopes}'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: PlatformButton.filled(
+                      onPressed: () async =>
+                          ref.read(authProvider.notifier).logout(),
+                      child: const Text('ログアウト'),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Divider(),
+                  const SizedBox(height: 4),
+                  PlatformTabView(
+                    tabs: const [
+                      PlatformTabItem(
+                        label: 'WebSocket',
+                        icon: Icons.web,
+                      ),
+                      PlatformTabItem(
+                        label: '契約状況',
+                        icon: Icons.person,
+                      ),
+                    ],
+                    children: const [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 16),
+                          WebsocketAvailableCountView(),
+                          Expanded(child: WebSocketListView()),
+                        ],
+                      ),
+                      ContractListView(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
       ],
     );
@@ -119,69 +186,5 @@ class _LoginSection extends ConsumerWidget {
         );
       }
     }
-  }
-}
-
-class _UserInfoSection extends ConsumerWidget {
-  const _UserInfoSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider).value!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Access Token: ${state.accessToken.substring(0, 6)}...'),
-              Text('Refresh Token: ${state.refreshToken.substring(0, 6)}...'),
-              Text('Expire: ${state.expiresAt}'),
-              Text('RefreshTokenExpire: ${state.refreshTokenExpiresAt}'),
-              Text('Scope: ${state.scopes}'),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: PlatformButton.filled(
-            onPressed: () async => ref.read(authProvider.notifier).logout(),
-            child: const Text('ログアウト'),
-          ),
-        ),
-        const SizedBox(height: 4),
-        const Divider(),
-        const SizedBox(height: 4),
-        Expanded(
-          child: PlatformTabView(
-            tabs: const [
-              PlatformTabItem(
-                label: 'WebSocket',
-                icon: Icons.web,
-              ),
-              PlatformTabItem(
-                label: '契約状況',
-                icon: Icons.person,
-              ),
-            ],
-            children: const [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 16),
-                  WebsocketAvailableCountView(),
-                  Expanded(child: WebSocketListView()),
-                ],
-              ),
-              ContractListView(),
-            ],
-          ),
-        ),
-      ],
-    );
   }
 }

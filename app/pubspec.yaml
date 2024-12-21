@@ -35,6 +35,7 @@ dependencies:
   talker_dio_logger: ^4.5.2
   talker_flutter: ^4.5.2
   talker_logger: ^4.5.2
+  talker_riverpod_logger: ^4.5.2
   url_launcher: ^6.3.1
 
 dev_dependencies:
@@ -62,12 +63,18 @@ flutter:
       fonts:
         - asset: assets/fonts/NotoSansJP-Regular.ttf
           weight: 400
+        - asset: assets/fonts/NotoSansJP-Medium.ttf
+          weight: 500
         - asset: assets/fonts/NotoSansJP-Bold.ttf
           weight: 700
         - asset: assets/fonts/NotoSansJP-Black.ttf
           weight: 900
     - family: JetBrainsMono
       fonts:
+        - asset: assets/fonts/JetBrainsMono-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/JetBrainsMono-Bold.ttf
+          weight: 700
         - asset: assets/fonts/JetBrainsMono-ExtraBold.ttf
           weight: 900
 

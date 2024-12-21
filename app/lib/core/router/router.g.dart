@@ -38,6 +38,10 @@ RouteBase get $appShellRoute => StatefulShellRouteData.$route(
               path: '/display',
               factory: $DisplaysettingsRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: '/log',
+              factory: $LogSettingsRouteExtension._fromState,
+            ),
           ],
         ),
       ],
@@ -135,11 +139,29 @@ extension $DisplaysettingsRouteExtension on DisplaysettingsRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $LogSettingsRouteExtension on LogSettingsRoute {
+  static LogSettingsRoute _fromState(GoRouterState state) =>
+      const LogSettingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/log',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'cae4a21bcd79ca12f0402b602ddbea4bf2084a89';
+String _$routerHash() => r'2b22d8c0ebe941f2a984bab80142134e86904a18';
 
 /// See also [router].
 @ProviderFor(router)

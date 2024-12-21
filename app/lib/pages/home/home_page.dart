@@ -2,6 +2,7 @@ import 'package:eqdashboard/core/components/platform/platform_root_scaffold.dart
 import 'package:eqdashboard/core/router/router.dart';
 import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
+import 'package:eqdashboard/pages/settings/children/log_settings_page.dart';
 import 'package:eqdashboard/pages/settings/settings_disclosure_page.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,13 @@ class HomePage extends StatelessWidget {
           path: const DisplaysettingsRoute().location,
           icon: Icons.display_settings,
         ),
+        NavigationItem(
+          label: 'ログ',
+          path: const LogSettingsRoute().location,
+          icon: Icons.terminal,
+        ),
       ];
+
 
       return NavigationItem(
         label: '設定',

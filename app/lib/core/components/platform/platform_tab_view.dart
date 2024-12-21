@@ -103,11 +103,11 @@ class PlatformTabView extends HookWidget {
                   .toList(),
               onTap: (index) => currentIndex.value = index,
             ),
-            Expanded(
-              child: IndexedStack(
-                index: currentIndex.value,
-                children: children,
-              ),
+            TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: tabController,
+              children: children,
+              
             ),
           ],
         ),

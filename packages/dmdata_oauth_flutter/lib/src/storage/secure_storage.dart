@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dmdata_oauth_flutter/src/model/oauth_state.dart';
 import 'package:dmdata_oauth_flutter/src/storage/oauth_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 /// FlutterSecureStorageを使用したOAuth認証状態の永続化
 class SecureOAuthStorage implements OAuthStorage {
@@ -26,9 +28,17 @@ class SecureOAuthStorage implements OAuthStorage {
       return null;
     }
 
-    return OAuthState.fromJson(
-      jsonDecode(json) as Map<String, dynamic>,
-    );
+    try {
+      return OAuthState.fromJson(
+        jsonDecode(json) as Map<String, dynamic>,
+      );
+    } on CheckedFromJsonException catch (e) {
+      log(e.toString());
+      return null;
+    } on FormatException catch (e) {
+      log(e.toString());
+      return null;
+    }
   }
 
   @override

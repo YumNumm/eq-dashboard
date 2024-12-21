@@ -4,11 +4,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dmdata_api/dmdata_api.dart';
+import 'package:eqdashboard/core/provider/talker.dart';
 import 'package:eqdashboard/core/util/result.dart';
-import 'package:eqdashboard/features/auth/notifier/auth_notifier.dart';
+import 'package:eqdashboard/features/dmdata/auth/notifier/auth_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:synchronized/synchronized.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 part 'dmdata.g.dart';
 
@@ -23,9 +25,17 @@ Dio dmdataDio(Ref ref) {
   final dio = Dio();
   final authNotifier = ref.watch(authProvider.notifier);
 
-  dio.interceptors.add(
-    _DmdataInterceptor(authNotifier: authNotifier),
+  final talker = ref.watch(talkerProvider);
+  dio.interceptors.addAll(
+    [
+      TalkerDioLogger(
+        talker: talker,
+        addonId: 'dmdata',
+      ),
+      _DmdataInterceptor(authNotifier: authNotifier),
+    ],
   );
+
   return dio;
 }
 
