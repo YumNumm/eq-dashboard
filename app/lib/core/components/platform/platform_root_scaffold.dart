@@ -209,9 +209,7 @@ class PlatformRootScaffold extends HookConsumerWidget {
       ),
       tabBuilder: (context, index) {
         final item = items[index];
-        return SafeArea(
-          child: index == currentIndex ? child : const SizedBox(),
-        );
+        return index == currentIndex ? child : const SizedBox();
       },
     );
   }
@@ -225,9 +223,6 @@ class PlatformRootScaffold extends HookConsumerWidget {
     final isCompact = screenSize == ScreenSizeType.compact;
 
     return Scaffold(
-      appBar: AppBar(
-        title: title,
-      ),
       bottomNavigationBar: isCompact
           ? BottomNavigationBar(
               items: [

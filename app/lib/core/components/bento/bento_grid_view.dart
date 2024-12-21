@@ -153,7 +153,9 @@ class BentoGridView extends HookWidget {
               if (onItemSizeChanged != null)
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Row(
+                  child: Wrap(
+                    runAlignment: WrapAlignment.spaceBetween,
+                    
                     children: [
                       PlatformPopupMenuButton<BentoGridSize>(
                         icon: const Icon(
@@ -174,7 +176,6 @@ class BentoGridView extends HookWidget {
                             ),
                         ],
                       ),
-                      const Spacer(),
                       PlatformButton.filled(
                         onPressed: () async {
                           final shouldDelete = await PlatformDialog.show<bool>(
