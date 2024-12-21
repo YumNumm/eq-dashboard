@@ -1,6 +1,4 @@
 PODS:
-  - app_links (0.0.2):
-    - Flutter
   - AppAuth (1.7.6):
     - AppAuth/Core (= 1.7.6)
     - AppAuth/ExternalUserAgent (= 1.7.6)
@@ -11,7 +9,12 @@ PODS:
   - flutter_appauth (0.0.1):
     - AppAuth (= 1.7.6)
     - Flutter
-  - flutter_secure_storage (3.3.1):
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
@@ -20,10 +23,11 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - app_links (from `.symlinks/plugins/app_links/ios`)
   - Flutter (from `Flutter`)
   - flutter_appauth (from `.symlinks/plugins/flutter_appauth/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
@@ -32,25 +36,28 @@ SPEC REPOS:
     - AppAuth
 
 EXTERNAL SOURCES:
-  app_links:
-    :path: ".symlinks/plugins/app_links/ios"
   Flutter:
     :path: Flutter
   flutter_appauth:
     :path: ".symlinks/plugins/flutter_appauth/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  app_links: 3da4c36b46cac3bf24eb897f1a6ce80bda109874
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_appauth: 914057fda669db5073d3ca9d94ea932e7df3c964
-  flutter_secure_storage: 50035aef357c5a8bdd67fd6bc81370d46efc4d16
+  flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
 

@@ -2,43 +2,43 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'dmdata.dart';
+part of 'talker.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dmdataApiHash() => r'd1a46e049c574506f45f3c0aa311153be118af0d';
+String _$talkerHash() => r'518af9d1c7dc8a43ce83acd28518222d8d2cb2bc';
 
-/// See also [dmdataApi].
-@ProviderFor(dmdataApi)
-final dmdataApiProvider = Provider<DmdataApi>.internal(
-  dmdataApi,
-  name: r'dmdataApiProvider',
+/// See also [talker].
+@ProviderFor(talker)
+final talkerProvider = Provider<Talker>.internal(
+  talker,
+  name: r'talkerProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$dmdataApiHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$talkerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DmdataApiRef = ProviderRef<DmdataApi>;
-String _$dmdataDioHash() => r'09290b715915f90954e04e6747db2b39f777c067';
+typedef TalkerRef = ProviderRef<Talker>;
+String _$talkerLoggerHash() => r'07090c10b611db45cbee2ee43bdfaf4c425bea6e';
 
-/// See also [dmdataDio].
-@ProviderFor(dmdataDio)
-final dmdataDioProvider = Provider<Dio>.internal(
-  dmdataDio,
-  name: r'dmdataDioProvider',
+/// See also [talkerLogger].
+@ProviderFor(talkerLogger)
+final talkerLoggerProvider = Provider<TalkerLogger>.internal(
+  talkerLogger,
+  name: r'talkerLoggerProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$dmdataDioHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$talkerLoggerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DmdataDioRef = ProviderRef<Dio>;
+typedef TalkerLoggerRef = ProviderRef<TalkerLogger>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

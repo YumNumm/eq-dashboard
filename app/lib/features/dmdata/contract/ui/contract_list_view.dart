@@ -1,7 +1,7 @@
 import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
 import 'package:eqdashboard/core/components/platform/platform_list_tile.dart';
 import 'package:eqdashboard/core/components/platform/platform_progress_indicator.dart';
-import 'package:eqdashboard/features/auth/notifier/contract_list_provider.dart';
+import 'package:eqdashboard/features/dmdata/auth/notifier/contract_list_provider.dart';
 import 'package:eqdashboard/features/dmdata/contract/model/contract_ui_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

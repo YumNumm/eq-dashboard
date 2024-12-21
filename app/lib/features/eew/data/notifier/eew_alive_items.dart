@@ -11,14 +11,30 @@ part 'eew_alive_items.g.dart';
 class EewAliveItems extends _$EewAliveItems {
   @override
   List<EewListItem> build() {
-    final state = ref.watch(eewListNotifierProvider).valueOrNull;
-    if (state == null) {
-      return [];
+    final state = ref.watch(eewListNotifierProvider);
+    if (!state.hasValue) {
+      if (state.isLoading) {
+        throw EewAliveItemsException(
+          message: 'EewListNotifier is loading',
+        );
+      }
+      if (state.hasError) {
+        throw EewAliveItemsException(
+          message: 'EewListNotifier has error',
+        );
+      }
     }
+    final stateOrNull = state.valueOrNull;
+    if (stateOrNull == null) {
+      throw EewAliveItemsException(
+        message: 'EewListNotifier is not initialized',
+      );
+    }
+
     final now = ref.watch(ntpTimeTickerProvider).valueOrNull ?? DateTime.now();
 
     final checker = ref.watch(eewAliveCheckerProvider);
-    return state.items
+    return stateOrNull.items
         .where((e) => !checker.checkMarkAsEventEnded(eew: e, now: now))
         .toList();
   }
@@ -29,4 +45,12 @@ class EewAliveItems extends _$EewAliveItems {
     List<EewListItem>? next,
   ) =>
       !const ListEquality<EewListItem>().equals(previous, next);
+}
+
+class EewAliveItemsException implements Exception {
+  EewAliveItemsException({
+    required this.message,
+  });
+
+  final String message;
 }
