@@ -321,7 +321,7 @@ jobs:
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: EQDashboard-macos.app
-          path: build/macos/Build/Products/Release/EQDashboard.app
+          path: app/build/macos/Build/Products/Release/EQDashboard.app
 
   build-linux:
     needs: define-matrix
@@ -356,7 +356,7 @@ jobs:
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: EQDashboard-linux
-          path: build/linux/
+          path: app/build/linux/
 
   build-windows:
     needs: define-matrix
@@ -380,4 +380,4 @@ jobs:
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: EQDashboard-windows
-          path: build/windows/
+          path: app/build/windows/
