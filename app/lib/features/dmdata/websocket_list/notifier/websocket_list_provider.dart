@@ -1,5 +1,5 @@
-import 'package:eqdashboard/features/dmdata/websocket/model/websocket_ui_model.dart';
-import 'package:eqdashboard/features/dmdata/websocket/repository/websocket_list_repository.dart';
+import 'package:eqdashboard/features/dmdata/websocket_list/model/websocket_ui_model.dart';
+import 'package:eqdashboard/features/dmdata/websocket_list/repository/websocket_list_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

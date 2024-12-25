@@ -1,3 +1,12 @@
-# melos_managed_dependency_overrides: dmdata_oauth_flutter,eqdashboard_lints,dmdata_oauth_api_client,dmdata_api
+# melos_managed_dependency_overrides: dmdata_api,dmdata_oauth_api_client,dmdata_oauth_flutter,eqdashboard_lints
 dependency_overrides:
-  {dmdata_api: {path: ../packages/dmdata_api}, dmdata_oauth_api_client: {path: ../packages/dmdata_oauth_api_client}, dmdata_oauth_flutter: {path: ../packages/dmdata_oauth_flutter}, eqdashboard_lints: {path: ../packages/eqdashboard_lints}}
+  dmdata_api:
+    path: ../packages/dmdata_api
+  dmdata_oauth_api_client:
+    path: ../packages/dmdata_oauth_api_client
+  dmdata_oauth_flutter:
+    path: ../packages/dmdata_oauth_flutter
+  eqdashboard_lints:
+    path: ../packages/eqdashboard_lints
+  flutter_secure_storage_web: ^2.0.0-beta.1
+  web: ^1.1.0

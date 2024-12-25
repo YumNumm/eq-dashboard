@@ -3,7 +3,7 @@ import 'package:eqdashboard/core/components/platform/platform_tab_view.dart';
 import 'package:eqdashboard/features/dmdata/auth/notifier/auth_notifier.dart';
 import 'package:eqdashboard/features/dmdata/contract/ui/contract_list_view.dart';
 import 'package:eqdashboard/features/dmdata/contract/ui/websocket_avaiable_count_view.dart';
-import 'package:eqdashboard/features/dmdata/websocket/ui/websocket_list_view.dart';
+import 'package:eqdashboard/features/dmdata/websocket_list/ui/websocket_list_view.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_login_section.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

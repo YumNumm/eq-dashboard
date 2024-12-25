@@ -10,6 +10,12 @@ command:
     environment:
       sdk: ^3.6.0
       flutter: ^3.27.1
+    dependencyOverrides:
+      # flutter_secure_storage_webのv1系はWASMに対応していないため override
+      # See: https://github.com/juliansteenbakker/flutter_secure_storage/issues/812
+      flutter_secure_storage_web: 2.0.0-beta.1
+      web: ^1.1.0
+
 
 scripts:
   analyze:

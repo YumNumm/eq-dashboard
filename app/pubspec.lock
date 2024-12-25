@@ -464,13 +464,13 @@ packages:
     source: hosted
     version: "1.1.2"
   flutter_secure_storage_web:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: flutter_secure_storage_web
-      sha256: f4ebff989b4f07b2656fb16b47852c0aab9fed9b4ec1c70103368337bc1886a9
+      sha256: "4f95c4d5389fee7d19a41e776426e5c1b3e34319cd670c58da2dc4811d9c59bf"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.0-beta.1"
   flutter_secure_storage_windows:
     dependency: transitive
     description:
@@ -1282,7 +1282,7 @@ packages:
     source: hosted
     version: "1.1.0"
   web:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: web
       sha256: cd3543bd5798f6ad290ea73d210f423502e71900302dde696f8bff84bf89a1cb

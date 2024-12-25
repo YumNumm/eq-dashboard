@@ -94,6 +94,7 @@ jobs:
     if: ${{ needs.define-matrix.outputs.deploy-ios }}
     name: Build iOS
     runs-on: macos-latest
+    timeout-minutes: 15
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
@@ -138,7 +139,7 @@ jobs:
           BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.build_number }}
         run: |
           echo "BUILD_NUMBER=${BUILD_NUMBER}"
-          flutter build ios --no-codesign --build-number=${BUILD_NUMBER}
+          flutter build ipa --no-codesign --build-number=${BUILD_NUMBER}
 
       - name: Extract App Store Connect API Key
         working-directory: app/ios
@@ -173,7 +174,8 @@ jobs:
   deploy-ios:
     needs: build-ios
     name: Deploy iOS
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    timeout-minutes: 10
     steps:
       - name: Download ipa
         uses: actions/download-artifact@v4.1.1
@@ -196,3 +198,47 @@ jobs:
             --apiIssuer ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             --apiKeyPath AuthKey.p8 \
             --verbose
+
+
+  build-web:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-web }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup application runtime & Resolve dependencies
+        uses: ./.github/actions/setup-application-runtime
+
+      - name: Build Web
+        working-directory: app
+        run: flutter build web --release --wasm
+
+      # https://github.com/actions/upload-artifact
+      - name: Upload Web as artifact
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        with:
+          name: web
+          path: build/web/
+
+  deploy-web:
+    needs: build-web
+    name: Deploy Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download Web artifact
+        uses: actions/download-artifact@v4.1.1
+        with:
+          name: web
+          path: .
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 4270d8a14dfc1f866629099a788c93e2
+          command:
