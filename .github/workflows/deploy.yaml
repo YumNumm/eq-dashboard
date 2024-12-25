@@ -241,4 +241,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 4270d8a14dfc1f866629099a788c93e2
-          command:
+          command: pages deploy .
