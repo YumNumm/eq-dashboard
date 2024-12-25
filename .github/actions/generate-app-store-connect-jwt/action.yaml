@@ -19,13 +19,9 @@ runs:
   steps:
     - name: Create App Store Connect API Token
       shell: bash
-      env:
-        alg: ES256
-        kid: ${{ inputs.app_store_connect_api_key_id }}
-        typ: JWT
       run: |
         # JWT Header
-        header=$(echo '{"alg": "HS256", "typ": "JWT", "kid": ${{inputs.app_store_connect_api_key_id}}}' | \
+        header=$(echo '{"alg": "HS256", "typ": "JWT", "kid": "${{inputs.app_store_connect_api_key_id}}"}' | \
           openssl base64 -e -A | \
           tr '+/' '-_' | \
           tr -d '=') )
