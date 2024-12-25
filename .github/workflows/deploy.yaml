@@ -179,8 +179,8 @@ jobs:
       - name: Download ipa
         uses: actions/download-artifact@v4.1.1
         with:
-          name: EQDashboard-ios.xcarchive
-          path: app/build/ios/ipa/Runner.xcarchive
+          name: EQDashboard-ios.ipa
+          path: app/Runner.ipa
 
       - name: Setup macOS Environment
         uses: ./.github/actions/setup-macos-environment
