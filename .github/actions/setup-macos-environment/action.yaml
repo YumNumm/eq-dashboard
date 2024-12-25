@@ -16,10 +16,3 @@ runs:
       - name: Install brew dependencies
         shell: bash
         run: brew bundle install
-
-      - name: Set App Store Connect API Configuration
-        shell: bash
-        working-directory: app/ios
-        run: |
-          echo '${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}' | base64 -d \
-            > AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
