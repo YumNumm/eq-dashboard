@@ -125,16 +125,11 @@ jobs:
             -d "sort=-version" \
             -d "fields[builds]=version" \
             -d "limit=1" | \
-            jq -r '.data.[].attributes.version' | \
-            read -r build_number
-          if [ -z "$build_number" ]; then
-            echo "This is the first build. Set build number to 1."
-            build_number=1
-          else
-            echo "Current build number: $build_number. Increment build number."
-            build_number=$((build_number + 1))
-          fi
+            jq -r '.data | if length == 0 then 0 else .[0].attributes.version end' | \
+            read -r '' build_number
+          build_number=$((build_number + 1))
           echo "build_number=${build_number}" >> $GITHUB_OUTPUT
+          echo "Build Number set to ${build_number}."
 
       - name: Extract App Store Connect API Key
         working-directory: app/ios
