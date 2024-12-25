@@ -44,7 +44,9 @@ class EewListLastUpdateText extends ConsumerWidget {
         Text('最終更新: ${formatter.format(lastUpdateAt)}'),
         if (state.isLoading) ...[
           const SizedBox(width: 4),
-          const PlatformProgressIndicator(),
+          const PlatformProgressIndicator(
+            size: 8,
+          ),
         ],
       ],
     );

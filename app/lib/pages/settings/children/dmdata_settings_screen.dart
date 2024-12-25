@@ -35,29 +35,28 @@ class DmdataSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
 
-    return PlatformScaffold.sliver(
+    return PlatformScaffold(
       title: const Text('Project DM-D.S.S 設定'),
       appBar: const PlatformAppBar(
         title: Text('Project DM-D.S.S 設定'),
       ),
-      children: [
-        SliverFillRemaining(
-          child: authState.when(
-            data: (state) => const _DmdataSettingsContent(),
-            loading: () => const Center(
-              child: ProgressCircle(),
-            ),
-            error: (error, stack) => PlatformErrorCard.provider(
-              error: error,
-              provider: authProvider,
-            ),
-          ),
+      child: authState.when(
+        data: (state) => const _DmdataSettingsContent(),
+        loading: () => const Center(
+          child: ProgressCircle(),
         ),
-      ],
+        error: (error, stack) => PlatformErrorCard.provider(
+          error: error,
+          provider: authProvider,
+        ),
+      ),
     );
   }
 }
 
+/// {@template eqdashboard._DmdataSettingsContent}
+///
+/// {@endtemplate}
 class _DmdataSettingsContent extends ConsumerWidget {
   const _DmdataSettingsContent();
 
@@ -80,45 +79,45 @@ class _DmdataSettingsContent extends ConsumerWidget {
           const _LoginSection()
         else
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Access Token: '
-                          '${authState.accessToken.substring(0, 6)}...',
-                        ),
-                        Text(
-                          'Refresh Token: '
-                          '${authState.refreshToken.substring(0, 6)}...',
-                        ),
-                        Text('Expire: ${authState.expiresAt}'),
-                        Text(
-                          'RefreshTokenExpire: '
-                          '${authState.refreshTokenExpiresAt}',
-                        ),
-                        Text('Scope: ${authState.scopes}'),
-                      ],
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Access Token: '
+                        '${authState.accessToken.substring(0, 6)}...',
+                      ),
+                      Text(
+                        'Refresh Token: '
+                        '${authState.refreshToken.substring(0, 6)}...',
+                      ),
+                      Text('Expire: ${authState.expiresAt}'),
+                      Text(
+                        'RefreshTokenExpire: '
+                        '${authState.refreshTokenExpiresAt}',
+                      ),
+                      Text('Scope: ${authState.scopes}'),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: PlatformButton.filled(
-                      onPressed: () async =>
-                          ref.read(authProvider.notifier).logout(),
-                      child: const Text('ログアウト'),
-                    ),
+                ),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: PlatformButton.filled(
+                    onPressed: () async =>
+                        ref.read(authProvider.notifier).logout(),
+                    child: const Text('ログアウト'),
                   ),
-                  const SizedBox(height: 4),
-                  const Divider(),
-                  const SizedBox(height: 4),
-                  PlatformTabView(
+                ),
+                const SizedBox(height: 4),
+                const Divider(),
+                const SizedBox(height: 4),
+                Expanded(
+                  child: PlatformTabView(
                     tabs: const [
                       PlatformTabItem(
                         label: 'WebSocket',
@@ -141,8 +140,8 @@ class _DmdataSettingsContent extends ConsumerWidget {
                       ContractListView(),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
       ],

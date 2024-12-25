@@ -107,7 +107,6 @@ class PlatformTabView extends HookWidget {
               physics: const NeverScrollableScrollPhysics(),
               controller: tabController,
               children: children,
-              
             ),
           ],
         ),
