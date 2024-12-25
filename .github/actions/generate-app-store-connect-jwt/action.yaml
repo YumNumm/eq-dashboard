@@ -1,0 +1,62 @@
+name: Generate App Store Connect JWT
+description: Generate App Store Connect JWT
+
+inputs:
+  app_store_connect_api_key_id:
+    required: true
+    description: App Store Connect API Key ID
+  app_store_connect_api_key_base64:
+    required: true
+    description: App Store Connect API Key Base64
+
+outputs:
+  jwt:
+    description: App Store Connect JWT
+    value: ${{ steps.asc-token.outputs.jwt }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create App Store Connect API Token
+      shell: bash
+      env:
+        alg: ES256
+        kid: ${{ inputs.app_store_connect_api_key_id }}
+        typ: JWT
+      run: |
+        # JWT Header
+        header=$(echo '{"alg": "HS256", "typ": "JWT", "kid": ${{inputs.app_store_connect_api_key_id}}}' | \
+          openssl base64 -e -A | \
+          tr '+/' '-_' | \
+          tr -d '=') )
+        echo $header
+
+        # JWT Payload
+        current_time=$(date +%s)
+        expiration_time=$(( $current_time + 3600 )) # 10 mins
+        payload=$(echo '
+          {
+            "iss": ${{inputs.app_store_connect_api_key_id}},
+            "iat": $current_time,
+            "exp": $expiration_time,
+            "aud": "appstoreconnect-v1"
+          }
+          ' | jq -c | \
+          openssl base64 -e -A | \
+          tr '+/' '-_' | \
+          tr -d '='))
+        echo $payload
+
+        # JWT Signature
+        echo ${{inputs.app_store_connect_api_key_base64}} | base64 -d > AuthKey_${{inputs.app_store_connect_api_key_id}}.p8
+        signature=$(echo -n "$header.$payload" | \
+          openssl dgst -binary -sha256 -sign AuthKey_${{inputs.app_store_connect_api_key_id}}.p8 | \
+          openssl base64 -e -A | \
+          tr '+/' '-_' | \
+          tr -d '='))
+
+        # JWT
+        jwt=$(echo -n "$header.$payload.$signature")
+
+        echo "JWT=${jwt}" >> $GITHUB_OUTPUT
+        echo $jwt | shasum -a 256

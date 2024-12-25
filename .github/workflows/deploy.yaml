@@ -1,0 +1,115 @@
+name: Deploy
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+    inputs:
+      ios:
+        description: "Build iOS app"
+        required: false
+        default: true
+        type: boolean
+      android:
+        description: "Build Android app"
+        required: false
+        default: true
+        type: boolean
+      web:
+        description: "Build Web app"
+        required: false
+        default: true
+        type: boolean
+      macos:
+        description: "Build macOS app"
+        required: false
+        default: true
+        type: boolean
+      windows:
+        description: "Build Windows app"
+        required: false
+        default: true
+        type: boolean
+      linux:
+        description: "Build Linux app"
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  define-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    outputs:
+      deploy-ios: ${{ steps.define-environment-matrix.outputs.deploy-ios }}
+      deploy-android: ${{ steps.define-environment-matrix.outputs.deploy-android }}
+      deploy-web: ${{ steps.define-environment-matrix.outputs.deploy-web }}
+      deploy-macos: ${{ steps.define-environment-matrix.outputs.deploy-macos }}
+      deploy-windows: ${{ steps.define-environment-matrix.outputs.deploy-windows }}
+      deploy-linux: ${{ steps.define-environment-matrix.outputs.deploy-linux }}
+    steps:
+      - name: Decide which app to deploy
+        id: define-environment-matrix
+        run: |
+          platforms=()
+          if ["${{ github.event_name}}" = "workflow_dispatch"]; then
+            if [ "${{ inputs.ios }}" = true ]; then
+              platforms+=("ios")
+            fi
+            if [ "${{ inputs.android }}" = true ]; then
+              platforms+=("android")
+            fi
+            if [ "${{ inputs.web }}" = true ]; then
+              platforms+=("web")
+            fi
+            if [ "${{ inputs.macos }}" = true ]; then
+              platforms+=("macos")
+            fi
+            if [ "${{ inputs.windows }}" = true ]; then
+              platforms+=("windows")
+            fi
+            if [ "${{ inputs.linux }}" = true ]; then
+              platforms+=("linux")
+            fi
+          else if ["${{ github.event_name}}" = "push"]; then
+            if [ "${{ github.ref}}" = "refs/heads/main" ]; then
+              platforms+=("ios" "android" "web" "macos" "windows" "linux")
+            fi
+          else
+            echo "Unknown event name: ${GITHUB_EVENT_NAME}"
+            exit 1
+          fi
+
+          echo "デプロイするプラットフォーム: ${platforms[@]}"
+          for platform in "${platforms[@]}"; do
+              echo "deploy-${platform}=true" >> $GITHUB_OUTPUT
+          done
+
+  build-ios:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-ios }}
+    name: Build iOS app
+    runs-on: macos-latest
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup application runtime & Resolve dependencies
+        uses: ./.github/actions/setup-application-runtime
+
+      - name: Setup macOS Environment
+        uses: ./.github/actions/setup-darwin
+
+      - name: Create App Store Connect API Token
+        uses: ./.github/actions/generate-app-store-connect-jwt
+        with:
+          app_store_connect_api_key_id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          app_store_connect_api_key_base64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
