@@ -14,8 +14,8 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # https://github.com/actions/setup-bun
-    - uses: actions/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
+    # https://github.com/oven-sh/setup-bun
+    - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
 
     - name: Extract App Store Connect API Key
       shell: bash
