@@ -2,6 +2,7 @@ import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
 import 'package:eqdashboard/core/components/app_icon.dart';
 import 'package:eqdashboard/core/components/platform/platform_alert_dialog.dart';
 import 'package:eqdashboard/core/components/platform/platform_button.dart';
+import 'package:eqdashboard/core/provider/talker.dart';
 import 'package:eqdashboard/core/util/result.dart';
 import 'package:eqdashboard/features/dmdata/auth/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class LoginSection extends ConsumerWidget {
   Future<void> _handleLogin(BuildContext context, WidgetRef ref) async {
     final result = await ref.read(authProvider.notifier).startAuthorization();
     if (result case Failure(:final error) when context.mounted) {
+      ref.read(talkerLoggerProvider).error(error);
       if (error is FlutterAppAuthUserCancelledException) {
         await showPlatformAlertDialog<void>(
           context: context,

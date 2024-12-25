@@ -92,7 +92,6 @@ jobs:
   build-ios:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-ios }}
-    name: Build iOS
     runs-on: macos-latest
     timeout-minutes: 15
     steps:
@@ -154,7 +153,7 @@ jobs:
             -configuration Release archive \
             -archivePath build/ios/Runner.xcarchive \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
 
           xcodebuild -exportArchive \
             -archivePath build/ios/Runner.xcarchive \
@@ -163,7 +162,7 @@ jobs:
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-            -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8
+            -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8 | xcbeautify
 
       - name: Upload ipa as artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
@@ -196,8 +195,7 @@ jobs:
             -f Runner.ipa \
             --type ios \
             --apiIssuer ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
-            --apiKeyPath AuthKey.p8 \
-            --verbose
+            --apiKeyPath AuthKey.p8
   build-web:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-web }}

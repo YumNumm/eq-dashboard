@@ -1,4 +1,5 @@
 import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart' as oauth;
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'oauth_config.g.dart';
@@ -12,7 +13,9 @@ class OAuthConfig extends _$OAuthConfig {
         tokenEndpoint: 'https://manager.dmdata.jp/account/oauth2/v1/token',
         revokeEndpoint: 'https://manager.dmdata.jp/account/oauth2/v1/revoke',
         clientId: 'CId.zEBBH6rIqV9kW2yAy-gK78tT3Vb5ifUQrKHa_3ia9eTA',
-        redirectUri: 'net.yumnumm.eqdashboard://login-callback',
+        redirectUri: kIsWeb
+            ? 'https://eqdashboard.yumnumm.dev/login-callback'
+            : 'net.yumnumm.eqdashboard://login-callback',
         scopes: [
           'eew.get.forecast',
           'eew.get.warning',
