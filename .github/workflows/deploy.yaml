@@ -115,19 +115,20 @@ jobs:
 
       - name: Fetch latest build number
         id: fetch-latest-build-number
-        shell: zsh
+        shell:
         run: |
           platform=IOS
           app_id=6739848784
-          curl -s https://api.appstoreconnect.apple.com/v1/builds \
+          build_number=$(
+            curl -s https://api.appstoreconnect.apple.com/v1/builds \
             -G \
             -d "filter[platform]=${platform}" \
             -d "filter[id]=${app_id}" \
             -d "sort=-version" \
             -d "fields[builds]=version" \
             -d "limit=1" | \
-            jq -r '.data | if length == 0 then 0 else .[0].attributes.version end' | \
-            read -d '' build_number
+            jq -r '.data | if length == 0 then 0 else .[0].attributes.version end'
+          )
           build_number=$((build_number + 1))
           echo "build_number=${build_number}" >> $GITHUB_OUTPUT
           echo "Build Number set to ${build_number}."
