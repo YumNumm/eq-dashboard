@@ -9,7 +9,7 @@ command:
     runPubGetInParallel: false
     environment:
       sdk: ^3.6.0
-      flutter: ^3.27.0
+      flutter: ^3.27.1
 
 scripts:
   analyze:
