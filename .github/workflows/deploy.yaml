@@ -157,8 +157,8 @@ jobs:
 
           xcodebuild -exportArchive \
             -archivePath build/ios/Runner.xcarchive \
-            -exportOptionsPlist build/ios/ExportOptions.plist \
-            -exportPath build/ios/ipa \
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -exportPath . \
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
@@ -167,8 +167,8 @@ jobs:
       - name: Upload ipa as artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
-          name: ipa
-          path: build/ios/ipa/Runner.ipa
+          name: EQDashboard-ios.ipa
+          path: app/Runner.ipa
 
   deploy-ios:
     needs: build-ios
@@ -179,8 +179,8 @@ jobs:
       - name: Download ipa
         uses: actions/download-artifact@v4.1.1
         with:
-          name: ipa
-          path: Runner.ipa
+          name: EQDashboard-ios.xcarchive
+          path: app/build/ios/ipa/Runner.xcarchive
 
       - name: Setup macOS Environment
         uses: ./.github/actions/setup-macos-environment
