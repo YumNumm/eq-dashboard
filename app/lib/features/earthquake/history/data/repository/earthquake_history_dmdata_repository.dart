@@ -31,5 +31,6 @@ class EarthquakeHistoryDmdataRepository {
       );
 
   /// 特定のIDの地震情報を取得する
-  // Future<EarthquakeData> fetchById(String id) async => _api.getEarthquake(id);
+  // Future<EarthquakeData>
+  // fetchById(String id) async => _api.getEarthquake(id);
 }

@@ -21,16 +21,18 @@ runs:
       shell: bash
       run: |
         # JWT Header
-        header=$(echo '{"alg": "HS256", "typ": "JWT", "kid": "${{inputs.app_store_connect_api_key_id}}"}' | \
+        echo '{"alg": "HS256", "typ": "JWT", "kid": "${{inputs.app_store_connect_api_key_id}}"}' | \
+          jq -c | \
           openssl base64 -e -A | \
           tr '+/' '-_' | \
-          tr -d '=') )
+          tr -d '=' | \
+          read -r header
         echo $header
 
         # JWT Payload
         current_time=$(date +%s)
         expiration_time=$(( $current_time + 3600 )) # 10 mins
-        payload=$(echo '
+        echo '
           {
             "iss": ${{inputs.app_store_connect_api_key_id}},
             "iat": $current_time,
@@ -40,7 +42,8 @@ runs:
           ' | jq -c | \
           openssl base64 -e -A | \
           tr '+/' '-_' | \
-          tr -d '='))
+          tr -d '=') | \
+          read -r payload
         echo $payload
 
         # JWT Signature

@@ -170,7 +170,6 @@ jobs:
 
   deploy-ios:
     needs: build-ios
-    if: ${{ needs.build-ios.outputs.deploy-ios }}
     name: Deploy iOS
     runs-on: ubuntu-latest
     steps:
