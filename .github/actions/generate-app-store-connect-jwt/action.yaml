@@ -20,7 +20,7 @@ runs:
     - name: Extract App Store Connect API Key
       shell: bash
       run: |
-        echo ${{ inputs.app_store_connect_api_key_base64 }} | base64 -d > AuthKey.p8
+        echo '${{ inputs.app_store_connect_api_key_base64 }}' | base64 -d > AuthKey.p8
 
     - name: Generate App Store Connect API JWT
       shell: bash
