@@ -115,7 +115,6 @@ jobs:
 
       - name: Fetch latest build number
         id: fetch-latest-build-number
-        shell:
         run: |
           platform=IOS
           app_id=6739848784
