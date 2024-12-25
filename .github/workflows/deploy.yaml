@@ -163,7 +163,7 @@ jobs:
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-            -authenticationKeyPath ./ios/AuthKey.p8
+            -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8
 
       - name: Upload ipa as artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
@@ -223,7 +223,7 @@ jobs:
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: web
-          path: build/web/
+          path: app/build/web/
 
   deploy-web:
     needs: build-web
