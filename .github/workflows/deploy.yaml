@@ -92,7 +92,7 @@ jobs:
   build-ios:
     needs: define-matrix
     if: ${{ needs.define-matrix.outputs.deploy-ios }}
-    name: Build iOS app
+    name: Build iOS
     runs-on: macos-latest
     steps:
       # https://github.com/actions/checkout
@@ -105,7 +105,7 @@ jobs:
         uses: ./.github/actions/setup-application-runtime
 
       - name: Setup macOS Environment
-        uses: ./.github/actions/setup-darwin
+        uses: ./.github/actions/setup-macos-environment
 
       - name: Create App Store Connect API Token
         uses: ./.github/actions/generate-app-store-connect-jwt
