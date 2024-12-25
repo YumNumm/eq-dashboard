@@ -58,37 +58,35 @@ jobs:
         id: define-environment-matrix
         run: |
           platforms=()
-          if ["${{ github.event_name}}" = "workflow_dispatch"]; then
-            if [ "${{ inputs.ios }}" = true ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ inputs.ios }}" = "true" ]; then
               platforms+=("ios")
             fi
-            if [ "${{ inputs.android }}" = true ]; then
+            if [ "${{ inputs.android }}" = "true" ]; then
               platforms+=("android")
             fi
-            if [ "${{ inputs.web }}" = true ]; then
+            if [ "${{ inputs.web }}" = "true" ]; then
               platforms+=("web")
             fi
-            if [ "${{ inputs.macos }}" = true ]; then
+            if [ "${{ inputs.macos }}" = "true" ]; then
               platforms+=("macos")
             fi
-            if [ "${{ inputs.windows }}" = true ]; then
+            if [ "${{ inputs.windows }}" = "true" ]; then
               platforms+=("windows")
             fi
-            if [ "${{ inputs.linux }}" = true ]; then
+            if [ "${{ inputs.linux }}" = "true" ]; then
               platforms+=("linux")
             fi
-          else if ["${{ github.event_name}}" = "push"]; then
-            if [ "${{ github.ref}}" = "refs/heads/main" ]; then
-              platforms+=("ios" "android" "web" "macos" "windows" "linux")
-            fi
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            platforms+=("ios" "android" "web" "macos" "windows" "linux")
           else
-            echo "Unknown event name: ${GITHUB_EVENT_NAME}"
+            echo "Unknown event name: ${{ github.event_name }}"
             exit 1
           fi
 
           echo "デプロイするプラットフォーム: ${platforms[@]}"
           for platform in "${platforms[@]}"; do
-              echo "deploy-${platform}=true" >> $GITHUB_OUTPUT
+            echo "deploy-${platform}=true" >> $GITHUB_OUTPUT
           done
 
   build-ios:
