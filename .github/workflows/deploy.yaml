@@ -132,16 +132,21 @@ jobs:
           echo "build_number=${build_number}" >> $GITHUB_OUTPUT
           echo "Build Number set to ${build_number}."
 
-      - name: Extract App Store Connect API Key
-        working-directory: app/ios
-        run: echo "${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}" | base64 -d > AuthKey.p8
-
       - name: Build iOS
+        working-directory: app
         env:
           BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.build_number }}
         run: |
           echo "BUILD_NUMBER=${BUILD_NUMBER}"
           flutter build ios --no-codesign --build-number=${BUILD_NUMBER}
+
+      - name: Extract App Store Connect API Key
+        working-directory: app/ios
+        run: echo "${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}" | base64 -d > AuthKey.p8
+
+      - name: Archive
+        working-directory: app/ios
+        run: |
           xcodebuild -workspace ios/Runner.xcworkspace \
             -scheme Runner \
             -sdk iphoneos \
@@ -149,6 +154,7 @@ jobs:
             -archivePath build/ios/Runner.xcarchive \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
+
           xcodebuild -exportArchive \
             -archivePath build/ios/Runner.xcarchive \
             -exportOptionsPlist build/ios/ExportOptions.plist \
