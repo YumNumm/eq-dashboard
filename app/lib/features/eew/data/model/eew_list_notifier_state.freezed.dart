@@ -22,7 +22,7 @@ EewListNotifierState _$EewListNotifierStateFromJson(Map<String, dynamic> json) {
 mixin _$EewListNotifierState {
   List<EewListItem> get items => throw _privateConstructorUsedError;
   String? get nextToken => throw _privateConstructorUsedError;
-  DateTime? get lastUpdateAt => throw _privateConstructorUsedError;
+  DateTime? get lastUpdatedAt => throw _privateConstructorUsedError;
   bool get isSupportingRealtimeUpdate => throw _privateConstructorUsedError;
 
   /// Serializes this EewListNotifierState to a JSON map.
@@ -44,7 +44,7 @@ abstract class $EewListNotifierStateCopyWith<$Res> {
   $Res call(
       {List<EewListItem> items,
       String? nextToken,
-      DateTime? lastUpdateAt,
+      DateTime? lastUpdatedAt,
       bool isSupportingRealtimeUpdate});
 }
 
@@ -66,7 +66,7 @@ class _$EewListNotifierStateCopyWithImpl<$Res,
   $Res call({
     Object? items = null,
     Object? nextToken = freezed,
-    Object? lastUpdateAt = freezed,
+    Object? lastUpdatedAt = freezed,
     Object? isSupportingRealtimeUpdate = null,
   }) {
     return _then(_value.copyWith(
@@ -78,9 +78,9 @@ class _$EewListNotifierStateCopyWithImpl<$Res,
           ? _value.nextToken
           : nextToken // ignore: cast_nullable_to_non_nullable
               as String?,
-      lastUpdateAt: freezed == lastUpdateAt
-          ? _value.lastUpdateAt
-          : lastUpdateAt // ignore: cast_nullable_to_non_nullable
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       isSupportingRealtimeUpdate: null == isSupportingRealtimeUpdate
           ? _value.isSupportingRealtimeUpdate
@@ -101,7 +101,7 @@ abstract class _$$EewListNotifierStateImplCopyWith<$Res>
   $Res call(
       {List<EewListItem> items,
       String? nextToken,
-      DateTime? lastUpdateAt,
+      DateTime? lastUpdatedAt,
       bool isSupportingRealtimeUpdate});
 }
 
@@ -120,7 +120,7 @@ class __$$EewListNotifierStateImplCopyWithImpl<$Res>
   $Res call({
     Object? items = null,
     Object? nextToken = freezed,
-    Object? lastUpdateAt = freezed,
+    Object? lastUpdatedAt = freezed,
     Object? isSupportingRealtimeUpdate = null,
   }) {
     return _then(_$EewListNotifierStateImpl(
@@ -132,9 +132,9 @@ class __$$EewListNotifierStateImplCopyWithImpl<$Res>
           ? _value.nextToken
           : nextToken // ignore: cast_nullable_to_non_nullable
               as String?,
-      lastUpdateAt: freezed == lastUpdateAt
-          ? _value.lastUpdateAt
-          : lastUpdateAt // ignore: cast_nullable_to_non_nullable
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       isSupportingRealtimeUpdate: null == isSupportingRealtimeUpdate
           ? _value.isSupportingRealtimeUpdate
@@ -150,7 +150,7 @@ class _$EewListNotifierStateImpl implements _EewListNotifierState {
   const _$EewListNotifierStateImpl(
       {required final List<EewListItem> items,
       required this.nextToken,
-      required this.lastUpdateAt,
+      required this.lastUpdatedAt,
       required this.isSupportingRealtimeUpdate})
       : _items = items;
 
@@ -168,13 +168,13 @@ class _$EewListNotifierStateImpl implements _EewListNotifierState {
   @override
   final String? nextToken;
   @override
-  final DateTime? lastUpdateAt;
+  final DateTime? lastUpdatedAt;
   @override
   final bool isSupportingRealtimeUpdate;
 
   @override
   String toString() {
-    return 'EewListNotifierState(items: $items, nextToken: $nextToken, lastUpdateAt: $lastUpdateAt, isSupportingRealtimeUpdate: $isSupportingRealtimeUpdate)';
+    return 'EewListNotifierState(items: $items, nextToken: $nextToken, lastUpdatedAt: $lastUpdatedAt, isSupportingRealtimeUpdate: $isSupportingRealtimeUpdate)';
   }
 
   @override
@@ -185,8 +185,8 @@ class _$EewListNotifierStateImpl implements _EewListNotifierState {
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.nextToken, nextToken) ||
                 other.nextToken == nextToken) &&
-            (identical(other.lastUpdateAt, lastUpdateAt) ||
-                other.lastUpdateAt == lastUpdateAt) &&
+            (identical(other.lastUpdatedAt, lastUpdatedAt) ||
+                other.lastUpdatedAt == lastUpdatedAt) &&
             (identical(other.isSupportingRealtimeUpdate,
                     isSupportingRealtimeUpdate) ||
                 other.isSupportingRealtimeUpdate ==
@@ -199,7 +199,7 @@ class _$EewListNotifierStateImpl implements _EewListNotifierState {
       runtimeType,
       const DeepCollectionEquality().hash(_items),
       nextToken,
-      lastUpdateAt,
+      lastUpdatedAt,
       isSupportingRealtimeUpdate);
 
   /// Create a copy of EewListNotifierState
@@ -224,7 +224,7 @@ abstract class _EewListNotifierState implements EewListNotifierState {
   const factory _EewListNotifierState(
           {required final List<EewListItem> items,
           required final String? nextToken,
-          required final DateTime? lastUpdateAt,
+          required final DateTime? lastUpdatedAt,
           required final bool isSupportingRealtimeUpdate}) =
       _$EewListNotifierStateImpl;
 
@@ -236,7 +236,7 @@ abstract class _EewListNotifierState implements EewListNotifierState {
   @override
   String? get nextToken;
   @override
-  DateTime? get lastUpdateAt;
+  DateTime? get lastUpdatedAt;
   @override
   bool get isSupportingRealtimeUpdate;
 

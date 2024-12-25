@@ -1,22 +1,21 @@
 import 'package:eqdashboard/core/components/platform/platform_progress_indicator.dart';
-import 'package:eqdashboard/features/eew/data/notifier/eew_list_notifier.dart';
+import 'package:eqdashboard/features/earthquake/history/data/notifier/earthquake_history_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class EewListLastUpdateText extends ConsumerWidget {
-  const EewListLastUpdateText({super.key});
+class EarthquakeHistoryLastUpdateText extends ConsumerWidget {
+  const EarthquakeHistoryLastUpdateText({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(eewListNotifierProvider);
+    final state = ref.watch(earthquakeHistoryNotifierProvider);
     final stateOrNull = state.valueOrNull;
-
     if (stateOrNull == null) {
       return const SizedBox.shrink();
     }
 
-    final lastUpdateAt = stateOrNull.lastUpdateAt;
+    final lastUpdateAt = stateOrNull.lastUpdatedAt;
     final isSupportingRealtimeUpdate = stateOrNull.isSupportingRealtimeUpdate;
 
     if (lastUpdateAt == null) {

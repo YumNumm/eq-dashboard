@@ -43,6 +43,9 @@ mixin _$EarthquakeHistoryListItem {
   EarthquakeHistoryHypocenter? get hypocenter =>
       throw _privateConstructorUsedError;
 
+  /// 地震の種類
+  EarthquakeType? get earthquakeType => throw _privateConstructorUsedError;
+
   /// Serializes this EarthquakeHistoryListItem to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -65,7 +68,8 @@ abstract class $EarthquakeHistoryListItemCopyWith<$Res> {
       DateTime? originTime,
       JmaIntensity? maxIntensity,
       JmaLgIntensity? maxLgIntensity,
-      EarthquakeHistoryHypocenter? hypocenter});
+      EarthquakeHistoryHypocenter? hypocenter,
+      EarthquakeType? earthquakeType});
 
   $EarthquakeHistoryHypocenterCopyWith<$Res>? get hypocenter;
 }
@@ -92,6 +96,7 @@ class _$EarthquakeHistoryListItemCopyWithImpl<$Res,
     Object? maxIntensity = freezed,
     Object? maxLgIntensity = freezed,
     Object? hypocenter = freezed,
+    Object? earthquakeType = freezed,
   }) {
     return _then(_value.copyWith(
       eventId: null == eventId
@@ -118,6 +123,10 @@ class _$EarthquakeHistoryListItemCopyWithImpl<$Res,
           ? _value.hypocenter
           : hypocenter // ignore: cast_nullable_to_non_nullable
               as EarthquakeHistoryHypocenter?,
+      earthquakeType: freezed == earthquakeType
+          ? _value.earthquakeType
+          : earthquakeType // ignore: cast_nullable_to_non_nullable
+              as EarthquakeType?,
     ) as $Val);
   }
 
@@ -152,7 +161,8 @@ abstract class _$$EarthquakeHistoryListItemImplCopyWith<$Res>
       DateTime? originTime,
       JmaIntensity? maxIntensity,
       JmaLgIntensity? maxLgIntensity,
-      EarthquakeHistoryHypocenter? hypocenter});
+      EarthquakeHistoryHypocenter? hypocenter,
+      EarthquakeType? earthquakeType});
 
   @override
   $EarthquakeHistoryHypocenterCopyWith<$Res>? get hypocenter;
@@ -179,6 +189,7 @@ class __$$EarthquakeHistoryListItemImplCopyWithImpl<$Res>
     Object? maxIntensity = freezed,
     Object? maxLgIntensity = freezed,
     Object? hypocenter = freezed,
+    Object? earthquakeType = freezed,
   }) {
     return _then(_$EarthquakeHistoryListItemImpl(
       eventId: null == eventId
@@ -205,6 +216,10 @@ class __$$EarthquakeHistoryListItemImplCopyWithImpl<$Res>
           ? _value.hypocenter
           : hypocenter // ignore: cast_nullable_to_non_nullable
               as EarthquakeHistoryHypocenter?,
+      earthquakeType: freezed == earthquakeType
+          ? _value.earthquakeType
+          : earthquakeType // ignore: cast_nullable_to_non_nullable
+              as EarthquakeType?,
     ));
   }
 }
@@ -218,7 +233,8 @@ class _$EarthquakeHistoryListItemImpl implements _EarthquakeHistoryListItem {
       required this.originTime,
       required this.maxIntensity,
       required this.maxLgIntensity,
-      required this.hypocenter});
+      required this.hypocenter,
+      required this.earthquakeType});
 
   factory _$EarthquakeHistoryListItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$EarthquakeHistoryListItemImplFromJson(json);
@@ -250,9 +266,13 @@ class _$EarthquakeHistoryListItemImpl implements _EarthquakeHistoryListItem {
   @override
   final EarthquakeHistoryHypocenter? hypocenter;
 
+  /// 地震の種類
+  @override
+  final EarthquakeType? earthquakeType;
+
   @override
   String toString() {
-    return 'EarthquakeHistoryListItem(eventId: $eventId, arrivalTime: $arrivalTime, originTime: $originTime, maxIntensity: $maxIntensity, maxLgIntensity: $maxLgIntensity, hypocenter: $hypocenter)';
+    return 'EarthquakeHistoryListItem(eventId: $eventId, arrivalTime: $arrivalTime, originTime: $originTime, maxIntensity: $maxIntensity, maxLgIntensity: $maxLgIntensity, hypocenter: $hypocenter, earthquakeType: $earthquakeType)';
   }
 
   @override
@@ -270,13 +290,15 @@ class _$EarthquakeHistoryListItemImpl implements _EarthquakeHistoryListItem {
             (identical(other.maxLgIntensity, maxLgIntensity) ||
                 other.maxLgIntensity == maxLgIntensity) &&
             (identical(other.hypocenter, hypocenter) ||
-                other.hypocenter == hypocenter));
+                other.hypocenter == hypocenter) &&
+            (identical(other.earthquakeType, earthquakeType) ||
+                other.earthquakeType == earthquakeType));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, eventId, arrivalTime, originTime,
-      maxIntensity, maxLgIntensity, hypocenter);
+      maxIntensity, maxLgIntensity, hypocenter, earthquakeType);
 
   /// Create a copy of EarthquakeHistoryListItem
   /// with the given fields replaced by the non-null parameter values.
@@ -302,7 +324,8 @@ abstract class _EarthquakeHistoryListItem implements EarthquakeHistoryListItem {
           required final DateTime? originTime,
           required final JmaIntensity? maxIntensity,
           required final JmaLgIntensity? maxLgIntensity,
-          required final EarthquakeHistoryHypocenter? hypocenter}) =
+          required final EarthquakeHistoryHypocenter? hypocenter,
+          required final EarthquakeType? earthquakeType}) =
       _$EarthquakeHistoryListItemImpl;
 
   factory _EarthquakeHistoryListItem.fromJson(Map<String, dynamic> json) =
@@ -334,6 +357,10 @@ abstract class _EarthquakeHistoryListItem implements EarthquakeHistoryListItem {
   /// 震源
   @override
   EarthquakeHistoryHypocenter? get hypocenter;
+
+  /// 地震の種類
+  @override
+  EarthquakeType? get earthquakeType;
 
   /// Create a copy of EarthquakeHistoryListItem
   /// with the given fields replaced by the non-null parameter values.

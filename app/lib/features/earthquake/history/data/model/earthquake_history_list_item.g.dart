@@ -30,6 +30,8 @@ _$EarthquakeHistoryListItemImpl _$$EarthquakeHistoryListItemImplFromJson(
                   ? null
                   : EarthquakeHistoryHypocenter.fromJson(
                       v as Map<String, dynamic>)),
+          earthquakeType: $checkedConvert('earthquake_type',
+              (v) => $enumDecodeNullable(_$EarthquakeTypeEnumMap, v)),
         );
         return val;
       },
@@ -38,7 +40,8 @@ _$EarthquakeHistoryListItemImpl _$$EarthquakeHistoryListItemImplFromJson(
         'arrivalTime': 'arrival_time',
         'originTime': 'origin_time',
         'maxIntensity': 'max_intensity',
-        'maxLgIntensity': 'max_lg_intensity'
+        'maxLgIntensity': 'max_lg_intensity',
+        'earthquakeType': 'earthquake_type'
       },
     );
 
@@ -51,6 +54,7 @@ Map<String, dynamic> _$$EarthquakeHistoryListItemImplToJson(
       'max_intensity': _$JmaIntensityEnumMap[instance.maxIntensity],
       'max_lg_intensity': _$JmaLgIntensityEnumMap[instance.maxLgIntensity],
       'hypocenter': instance.hypocenter,
+      'earthquake_type': _$EarthquakeTypeEnumMap[instance.earthquakeType],
     };
 
 const _$JmaIntensityEnumMap = {
@@ -76,6 +80,12 @@ const _$JmaLgIntensityEnumMap = {
   JmaLgIntensity.four: '4',
   JmaLgIntensity.unknown: '不明',
   JmaLgIntensity.over: 'over',
+};
+
+const _$EarthquakeTypeEnumMap = {
+  EarthquakeType.normal: 'normal',
+  EarthquakeType.distant: 'distant',
+  EarthquakeType.volcanicEruption: 'volcanicEruption',
 };
 
 _$EarthquakeHistoryHypocenterImpl _$$EarthquakeHistoryHypocenterImplFromJson(

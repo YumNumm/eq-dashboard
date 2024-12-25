@@ -27,6 +27,9 @@ class EarthquakeHistoryListItem with _$EarthquakeHistoryListItem {
 
     /// 震源
     required EarthquakeHistoryHypocenter? hypocenter,
+
+    /// 地震の種類
+    required EarthquakeType? earthquakeType,
   }) = _EarthquakeHistoryListItem;
 
   factory EarthquakeHistoryListItem.fromJson(Map<String, dynamic> json) =>
@@ -57,5 +60,15 @@ enum DepthCondition {
   ;
 
   const DepthCondition(this.value);
+  final String value;
+}
+
+enum EarthquakeType {
+  normal('国内地震情報'),
+  distant('遠地地震情報'),
+  volcanicEruption('噴火情報'),
+  ;
+
+  const EarthquakeType(this.value);
   final String value;
 }

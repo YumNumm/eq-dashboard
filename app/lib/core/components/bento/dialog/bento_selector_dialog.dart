@@ -1,6 +1,7 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
 import 'package:eqdashboard/core/components/bento/model/bento_grid_item.dart';
-import 'package:eqdashboard/features/eew/ui/eew_alive/eew_alive_bento_card.dart';
+import 'package:eqdashboard/features/earthquake/history/ui/earthquake_history_bento_card.dart';
+import 'package:eqdashboard/features/eew/ui/eew_alive_bento_card.dart';
 import 'package:eqdashboard/features/eew/ui/eew_list_bento_card.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +19,8 @@ class BentoSelectorDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final availableBentos = [
       _BentoOption(
-        title: 'EEW リスト',
-        description: '緊急地震速報のリストを表示します',
+        title: '緊急地震速報の履歴',
+        description: '緊急地震速報の履歴を表示します',
         icon: Icons.notifications_active,
         onTap: () {
           final item = BentoGridItem(
@@ -31,14 +32,27 @@ class BentoSelectorDialog extends StatelessWidget {
         },
       ),
       _BentoOption(
-        title: 'EEW 死活監視',
-        description: 'EEWシステムの状態を監視します',
-        icon: Icons.monitor_heart,
+        title: '直近の緊急地震速報',
+        description: '直近の緊急地震速報を表示します',
+        icon: Icons.notifications_active,
         onTap: () {
           final item = BentoGridItem(
             id: 'eew_alive_${DateTime.now().millisecondsSinceEpoch}',
             size: BentoGridSize.medium,
             child: const EewAliveBentoCard(),
+          );
+          Navigator.of(context).pop(item);
+        },
+      ),
+      _BentoOption(
+        title: '地震履歴',
+        description: '地震履歴を表示します',
+        icon: Icons.history,
+        onTap: () {
+          final item = BentoGridItem(
+            id: 'earthquake_history_${DateTime.now().millisecondsSinceEpoch}',
+            size: BentoGridSize.medium,
+            child: const EarthquakeHistoryBentoCard(),
           );
           Navigator.of(context).pop(item);
         },
@@ -51,7 +65,7 @@ class BentoSelectorDialog extends StatelessWidget {
           leading: CloseButton(
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: const Text('弁当を追加'),
+          title: const Text('カードを追加'),
         ),
         body: ListView.builder(
           padding: const EdgeInsets.all(16),

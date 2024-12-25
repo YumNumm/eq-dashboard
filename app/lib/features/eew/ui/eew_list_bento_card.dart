@@ -1,8 +1,8 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_card.dart';
 import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
 import 'package:eqdashboard/features/eew/data/notifier/eew_list_notifier.dart';
-import 'package:eqdashboard/features/eew/ui/eew_list_last_update_text.dart';
-import 'package:eqdashboard/features/eew/ui/eew_list_view.dart';
+import 'package:eqdashboard/features/eew/ui/components/eew_list_last_update_text.dart';
+import 'package:eqdashboard/features/eew/ui/components/eew_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

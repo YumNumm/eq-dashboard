@@ -9,7 +9,7 @@ part of 'earthquake_history_notifier.dart';
 // **************************************************************************
 
 String _$earthquakeHistoryNotifierHash() =>
-    r'60d03f0c68658cb73456ab0cea0f3814d2c564de';
+    r'78e188c221db4523d888e44e9a0c66c3d9f9cee3';
 
 /// See also [EarthquakeHistoryNotifier].
 @ProviderFor(EarthquakeHistoryNotifier)

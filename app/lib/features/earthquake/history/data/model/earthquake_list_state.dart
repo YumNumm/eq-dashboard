@@ -9,6 +9,8 @@ class EarthquakeListState with _$EarthquakeListState {
   const factory EarthquakeListState({
     required List<EarthquakeHistoryListItem> items,
     required String? nextToken,
+    required DateTime? lastUpdatedAt,
+    required bool isSupportingRealtimeUpdate,
   }) = _EarthquakeListState;
 
   factory EarthquakeListState.fromJson(Map<String, dynamic> json) =>
