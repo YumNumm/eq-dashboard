@@ -37,10 +37,9 @@ runs:
 
     - name: Setup PATH (Windows)
       if: ${{ runner.os == 'Windows' }}
-      shell: powershell
+      shell: bash
       run: |
-        (Resolve-Path ~/flutter/bin).Path >> $Env.GITHUB
-        (Resolve-Path ~/.pub-cache/bin).Path >> $Env.GITHUB
+        cygpath -w ~/.pub-cache/bin >> $Env:GITHUB_PATH
 
     - name: Resolve dependencies
       shell: bash
