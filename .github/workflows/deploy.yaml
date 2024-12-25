@@ -322,3 +322,62 @@ jobs:
         with:
           name: EQDashboard-macos.app
           path: build/macos/Build/Products/Release/EQDashboard.app
+
+  build-linux:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-linux }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Linux Environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl git \
+            unzip xz-utils \
+            zip libglu1-mesa \
+            clang cmake git \
+            ninja-build pkg-config \
+            libgtk-3-dev liblzma-dev \
+            libstdc++-12-dev
+
+      - name: Setup application runtime & Resolve dependencies
+        uses: ./.github/actions/setup-application-runtime
+
+      - name: Build Linux
+        working-directory: app
+        run: flutter build linux --release
+
+      - name: Upload Linux as artifact
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        with:
+          name: EQDashboard-linux
+          path: build/linux/
+
+  build-windows:
+    needs: define-matrix
+    if: ${{ needs.define-matrix.outputs.deploy-windows }}
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Setup application runtime & Resolve dependencies
+        uses: ./.github/actions/setup-application-runtime
+
+      - name: Build Windows
+        working-directory: app
+        run: flutter build windows --release
+
+      - name: Upload Windows as artifact
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        with:
+          name: EQDashboard-windows
+          path: build/windows/
