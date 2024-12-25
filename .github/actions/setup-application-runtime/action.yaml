@@ -35,6 +35,13 @@ runs:
         dart pub global activate melos $MELOS_VERSION
       shell: bash
 
+    - name: Setup PATH (Windows)
+      if: ${{ runner.os == 'Windows' }}
+      shell: powershell
+      run: |
+        (Resolve-Path ~/flutter/bin).Path >> $Env.GITHUB
+        (Resolve-Path ~/.pub-cache/bin).Path >> $Env.GITHUB
+
     - name: Resolve dependencies
       shell: bash
       run: melos bootstrap
