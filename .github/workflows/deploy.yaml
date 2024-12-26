@@ -186,13 +186,16 @@ jobs:
         uses: actions/download-artifact@v4.1.1
         with:
           name: EQDashboard-ios.ipa
-          path: app/Runner.ipa
+          path: Runner.ipa
 
       - name: Setup macOS Environment
         uses: ./.github/actions/setup-macos-environment
 
       - name: Extract App Store Connect API Key
-        run: echo "${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}" | base64 -d > AuthKey.p8
+        run: |
+          mkdir ~/.private_keys
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}" | base64 -d > ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+          ls -l ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
 
       - name: Upload Ipa to App Store Connect
         run: |
@@ -201,7 +204,7 @@ jobs:
             -f Runner.ipa \
             --type ios \
             --apiIssuer ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
-            --apiKeyPath AuthKey.p8
+            --apiKey ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
 
   build-web:
     needs: define-matrix
