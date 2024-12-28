@@ -328,6 +328,12 @@ jobs:
           echo "BUILD_NUMBER=${BUILD_NUMBER}"
           flutter build macos --build-number=${BUILD_NUMBER} --config-only
 
+      - name: Extract App Store Connect API Key
+        run: |
+          mkdir ~/.private_keys
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}" | base64 -d > ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+          ls -l ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
       - name: Archive
         working-directory: app
         run: |
@@ -339,12 +345,6 @@ jobs:
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
             -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8 \
             archive | xcbeautify
-
-      - name: Extract App Store Connect API Key
-        run: |
-          mkdir ~/.private_keys
-          echo "${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}" | base64 -d > ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
-          ls -l ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
 
       - name: Export
         working-directory: app
