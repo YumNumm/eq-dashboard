@@ -352,7 +352,9 @@ jobs:
             -exportPath build/macos/Release \
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
-            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} | xcbeautify
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            -authenticationKeyPath ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8 \
+            | xcbeautify
 
       - name: Upload app as artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0

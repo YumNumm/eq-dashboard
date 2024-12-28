@@ -8,5 +8,9 @@
 	<string>automatic</string>
 	<key>teamID</key>
 	<string>CPL7H8SHVM</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
+	<key>uploadSymbols</key>
+	<true/>
 </dict>
 </plist>
