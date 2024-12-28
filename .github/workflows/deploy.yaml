@@ -335,29 +335,25 @@ jobs:
       - name: Archive
         working-directory: app
         run: |
-          xcrun xcodebuild --exportArchive \
-            -workspace macos/Runner.xcworkspace \
+          xcrun xcodebuild -workspace macos/Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -archivePath build/macos/Runner.xcarchive \
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-            -authenticationKeyPath ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8 \
-             | xcbeautify
+            archive | xcbeautify
 
       - name: Export
         working-directory: app
         run: |
-          xcrun xcodebuild -exportArchive \
+          xcodebuild -exportArchive \
             -archivePath build/macos/Runner.xcarchive \
             -exportOptionsPlist macos/ExportOptions.plist \
             -exportPath build/macos/Release \
             -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
-            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-            -authenticationKeyPath ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8 \
-             | xcbeautify
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} | xcbeautify
 
       - name: Upload app as artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
