@@ -46,6 +46,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  app_links:
+    dependency: "direct main"
+    description:
+      name: app_links
+      sha256: "433df2e61b10519407475d7f69e470789d23d593f28224c38ba1068597be7950"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.3"
+  app_links_linux:
+    dependency: transitive
+    description:
+      name: app_links_linux
+      sha256: f5f7173a78609f3dfd4c2ff2c95bd559ab43c80a87dc6a095921d96c05688c81
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  app_links_platform_interface:
+    dependency: transitive
+    description:
+      name: app_links_platform_interface
+      sha256: "05f5379577c513b534a29ddea68176a4d4802c46180ee8e2e966257158772a3f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
+  app_links_web:
+    dependency: transitive
+    description:
+      name: app_links_web
+      sha256: af060ed76183f9e2b87510a9480e56a5352b6c249778d07bd2c95fc35632a555
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   appkit_ui_element_colors:
     dependency: transitive
     description:
@@ -564,6 +596,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.4"
+  gtk:
+    dependency: transitive
+    description:
+      name: gtk
+      sha256: e8ce9ca4b1df106e4d72dad201d345ea1a036cc12c360f1a7d5a758f78ffa42c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   hashcodes:
     dependency: transitive
     description:
@@ -740,6 +780,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  oauth2:
+    dependency: transitive
+    description:
+      name: oauth2
+      sha256: c84470642cbb2bec450ccab2f8520c079cd1ca546a76ffd5c40589e07f4e8bf4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   package_config:
     dependency: transitive
     description:
@@ -1305,6 +1353,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      sha256: "889a0a678e7c793c308c68739996227c9661590605e70b1f6cf6b9a6634f7aec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.10.0"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      sha256: "3d535126f7244871542b2f0b0fcf94629c9a14883250461f9abe1a6644c1c379"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      sha256: d937581d6e558908d7ae3dc1989c4f87b786891ab47bb9df7de548a151779d8d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.10.0"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      sha256: b7e92f129482460951d96ef9a46b49db34bd2e1621685de26e9eaafd9674e7eb
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.16.3"
   win32:
     dependency: transitive
     description:

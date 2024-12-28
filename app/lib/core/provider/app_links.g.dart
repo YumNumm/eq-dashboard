@@ -2,26 +2,27 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'oauth_config.dart';
+part of 'app_links.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$oAuthConfigHash() => r'cb9823ce124f383c79772d443081c40db0c4cd65';
+String _$appLinksHash() => r'fbe75f037be26cbfc9ae78ce778afe86c6a92bf9';
 
-/// See also [OAuthConfig].
-@ProviderFor(OAuthConfig)
-final oAuthConfigProvider =
-    NotifierProvider<OAuthConfig, oauth.OAuthConfig>.internal(
-  OAuthConfig.new,
-  name: r'oAuthConfigProvider',
+/// See also [appLinks].
+@ProviderFor(appLinks)
+final appLinksProvider = Provider<AppLinks>.internal(
+  appLinks,
+  name: r'appLinksProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$oAuthConfigHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$appLinksHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$OAuthConfig = Notifier<oauth.OAuthConfig>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AppLinksRef = ProviderRef<AppLinks>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

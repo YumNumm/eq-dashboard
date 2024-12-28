@@ -37,17 +37,6 @@ class LoginSection extends ConsumerWidget {
     final result = await ref.read(authProvider.notifier).startAuthorization();
     if (result case Failure(:final error) when context.mounted) {
       ref.read(talkerLoggerProvider).error(error);
-      if (error is FlutterAppAuthUserCancelledException) {
-        await showPlatformAlertDialog<void>(
-          context: context,
-          title: 'ログインをキャンセルしました',
-          message: Text(
-            'Error code: ${error.code}',
-            textAlign: TextAlign.center,
-          ),
-          icon: const AppIcon(size: 64),
-        );
-      }
     }
   }
 }
