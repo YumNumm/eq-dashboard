@@ -83,10 +83,10 @@ jobs:
               platforms+=("linux")
             fi
           elif [ "${{ github.event_name }}" = "push" ]; then
-            # コミットメッセージに [release only $platform] がある場合は、
+            # コミットメッセージに [release only $platform] を含む場合は、
             # そのプラットフォームのみデプロイする
-            commit_message=$(git log -1 --pretty=%B)
-            if [[ $commit_message =~ \[release[[:space:]]+only[[:space:]]+([a-z,[:space:]]+)\] ]]; then
+            echo "コミットメッセージ: ${github.event.head_commit.message}"
+            if [[ "${{ github.event.head_commit.message }}" =~ \[release[[:space:]]+only[[:space:]]+([a-z,[:space:]]+)\] ]]; then
               # [release only platform1,platform2] の形式からプラットフォームを抽出
               IFS=',' read -ra selected_platforms <<< "${BASH_REMATCH[1]}"
               # 空白を削除して配列に追加
@@ -95,9 +95,11 @@ jobs:
                 if [[ " ios android web macos windows linux " =~ " $platform " ]]; then
                   platforms+=("$platform")
                 fi
+                echo "platform: $platform"
               done
             else
               # [release only] タグがない場合は全プラットフォームをデプロイ
+              echo "commit message does not contain [release only platform], deploy all platforms"
               platforms+=("ios" "android" "web" "macos" "windows" "linux")
             fi
           else
