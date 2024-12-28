@@ -324,9 +324,7 @@ jobs:
         working-directory: app
         env:
           BUILD_NUMBER: ${{ steps.fetch-latest-build-number.outputs.build_number }}
-        run: |
-          echo "BUILD_NUMBER=${BUILD_NUMBER}"
-          flutter build macos --build-number=${BUILD_NUMBER} --config-only
+        run: flutter build macos --build-number=${BUILD_NUMBER} --config-only
 
       - name: Extract App Store Connect API Key
         run: |
@@ -343,7 +341,6 @@ jobs:
             -archivePath build/macos/Runner.xcarchive \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-            -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8 \
             archive | xcbeautify
 
       - name: Export
