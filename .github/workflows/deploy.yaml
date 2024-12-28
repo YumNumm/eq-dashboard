@@ -339,6 +339,7 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -archivePath build/macos/Runner.xcarchive \
+            -allowProvisioningUpdates \
             -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
             -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
             archive | xcbeautify
