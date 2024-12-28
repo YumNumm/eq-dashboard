@@ -78,7 +78,23 @@ jobs:
               platforms+=("linux")
             fi
           elif [ "${{ github.event_name }}" = "push" ]; then
-            platforms+=("ios" "android" "web" "macos" "windows" "linux")
+            # コミットメッセージに [release only $platform] がある場合は、
+            # そのプラットフォームのみデプロイする
+            commit_message=$(git log -1 --pretty=%B)
+            if [[ $commit_message =~ \[release[[:space:]]+only[[:space:]]+([a-z,[:space:]]+)\] ]]; then
+              # [release only platform1,platform2] の形式からプラットフォームを抽出
+              IFS=',' read -ra selected_platforms <<< "${BASH_REMATCH[1]}"
+              # 空白を削除して配列に追加
+              for platform in "${selected_platforms[@]}"; do
+                platform=$(echo "$platform" | tr -d '[:space:]')
+                if [[ " ios android web macos windows linux " =~ " $platform " ]]; then
+                  platforms+=("$platform")
+                fi
+              done
+            else
+              # [release only] タグがない場合は全プラットフォームをデプロイ
+              platforms+=("ios" "android" "web" "macos" "windows" "linux")
+            fi
           else
             echo "Unknown event name: ${{ github.event_name }}"
             exit 1
@@ -384,7 +400,7 @@ jobs:
             ninja-build pkg-config \
             libgtk-3-dev liblzma-dev \
             libstdc++-12-dev libsecret-1-dev libjsoncpp-dev \
-            libsecret-1-0 libjsoncpp1
+            libsecret-1-0
 
       - name: Setup application runtime & Resolve dependencies
         uses: ./.github/actions/setup-application-runtime
