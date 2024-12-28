@@ -335,14 +335,13 @@ jobs:
       - name: Archive
         working-directory: app
         run: |
-          xcrun xcodebuild -workspace macos/Runner.xcworkspace \
+          xcrun xcodebuild archive \
+            -workspace macos/Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -archivePath build/macos/Runner.xcarchive \
-            -allowProvisioningUpdates \
-            -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
-            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
-            archive | xcbeautify
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO | xcbeautify
 
       - name: Export
         working-directory: app
