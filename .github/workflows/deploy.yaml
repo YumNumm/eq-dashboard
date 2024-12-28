@@ -334,6 +334,9 @@ jobs:
             -scheme Runner \
             -configuration Release \
             -archivePath build/macos/Runner.xcarchive \
+            -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }} \
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8 \
             archive | xcbeautify
 
       - name: Extract App Store Connect API Key
@@ -356,7 +359,7 @@ jobs:
       - name: Upload app as artifact
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
-          name: EQDashboard-macos.app
+          name: EQDashboard-macos.pkg
           path: app/build/macos/Release/EQDashboard.pkg
 
   deploy-macos:
