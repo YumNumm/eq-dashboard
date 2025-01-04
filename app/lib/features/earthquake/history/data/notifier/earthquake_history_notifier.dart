@@ -1,5 +1,6 @@
 import 'package:eqdashboard/features/earthquake/history/data/model/earthquake_list_state.dart';
 import 'package:eqdashboard/features/earthquake/history/data/use_case/earthquake_list_dmdata_use_case.dart';
+import 'package:eqdashboard/features/earthquake/history/data/use_case/earthquake_list_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'earthquake_history_notifier.g.dart';
@@ -8,7 +9,7 @@ part 'earthquake_history_notifier.g.dart';
 class EarthquakeHistoryNotifier extends _$EarthquakeHistoryNotifier {
   @override
   Future<EarthquakeListState> build() {
-    final useCase = ref.watch(earthquakeListDmdataUseCaseProvider);
+    final useCase = ref.watch(earthquakeListUseCaseProvider);
     return useCase.fetchList(
       limit: 50,
       nextToken: null,
@@ -16,7 +17,7 @@ class EarthquakeHistoryNotifier extends _$EarthquakeHistoryNotifier {
   }
 
   Future<void> loadMore() async {
-    final useCase = ref.read(earthquakeListDmdataUseCaseProvider);
+    final useCase = ref.read(earthquakeListUseCaseProvider);
     final nextToken = state.valueOrNull?.nextToken;
 
     if (state.isLoading || nextToken == null) {

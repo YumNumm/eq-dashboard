@@ -119,14 +119,12 @@ class OAuthManager {
       scopes: _config.scopes,
       state: context.state,
     );
-    print('authorizationUrl: $authorizationUrl');
     await launchUrl(
       authorizationUrl,
       mode: LaunchMode.externalApplication,
     );
     // wait for redirect
     final redirectUri = await getRedirectUri();
-    print('redirectUri: $redirectUri');
     final result = await client.handleAuthorizationResponse(
       redirectUri.queryParameters,
     );

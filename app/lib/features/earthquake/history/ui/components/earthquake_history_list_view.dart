@@ -1,3 +1,4 @@
+import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
 import 'package:eqdashboard/features/earthquake/history/data/notifier/earthquake_history_notifier.dart';
 import 'package:eqdashboard/features/earthquake/history/ui/components/earthquake_history_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,9 @@ class EarthquakeHistoryListView extends ConsumerWidget {
           },
         );
       },
-      error: (error, stackTrace) => const Center(
-        child: Text('エラーが発生しました'),
+      error: (error, stackTrace) => PlatformErrorCard(
+        error: error,
+        onRetry: () async => ref.refresh(earthquakeHistoryNotifierProvider),
       ),
       loading: () => const Center(
         child: CircularProgressIndicator(),
