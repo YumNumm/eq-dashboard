@@ -38,8 +38,7 @@ runs:
     - name: Setup PATH (Windows)
       if: ${{ runner.os == 'Windows' }}
       shell: bash
-      run: |
-        cygpath -w ~/.pub-cache/bin >> $Env:GITHUB_PATH
+      run: echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
     - name: Resolve dependencies
       shell: bash
