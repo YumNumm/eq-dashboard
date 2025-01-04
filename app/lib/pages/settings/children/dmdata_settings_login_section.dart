@@ -1,6 +1,3 @@
-import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
-import 'package:eqdashboard/core/components/app_icon.dart';
-import 'package:eqdashboard/core/components/platform/platform_alert_dialog.dart';
 import 'package:eqdashboard/core/components/platform/platform_button.dart';
 import 'package:eqdashboard/core/provider/talker.dart';
 import 'package:eqdashboard/core/util/result.dart';

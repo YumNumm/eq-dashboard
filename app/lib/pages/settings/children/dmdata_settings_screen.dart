@@ -1,4 +1,5 @@
 import 'package:eqdashboard/core/components/platform/platform_app_bar.dart';
+import 'package:eqdashboard/core/components/platform/platform_button.dart';
 import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
 import 'package:eqdashboard/core/components/platform/platform_scaffold.dart';
 import 'package:eqdashboard/features/dmdata/auth/notifier/auth_notifier.dart';
@@ -34,8 +35,19 @@ class DmdataSettingsScreen extends ConsumerWidget {
       ),
       child: authState.when(
         data: (state) => const DmdataSettingsContent(),
-        loading: () => const Center(
-          child: ProgressCircle(),
+        loading: () => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const ProgressCircle(),
+              const Text('ログイン中...'),
+              const SizedBox(height: 16),
+              PlatformButton.filled(
+                onPressed: () => ref.invalidate(authProvider),
+                child: const Text('ログインをキャンセルする'),
+              ),
+            ],
+          ),
         ),
         error: (error, stack) => PlatformErrorCard.provider(
           error: error,

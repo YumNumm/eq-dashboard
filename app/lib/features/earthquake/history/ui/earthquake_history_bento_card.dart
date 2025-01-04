@@ -13,6 +13,7 @@ class EarthquakeHistoryBentoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BentoGridCard(
+      padding: EdgeInsets.zero,
       header: BentoGridCardHeader(
         title: const Text('地震履歴'),
         subtitle: const EarthquakeHistoryLastUpdateText(),

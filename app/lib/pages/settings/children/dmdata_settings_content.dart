@@ -79,7 +79,7 @@ class DmdataSettingsContent extends ConsumerWidget {
                         icon: Icons.web,
                       ),
                       PlatformTabItem(
-                        label: '契約���況',
+                        label: '契約状況',
                         icon: Icons.person,
                       ),
                     ],
