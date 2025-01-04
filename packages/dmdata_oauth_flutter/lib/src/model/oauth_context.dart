@@ -10,37 +10,10 @@ part 'oauth_context.g.dart';
 /// Authorization Code Grantにおけるコンテキストを保持
 @freezed
 class OAuthContext with _$OAuthContext {
-  const factory OAuthContext._({
-    /// CSRF対策のためのstate
-    @Assert(
-      'state.length <= 64',
-      'state must be less than or equal to 64 bytes',
-    )
-    required String state,
-
-    /// コードチャレンジ
-    required String? codeChallenge,
-
-    /// コードチャレンジメソッド
-    required CodeChallengeMethod codeChallengeMethod,
-  }) = _OAuthContext;
-
-  factory OAuthContext.fromJson(Map<String, dynamic> json) =>
-      _$OAuthContextFromJson(json);
-
   factory OAuthContext.create({
     bool usePkce = true,
   }) {
-    String randomString(int length) {
-      return base64UrlEncode(
-        List.generate(
-          length,
-          (_) => Random().nextInt(256),
-        ),
-      );
-    }
-
-    final state = randomString(64);
+    final state = generateRandomString(64);
     if (usePkce) {
       final codeChallenge = base64UrlEncode(
         sha256
@@ -61,6 +34,32 @@ class OAuthContext with _$OAuthContext {
       codeChallengeMethod: CodeChallengeMethod.plain,
     );
   }
+  const factory OAuthContext._({
+    /// CSRF対策のためのstate
+    @Assert(
+      'state.length <= 64',
+      'state must be less than or equal to 64 bytes',
+    )
+    required String state,
+
+    /// コードチャレンジ
+    required String? codeChallenge,
+
+    /// コードチャレンジメソッド
+    required CodeChallengeMethod codeChallengeMethod,
+  }) = _OAuthContext;
+
+  factory OAuthContext.fromJson(Map<String, dynamic> json) =>
+      _$OAuthContextFromJson(json);
+
+  /// StateやcodeChallengeに利用する文字セット
+  static const String _charset =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+
+  static String generateRandomString(int bytes) => List.generate(
+        bytes ~/ 2,
+        (i) => _charset[Random.secure().nextInt(_charset.length)],
+      ).join();
 }
 
 extension OAuthContextExtension on OAuthContext {

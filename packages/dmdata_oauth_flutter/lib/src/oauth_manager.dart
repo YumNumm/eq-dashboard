@@ -110,7 +110,7 @@ class OAuthManager {
     );
     final client = AuthorizationCodeGrant(
       _config.clientId,
-      Uri.parse(_config.redirectUri),
+      Uri.parse(_config.authorizationEndpoint),
       Uri.parse(_config.tokenEndpoint),
       codeVerifier: context.codeChallenge,
     );
@@ -119,12 +119,14 @@ class OAuthManager {
       scopes: _config.scopes,
       state: context.state,
     );
+    print('authorizationUrl: $authorizationUrl');
     await launchUrl(
       authorizationUrl,
       mode: LaunchMode.externalApplication,
     );
     // wait for redirect
     final redirectUri = await getRedirectUri();
+    print('redirectUri: $redirectUri');
     final result = await client.handleAuthorizationResponse(
       redirectUri.queryParameters,
     );
@@ -145,11 +147,6 @@ class OAuthManager {
 
   Future<Uri> getRedirectUri() async {
     final completer = Completer<Uri>();
-    final initialLink = await _appLinks.getInitialLink();
-    if (initialLink != null) {
-      completer.complete(initialLink);
-      return completer.future;
-    }
     final stream = _appLinks.uriLinkStream;
     stream.listen(
       completer.complete,
