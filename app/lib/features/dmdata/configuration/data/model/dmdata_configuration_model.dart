@@ -1,17 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'dmdata_configuration.freezed.dart';
-part 'dmdata_configuration.g.dart';
+part 'dmdata_configuration_model.freezed.dart';
+part 'dmdata_configuration_model.g.dart';
 
 @freezed
-class DmdataConfiguration with _$DmdataConfiguration {
-  const factory DmdataConfiguration({
+class DmdataConfigurationModel with _$DmdataConfigurationModel {
+  const factory DmdataConfigurationModel({
     required DmdataPollingConfiguration polling,
     required DmdataWebSocketConfiguration webSocket,
-  }) = _DmdataConfiguration;
+  }) = _DmdataConfigurationModel;
 
-  factory DmdataConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$DmdataConfigurationFromJson(json);
+  factory DmdataConfigurationModel.fromJson(Map<String, dynamic> json) =>
+      _$DmdataConfigurationModelFromJson(json);
 }
 
 @freezed
@@ -42,6 +42,9 @@ class DmdataWebSocketConfiguration with _$DmdataWebSocketConfiguration {
 
     /// 接続タイムアウト
     @Default(Duration(seconds: 10)) Duration connectionTimeout,
+
+    /// 接続数に余りがない場合に、他の接続を切断し強制的に接続するかどうか
+    @Default(false) bool forceDisconnectOtherConnectionWhenFull,
   }) = _DmdataWebSocketConfiguration;
 
   factory DmdataWebSocketConfiguration.fromJson(Map<String, dynamic> json) =>

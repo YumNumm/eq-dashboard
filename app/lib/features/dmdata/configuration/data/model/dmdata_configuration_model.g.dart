@@ -2,19 +2,19 @@
 
 // ignore_for_file: type=lint, duplicate_ignore
 
-part of 'dmdata_configuration.dart';
+part of 'dmdata_configuration_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DmdataConfigurationImpl _$$DmdataConfigurationImplFromJson(
+_$DmdataConfigurationModelImpl _$$DmdataConfigurationModelImplFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$DmdataConfigurationImpl',
+      r'_$DmdataConfigurationModelImpl',
       json,
       ($checkedConvert) {
-        final val = _$DmdataConfigurationImpl(
+        final val = _$DmdataConfigurationModelImpl(
           polling: $checkedConvert(
               'polling',
               (v) => DmdataPollingConfiguration.fromJson(
@@ -29,8 +29,8 @@ _$DmdataConfigurationImpl _$$DmdataConfigurationImplFromJson(
       fieldKeyMap: const {'webSocket': 'web_socket'},
     );
 
-Map<String, dynamic> _$$DmdataConfigurationImplToJson(
-        _$DmdataConfigurationImpl instance) =>
+Map<String, dynamic> _$$DmdataConfigurationModelImplToJson(
+        _$DmdataConfigurationModelImpl instance) =>
     <String, dynamic>{
       'polling': instance.polling,
       'web_socket': instance.webSocket,
@@ -80,12 +80,17 @@ _$DmdataWebSocketConfigurationImpl _$$DmdataWebSocketConfigurationImplFromJson(
               (v) => v == null
                   ? const Duration(seconds: 10)
                   : Duration(microseconds: (v as num).toInt())),
+          forceDisconnectOtherConnectionWhenFull: $checkedConvert(
+              'force_disconnect_other_connection_when_full',
+              (v) => v as bool? ?? false),
         );
         return val;
       },
       fieldKeyMap: const {
         'pingInterval': 'ping_interval',
-        'connectionTimeout': 'connection_timeout'
+        'connectionTimeout': 'connection_timeout',
+        'forceDisconnectOtherConnectionWhenFull':
+            'force_disconnect_other_connection_when_full'
       },
     );
 
@@ -94,4 +99,6 @@ Map<String, dynamic> _$$DmdataWebSocketConfigurationImplToJson(
     <String, dynamic>{
       'ping_interval': instance.pingInterval.inMicroseconds,
       'connection_timeout': instance.connectionTimeout.inMicroseconds,
+      'force_disconnect_other_connection_when_full':
+          instance.forceDisconnectOtherConnectionWhenFull,
     };

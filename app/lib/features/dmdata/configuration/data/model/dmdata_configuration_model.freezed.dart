@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'dmdata_configuration.dart';
+part of 'dmdata_configuration_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,31 +14,32 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-DmdataConfiguration _$DmdataConfigurationFromJson(Map<String, dynamic> json) {
-  return _DmdataConfiguration.fromJson(json);
+DmdataConfigurationModel _$DmdataConfigurationModelFromJson(
+    Map<String, dynamic> json) {
+  return _DmdataConfigurationModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$DmdataConfiguration {
+mixin _$DmdataConfigurationModel {
   DmdataPollingConfiguration get polling => throw _privateConstructorUsedError;
   DmdataWebSocketConfiguration get webSocket =>
       throw _privateConstructorUsedError;
 
-  /// Serializes this DmdataConfiguration to a JSON map.
+  /// Serializes this DmdataConfigurationModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $DmdataConfigurationCopyWith<DmdataConfiguration> get copyWith =>
+  $DmdataConfigurationModelCopyWith<DmdataConfigurationModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DmdataConfigurationCopyWith<$Res> {
-  factory $DmdataConfigurationCopyWith(
-          DmdataConfiguration value, $Res Function(DmdataConfiguration) then) =
-      _$DmdataConfigurationCopyWithImpl<$Res, DmdataConfiguration>;
+abstract class $DmdataConfigurationModelCopyWith<$Res> {
+  factory $DmdataConfigurationModelCopyWith(DmdataConfigurationModel value,
+          $Res Function(DmdataConfigurationModel) then) =
+      _$DmdataConfigurationModelCopyWithImpl<$Res, DmdataConfigurationModel>;
   @useResult
   $Res call(
       {DmdataPollingConfiguration polling,
@@ -49,16 +50,17 @@ abstract class $DmdataConfigurationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DmdataConfigurationCopyWithImpl<$Res, $Val extends DmdataConfiguration>
-    implements $DmdataConfigurationCopyWith<$Res> {
-  _$DmdataConfigurationCopyWithImpl(this._value, this._then);
+class _$DmdataConfigurationModelCopyWithImpl<$Res,
+        $Val extends DmdataConfigurationModel>
+    implements $DmdataConfigurationModelCopyWith<$Res> {
+  _$DmdataConfigurationModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -78,7 +80,7 @@ class _$DmdataConfigurationCopyWithImpl<$Res, $Val extends DmdataConfiguration>
     ) as $Val);
   }
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -88,7 +90,7 @@ class _$DmdataConfigurationCopyWithImpl<$Res, $Val extends DmdataConfiguration>
     });
   }
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -101,11 +103,12 @@ class _$DmdataConfigurationCopyWithImpl<$Res, $Val extends DmdataConfiguration>
 }
 
 /// @nodoc
-abstract class _$$DmdataConfigurationImplCopyWith<$Res>
-    implements $DmdataConfigurationCopyWith<$Res> {
-  factory _$$DmdataConfigurationImplCopyWith(_$DmdataConfigurationImpl value,
-          $Res Function(_$DmdataConfigurationImpl) then) =
-      __$$DmdataConfigurationImplCopyWithImpl<$Res>;
+abstract class _$$DmdataConfigurationModelImplCopyWith<$Res>
+    implements $DmdataConfigurationModelCopyWith<$Res> {
+  factory _$$DmdataConfigurationModelImplCopyWith(
+          _$DmdataConfigurationModelImpl value,
+          $Res Function(_$DmdataConfigurationModelImpl) then) =
+      __$$DmdataConfigurationModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -119,14 +122,16 @@ abstract class _$$DmdataConfigurationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DmdataConfigurationImplCopyWithImpl<$Res>
-    extends _$DmdataConfigurationCopyWithImpl<$Res, _$DmdataConfigurationImpl>
-    implements _$$DmdataConfigurationImplCopyWith<$Res> {
-  __$$DmdataConfigurationImplCopyWithImpl(_$DmdataConfigurationImpl _value,
-      $Res Function(_$DmdataConfigurationImpl) _then)
+class __$$DmdataConfigurationModelImplCopyWithImpl<$Res>
+    extends _$DmdataConfigurationModelCopyWithImpl<$Res,
+        _$DmdataConfigurationModelImpl>
+    implements _$$DmdataConfigurationModelImplCopyWith<$Res> {
+  __$$DmdataConfigurationModelImplCopyWithImpl(
+      _$DmdataConfigurationModelImpl _value,
+      $Res Function(_$DmdataConfigurationModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -134,7 +139,7 @@ class __$$DmdataConfigurationImplCopyWithImpl<$Res>
     Object? polling = null,
     Object? webSocket = null,
   }) {
-    return _then(_$DmdataConfigurationImpl(
+    return _then(_$DmdataConfigurationModelImpl(
       polling: null == polling
           ? _value.polling
           : polling // ignore: cast_nullable_to_non_nullable
@@ -149,12 +154,12 @@ class __$$DmdataConfigurationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DmdataConfigurationImpl implements _DmdataConfiguration {
-  const _$DmdataConfigurationImpl(
+class _$DmdataConfigurationModelImpl implements _DmdataConfigurationModel {
+  const _$DmdataConfigurationModelImpl(
       {required this.polling, required this.webSocket});
 
-  factory _$DmdataConfigurationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DmdataConfigurationImplFromJson(json);
+  factory _$DmdataConfigurationModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DmdataConfigurationModelImplFromJson(json);
 
   @override
   final DmdataPollingConfiguration polling;
@@ -163,14 +168,14 @@ class _$DmdataConfigurationImpl implements _DmdataConfiguration {
 
   @override
   String toString() {
-    return 'DmdataConfiguration(polling: $polling, webSocket: $webSocket)';
+    return 'DmdataConfigurationModel(polling: $polling, webSocket: $webSocket)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DmdataConfigurationImpl &&
+            other is _$DmdataConfigurationModelImpl &&
             (identical(other.polling, polling) || other.polling == polling) &&
             (identical(other.webSocket, webSocket) ||
                 other.webSocket == webSocket));
@@ -180,43 +185,43 @@ class _$DmdataConfigurationImpl implements _DmdataConfiguration {
   @override
   int get hashCode => Object.hash(runtimeType, polling, webSocket);
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$DmdataConfigurationImplCopyWith<_$DmdataConfigurationImpl> get copyWith =>
-      __$$DmdataConfigurationImplCopyWithImpl<_$DmdataConfigurationImpl>(
-          this, _$identity);
+  _$$DmdataConfigurationModelImplCopyWith<_$DmdataConfigurationModelImpl>
+      get copyWith => __$$DmdataConfigurationModelImplCopyWithImpl<
+          _$DmdataConfigurationModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DmdataConfigurationImplToJson(
+    return _$$DmdataConfigurationModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _DmdataConfiguration implements DmdataConfiguration {
-  const factory _DmdataConfiguration(
+abstract class _DmdataConfigurationModel implements DmdataConfigurationModel {
+  const factory _DmdataConfigurationModel(
           {required final DmdataPollingConfiguration polling,
           required final DmdataWebSocketConfiguration webSocket}) =
-      _$DmdataConfigurationImpl;
+      _$DmdataConfigurationModelImpl;
 
-  factory _DmdataConfiguration.fromJson(Map<String, dynamic> json) =
-      _$DmdataConfigurationImpl.fromJson;
+  factory _DmdataConfigurationModel.fromJson(Map<String, dynamic> json) =
+      _$DmdataConfigurationModelImpl.fromJson;
 
   @override
   DmdataPollingConfiguration get polling;
   @override
   DmdataWebSocketConfiguration get webSocket;
 
-  /// Create a copy of DmdataConfiguration
+  /// Create a copy of DmdataConfigurationModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DmdataConfigurationImplCopyWith<_$DmdataConfigurationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DmdataConfigurationModelImplCopyWith<_$DmdataConfigurationModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 DmdataPollingConfiguration _$DmdataPollingConfigurationFromJson(
@@ -416,6 +421,10 @@ mixin _$DmdataWebSocketConfiguration {
   /// 接続タイムアウト
   Duration get connectionTimeout => throw _privateConstructorUsedError;
 
+  /// 接続数に余りがない場合に、他の接続を切断し強制的に接続するかどうか
+  bool get forceDisconnectOtherConnectionWhenFull =>
+      throw _privateConstructorUsedError;
+
   /// Serializes this DmdataWebSocketConfiguration to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -438,7 +447,8 @@ abstract class $DmdataWebSocketConfigurationCopyWith<$Res> {
       {@Assert('pingInterval.inSeconds > 5',
           'pingInterval must be greater than 5 seconds')
       Duration pingInterval,
-      Duration connectionTimeout});
+      Duration connectionTimeout,
+      bool forceDisconnectOtherConnectionWhenFull});
 }
 
 /// @nodoc
@@ -459,6 +469,7 @@ class _$DmdataWebSocketConfigurationCopyWithImpl<$Res,
   $Res call({
     Object? pingInterval = null,
     Object? connectionTimeout = null,
+    Object? forceDisconnectOtherConnectionWhenFull = null,
   }) {
     return _then(_value.copyWith(
       pingInterval: null == pingInterval
@@ -469,6 +480,11 @@ class _$DmdataWebSocketConfigurationCopyWithImpl<$Res,
           ? _value.connectionTimeout
           : connectionTimeout // ignore: cast_nullable_to_non_nullable
               as Duration,
+      forceDisconnectOtherConnectionWhenFull: null ==
+              forceDisconnectOtherConnectionWhenFull
+          ? _value.forceDisconnectOtherConnectionWhenFull
+          : forceDisconnectOtherConnectionWhenFull // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -486,7 +502,8 @@ abstract class _$$DmdataWebSocketConfigurationImplCopyWith<$Res>
       {@Assert('pingInterval.inSeconds > 5',
           'pingInterval must be greater than 5 seconds')
       Duration pingInterval,
-      Duration connectionTimeout});
+      Duration connectionTimeout,
+      bool forceDisconnectOtherConnectionWhenFull});
 }
 
 /// @nodoc
@@ -506,6 +523,7 @@ class __$$DmdataWebSocketConfigurationImplCopyWithImpl<$Res>
   $Res call({
     Object? pingInterval = null,
     Object? connectionTimeout = null,
+    Object? forceDisconnectOtherConnectionWhenFull = null,
   }) {
     return _then(_$DmdataWebSocketConfigurationImpl(
       pingInterval: null == pingInterval
@@ -516,6 +534,11 @@ class __$$DmdataWebSocketConfigurationImplCopyWithImpl<$Res>
           ? _value.connectionTimeout
           : connectionTimeout // ignore: cast_nullable_to_non_nullable
               as Duration,
+      forceDisconnectOtherConnectionWhenFull: null ==
+              forceDisconnectOtherConnectionWhenFull
+          ? _value.forceDisconnectOtherConnectionWhenFull
+          : forceDisconnectOtherConnectionWhenFull // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -528,7 +551,8 @@ class _$DmdataWebSocketConfigurationImpl
       {@Assert('pingInterval.inSeconds > 5',
           'pingInterval must be greater than 5 seconds')
       this.pingInterval = const Duration(seconds: 10),
-      this.connectionTimeout = const Duration(seconds: 10)});
+      this.connectionTimeout = const Duration(seconds: 10),
+      this.forceDisconnectOtherConnectionWhenFull = false});
 
   factory _$DmdataWebSocketConfigurationImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -546,9 +570,14 @@ class _$DmdataWebSocketConfigurationImpl
   @JsonKey()
   final Duration connectionTimeout;
 
+  /// 接続数に余りがない場合に、他の接続を切断し強制的に接続するかどうか
+  @override
+  @JsonKey()
+  final bool forceDisconnectOtherConnectionWhenFull;
+
   @override
   String toString() {
-    return 'DmdataWebSocketConfiguration(pingInterval: $pingInterval, connectionTimeout: $connectionTimeout)';
+    return 'DmdataWebSocketConfiguration(pingInterval: $pingInterval, connectionTimeout: $connectionTimeout, forceDisconnectOtherConnectionWhenFull: $forceDisconnectOtherConnectionWhenFull)';
   }
 
   @override
@@ -559,12 +588,17 @@ class _$DmdataWebSocketConfigurationImpl
             (identical(other.pingInterval, pingInterval) ||
                 other.pingInterval == pingInterval) &&
             (identical(other.connectionTimeout, connectionTimeout) ||
-                other.connectionTimeout == connectionTimeout));
+                other.connectionTimeout == connectionTimeout) &&
+            (identical(other.forceDisconnectOtherConnectionWhenFull,
+                    forceDisconnectOtherConnectionWhenFull) ||
+                other.forceDisconnectOtherConnectionWhenFull ==
+                    forceDisconnectOtherConnectionWhenFull));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, pingInterval, connectionTimeout);
+  int get hashCode => Object.hash(runtimeType, pingInterval, connectionTimeout,
+      forceDisconnectOtherConnectionWhenFull);
 
   /// Create a copy of DmdataWebSocketConfiguration
   /// with the given fields replaced by the non-null parameter values.
@@ -587,10 +621,12 @@ class _$DmdataWebSocketConfigurationImpl
 abstract class _DmdataWebSocketConfiguration
     implements DmdataWebSocketConfiguration {
   const factory _DmdataWebSocketConfiguration(
-      {@Assert('pingInterval.inSeconds > 5',
-          'pingInterval must be greater than 5 seconds')
-      final Duration pingInterval,
-      final Duration connectionTimeout}) = _$DmdataWebSocketConfigurationImpl;
+          {@Assert('pingInterval.inSeconds > 5',
+              'pingInterval must be greater than 5 seconds')
+          final Duration pingInterval,
+          final Duration connectionTimeout,
+          final bool forceDisconnectOtherConnectionWhenFull}) =
+      _$DmdataWebSocketConfigurationImpl;
 
   factory _DmdataWebSocketConfiguration.fromJson(Map<String, dynamic> json) =
       _$DmdataWebSocketConfigurationImpl.fromJson;
@@ -604,6 +640,10 @@ abstract class _DmdataWebSocketConfiguration
   /// 接続タイムアウト
   @override
   Duration get connectionTimeout;
+
+  /// 接続数に余りがない場合に、他の接続を切断し強制的に接続するかどうか
+  @override
+  bool get forceDisconnectOtherConnectionWhenFull;
 
   /// Create a copy of DmdataWebSocketConfiguration
   /// with the given fields replaced by the non-null parameter values.

@@ -4,6 +4,7 @@ import 'package:eqdashboard/core/provider/talker.dart';
 import 'package:eqdashboard/pages/home/home_page.dart';
 import 'package:eqdashboard/pages/page_one/page_one.dart';
 import 'package:eqdashboard/pages/page_two/page_two.dart';
+import 'package:eqdashboard/pages/settings/children/api_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/settings/children/log_settings_page.dart';
@@ -46,6 +47,7 @@ GoRouter router(Ref ref) {
         TypedGoRoute<DmdataSettingsRouteData>(path: '/dmdata'),
         TypedGoRoute<DisplaysettingsRoute>(path: '/display'),
         TypedGoRoute<LogSettingsRoute>(path: '/log'),
+        TypedGoRoute<ApiSettingsRoute>(path: '/api'),
       ],
     ),
   ],

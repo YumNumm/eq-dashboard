@@ -1,31 +1,33 @@
 import 'package:collection/collection.dart';
-import 'package:eqdashboard/core/models/data_source/data_source.dart';
+import 'package:eqdashboard/core/models/data_source/data_source_type.dart';
 import 'package:eqdashboard/core/provider/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'data_source_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class DataSourceProvider extends _$DataSourceProvider {
+class DataSource extends _$DataSource {
   @override
-  DataSource build() {
+  DataSourceType build() {
     final savedState = _load();
     if (savedState != null) {
       return savedState;
     }
-    return DataSource.none;
+    return DataSourceType.none;
   }
 
   static const _prefsKey = 'data_source';
 
-  Future<void> set(DataSource dataSource) async {
+  Future<void> set(DataSourceType dataSource) async {
     final prefs = ref.read(sharedPreferencesProvider);
     await prefs.setString(_prefsKey, dataSource.name);
+    state = dataSource;
   }
 
-  DataSource? _load() {
+  DataSourceType? _load() {
     final prefs = ref.read(sharedPreferencesProvider);
     final dataSourceName = prefs.getString(_prefsKey);
-    return DataSource.values.firstWhereOrNull((e) => e.name == dataSourceName);
+    return DataSourceType.values
+        .firstWhereOrNull((e) => e.name == dataSourceName);
   }
 }

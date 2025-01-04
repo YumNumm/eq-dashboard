@@ -1,4 +1,4 @@
-import 'package:eqdashboard/core/models/data_source/data_source.dart';
+import 'package:eqdashboard/core/models/data_source/data_source_type.dart';
 import 'package:eqdashboard/core/provider/data_source_provider.dart';
 import 'package:eqdashboard/features/earthquake/history/data/model/earthquake_history_list_item.dart';
 import 'package:eqdashboard/features/earthquake/history/data/model/earthquake_list_state.dart';
@@ -23,11 +23,11 @@ abstract class EarthquakeListUseCase {
 
 @Riverpod(keepAlive: true)
 EarthquakeListUseCase earthquakeListUseCase(Ref ref) {
-  final dataSource = ref.watch(dataSourceProviderProvider);
+  final dataSource = ref.watch(dataSourceProvider);
   return switch (dataSource) {
-    DataSource.dmdataPolling =>
+    DataSourceType.dmdataPolling =>
       ref.watch(earthquakeListDmdataPollingUseCaseProvider),
-    DataSource.dmdataWebSocket =>
+    DataSourceType.dmdataWebSocket =>
       ref.watch(earthquakeListDmdataWebsocketUseCaseProvider),
     _ => throw UnimplementedError(),
   };

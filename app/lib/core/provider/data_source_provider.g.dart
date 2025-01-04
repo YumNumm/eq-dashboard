@@ -8,22 +8,20 @@ part of 'data_source_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dataSourceProviderHash() =>
-    r'21f0dda2b6b7591ccc27c5014123d9af6a280bc6';
+String _$dataSourceHash() => r'9035f3f996537feb5833995a657f3a985f78226a';
 
-/// See also [DataSourceProvider].
-@ProviderFor(DataSourceProvider)
-final dataSourceProviderProvider =
-    NotifierProvider<DataSourceProvider, DataSource>.internal(
-  DataSourceProvider.new,
-  name: r'dataSourceProviderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$dataSourceProviderHash,
+/// See also [DataSource].
+@ProviderFor(DataSource)
+final dataSourceProvider =
+    NotifierProvider<DataSource, DataSourceType>.internal(
+  DataSource.new,
+  name: r'dataSourceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$dataSourceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DataSourceProvider = Notifier<DataSource>;
+typedef _$DataSource = Notifier<DataSourceType>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
