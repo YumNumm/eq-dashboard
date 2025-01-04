@@ -23,6 +23,8 @@ mixin _$EarthquakeListState {
   List<EarthquakeHistoryListItem> get items =>
       throw _privateConstructorUsedError;
   String? get nextToken => throw _privateConstructorUsedError;
+  DateTime? get lastUpdatedAt => throw _privateConstructorUsedError;
+  bool get isSupportingRealtimeUpdate => throw _privateConstructorUsedError;
 
   /// Serializes this EarthquakeListState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +42,11 @@ abstract class $EarthquakeListStateCopyWith<$Res> {
           EarthquakeListState value, $Res Function(EarthquakeListState) then) =
       _$EarthquakeListStateCopyWithImpl<$Res, EarthquakeListState>;
   @useResult
-  $Res call({List<EarthquakeHistoryListItem> items, String? nextToken});
+  $Res call(
+      {List<EarthquakeHistoryListItem> items,
+      String? nextToken,
+      DateTime? lastUpdatedAt,
+      bool isSupportingRealtimeUpdate});
 }
 
 /// @nodoc
@@ -60,6 +66,8 @@ class _$EarthquakeListStateCopyWithImpl<$Res, $Val extends EarthquakeListState>
   $Res call({
     Object? items = null,
     Object? nextToken = freezed,
+    Object? lastUpdatedAt = freezed,
+    Object? isSupportingRealtimeUpdate = null,
   }) {
     return _then(_value.copyWith(
       items: null == items
@@ -70,6 +78,14 @@ class _$EarthquakeListStateCopyWithImpl<$Res, $Val extends EarthquakeListState>
           ? _value.nextToken
           : nextToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      isSupportingRealtimeUpdate: null == isSupportingRealtimeUpdate
+          ? _value.isSupportingRealtimeUpdate
+          : isSupportingRealtimeUpdate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -82,7 +98,11 @@ abstract class _$$EarthquakeListStateImplCopyWith<$Res>
       __$$EarthquakeListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<EarthquakeHistoryListItem> items, String? nextToken});
+  $Res call(
+      {List<EarthquakeHistoryListItem> items,
+      String? nextToken,
+      DateTime? lastUpdatedAt,
+      bool isSupportingRealtimeUpdate});
 }
 
 /// @nodoc
@@ -100,6 +120,8 @@ class __$$EarthquakeListStateImplCopyWithImpl<$Res>
   $Res call({
     Object? items = null,
     Object? nextToken = freezed,
+    Object? lastUpdatedAt = freezed,
+    Object? isSupportingRealtimeUpdate = null,
   }) {
     return _then(_$EarthquakeListStateImpl(
       items: null == items
@@ -110,6 +132,14 @@ class __$$EarthquakeListStateImplCopyWithImpl<$Res>
           ? _value.nextToken
           : nextToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastUpdatedAt: freezed == lastUpdatedAt
+          ? _value.lastUpdatedAt
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      isSupportingRealtimeUpdate: null == isSupportingRealtimeUpdate
+          ? _value.isSupportingRealtimeUpdate
+          : isSupportingRealtimeUpdate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -119,7 +149,9 @@ class __$$EarthquakeListStateImplCopyWithImpl<$Res>
 class _$EarthquakeListStateImpl implements _EarthquakeListState {
   const _$EarthquakeListStateImpl(
       {required final List<EarthquakeHistoryListItem> items,
-      required this.nextToken})
+      required this.nextToken,
+      required this.lastUpdatedAt,
+      required this.isSupportingRealtimeUpdate})
       : _items = items;
 
   factory _$EarthquakeListStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -135,10 +167,14 @@ class _$EarthquakeListStateImpl implements _EarthquakeListState {
 
   @override
   final String? nextToken;
+  @override
+  final DateTime? lastUpdatedAt;
+  @override
+  final bool isSupportingRealtimeUpdate;
 
   @override
   String toString() {
-    return 'EarthquakeListState(items: $items, nextToken: $nextToken)';
+    return 'EarthquakeListState(items: $items, nextToken: $nextToken, lastUpdatedAt: $lastUpdatedAt, isSupportingRealtimeUpdate: $isSupportingRealtimeUpdate)';
   }
 
   @override
@@ -148,13 +184,23 @@ class _$EarthquakeListStateImpl implements _EarthquakeListState {
             other is _$EarthquakeListStateImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.nextToken, nextToken) ||
-                other.nextToken == nextToken));
+                other.nextToken == nextToken) &&
+            (identical(other.lastUpdatedAt, lastUpdatedAt) ||
+                other.lastUpdatedAt == lastUpdatedAt) &&
+            (identical(other.isSupportingRealtimeUpdate,
+                    isSupportingRealtimeUpdate) ||
+                other.isSupportingRealtimeUpdate ==
+                    isSupportingRealtimeUpdate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_items), nextToken);
+      runtimeType,
+      const DeepCollectionEquality().hash(_items),
+      nextToken,
+      lastUpdatedAt,
+      isSupportingRealtimeUpdate);
 
   /// Create a copy of EarthquakeListState
   /// with the given fields replaced by the non-null parameter values.
@@ -175,8 +221,11 @@ class _$EarthquakeListStateImpl implements _EarthquakeListState {
 
 abstract class _EarthquakeListState implements EarthquakeListState {
   const factory _EarthquakeListState(
-      {required final List<EarthquakeHistoryListItem> items,
-      required final String? nextToken}) = _$EarthquakeListStateImpl;
+          {required final List<EarthquakeHistoryListItem> items,
+          required final String? nextToken,
+          required final DateTime? lastUpdatedAt,
+          required final bool isSupportingRealtimeUpdate}) =
+      _$EarthquakeListStateImpl;
 
   factory _EarthquakeListState.fromJson(Map<String, dynamic> json) =
       _$EarthquakeListStateImpl.fromJson;
@@ -185,6 +234,10 @@ abstract class _EarthquakeListState implements EarthquakeListState {
   List<EarthquakeHistoryListItem> get items;
   @override
   String? get nextToken;
+  @override
+  DateTime? get lastUpdatedAt;
+  @override
+  bool get isSupportingRealtimeUpdate;
 
   /// Create a copy of EarthquakeListState
   /// with the given fields replaced by the non-null parameter values.

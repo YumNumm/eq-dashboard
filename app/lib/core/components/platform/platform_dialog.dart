@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:eqdashboard/core/components/platform/adaptive_platform.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
@@ -23,7 +24,7 @@ class PlatformDialog extends StatelessWidget {
     required Widget content,
     required List<PlatformDialogAction> actions,
   }) {
-    if (Platform.isMacOS) {
+    if (!kIsWeb && Platform.isMacOS) {
       return showMacosAlertDialog<T>(
         context: context,
         builder: (context) => PlatformDialog(
@@ -33,7 +34,7 @@ class PlatformDialog extends StatelessWidget {
         ),
       );
     }
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       return showCupertinoDialog<T>(
         context: context,
         builder: (context) => PlatformDialog(

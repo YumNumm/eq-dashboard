@@ -9,7 +9,7 @@ class EewListNotifierState with _$EewListNotifierState {
   const factory EewListNotifierState({
     required List<EewListItem> items,
     required String? nextToken,
-    required DateTime? lastUpdateAt,
+    required DateTime? lastUpdatedAt,
     required bool isSupportingRealtimeUpdate,
   }) = _EewListNotifierState;
 

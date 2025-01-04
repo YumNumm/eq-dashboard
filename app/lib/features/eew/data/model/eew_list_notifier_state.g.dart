@@ -21,7 +21,7 @@ _$EewListNotifierStateImpl _$$EewListNotifierStateImplFromJson(
                   .map((e) => EewListItem.fromJson(e as Map<String, dynamic>))
                   .toList()),
           nextToken: $checkedConvert('next_token', (v) => v as String?),
-          lastUpdateAt: $checkedConvert('last_update_at',
+          lastUpdatedAt: $checkedConvert('last_updated_at',
               (v) => v == null ? null : DateTime.parse(v as String)),
           isSupportingRealtimeUpdate: $checkedConvert(
               'is_supporting_realtime_update', (v) => v as bool),
@@ -30,7 +30,7 @@ _$EewListNotifierStateImpl _$$EewListNotifierStateImplFromJson(
       },
       fieldKeyMap: const {
         'nextToken': 'next_token',
-        'lastUpdateAt': 'last_update_at',
+        'lastUpdatedAt': 'last_updated_at',
         'isSupportingRealtimeUpdate': 'is_supporting_realtime_update'
       },
     );
@@ -40,6 +40,6 @@ Map<String, dynamic> _$$EewListNotifierStateImplToJson(
     <String, dynamic>{
       'items': instance.items,
       'next_token': instance.nextToken,
-      'last_update_at': instance.lastUpdateAt?.toIso8601String(),
+      'last_updated_at': instance.lastUpdatedAt?.toIso8601String(),
       'is_supporting_realtime_update': instance.isSupportingRealtimeUpdate,
     };

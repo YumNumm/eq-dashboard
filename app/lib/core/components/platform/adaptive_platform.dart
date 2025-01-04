@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:eqdashboard/core/provider/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,10 +13,10 @@ enum AdaptivePlatformType {
   macos;
 
   static AdaptivePlatformType defaultPlatform() {
-    if (Platform.isMacOS) {
+    if (!kIsWeb && Platform.isMacOS) {
       return AdaptivePlatformType.macos;
     }
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       return AdaptivePlatformType.cupertino;
     }
     return AdaptivePlatformType.material;

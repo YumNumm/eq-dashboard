@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+  - package-ecosystem: "pub"
+    directories:
+      - /
+      - /app
+      - /packages/*
+    schedule:
+      interval: "daily"
+    groups:
+      dependencies:
+        patterns:
+          - "*"

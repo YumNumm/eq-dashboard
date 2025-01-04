@@ -13,7 +13,7 @@ class EewListNotifier extends _$EewListNotifier {
     return EewListNotifierState(
       items: response.items,
       nextToken: response.nextToken,
-      lastUpdateAt: DateTime.now(),
+      lastUpdatedAt: DateTime.now(),
       isSupportingRealtimeUpdate: false,
     );
   }
@@ -35,7 +35,7 @@ class EewListNotifier extends _$EewListNotifier {
         return EewListNotifierState(
           items: response.items,
           nextToken: response.nextToken,
-          lastUpdateAt: DateTime.now(),
+          lastUpdatedAt: DateTime.now(),
           isSupportingRealtimeUpdate: false,
         );
       },

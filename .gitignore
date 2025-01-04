@@ -7,3 +7,6 @@
 pubspec_overrides.yaml
 
 custom_lint.log
+
+*.p8
+/secrets/

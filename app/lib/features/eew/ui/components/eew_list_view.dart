@@ -2,7 +2,7 @@ import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
 import 'package:eqdashboard/core/components/platform/platform_progress_indicator.dart';
 import 'package:eqdashboard/features/eew/data/model/eew_list_item.dart';
 import 'package:eqdashboard/features/eew/data/notifier/eew_list_notifier.dart';
-import 'package:eqdashboard/features/eew/ui/eew_list_card.dart';
+import 'package:eqdashboard/features/eew/ui/components/eew_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

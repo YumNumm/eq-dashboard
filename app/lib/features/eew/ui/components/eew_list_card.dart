@@ -20,6 +20,9 @@ enum _EewDisplayTimeType {
       };
 }
 
+/// {@template eqdashboard.EewListCard}
+///
+/// {@endtemplate}
 class EewListCard extends StatelessWidget {
   const EewListCard({
     required this.item,
@@ -62,75 +65,71 @@ class EewListCard extends StatelessWidget {
     final maxIntensity = item.intensity?.forecastMaxIntensity.intensity.$1;
     final maxLgIntensity = item.intensity?.forecastMaxLgIntensity?.intensity.$1;
 
-    return Card(
-      margin: EdgeInsets.zero,
-      color: cardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            if (maxIntensity != null) ...[
-              JmaIntensityIcon(
-                intensity: maxIntensity,
-                type: IntensityIconType.filled,
-                size: 36,
-              ),
-              const SizedBox(width: 8),
-            ],
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          '${displayTime.$1.displayName}: '
-                          '${dateFormat.format(displayTime.$2.toLocal())}',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        children: [
+          if (maxIntensity != null) ...[
+            JmaIntensityIcon(
+              intensity: maxIntensity,
+              type: IntensityIconType.filled,
+              size: 36,
+            ),
+            const SizedBox(width: 8),
+          ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${displayTime.$1.displayName}: '
+                        '${dateFormat.format(displayTime.$2.toLocal())}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      if (item.isCanceled)
-                        Chip(
-                          label: const Text('キャンセル報'),
-                          labelStyle:
-                              TextStyle(color: colorScheme.onErrorContainer),
-                          backgroundColor: colorScheme.errorContainer,
-                        )
-                      else if (item.isLastReport)
-                        Chip(
-                          label: const Text('最終報'),
-                          backgroundColor: colorScheme.primaryContainer,
-                          labelStyle:
-                              TextStyle(color: colorScheme.onPrimaryContainer),
-                        ),
-                    ],
-                  ),
-                  if (item.earthquake != null) ...[
-                    _buildEarthquakeInfo(item.earthquake!, theme),
-                  ],
-                  if (maxLgIntensity != null &&
-                      maxLgIntensity != JmaLgIntensity.zero) ...[
-                    Text(
-                      '予想最大長周期地震動階級: '
-                      '${maxLgIntensity.type}',
-                      style: theme.textTheme.bodyMedium,
                     ),
-                    const SizedBox(height: 8),
+                    if (item.isCanceled)
+                      Chip(
+                        label: const Text('キャンセル報'),
+                        labelStyle:
+                            TextStyle(color: colorScheme.onErrorContainer),
+                        backgroundColor: colorScheme.errorContainer,
+                      )
+                    else if (item.isLastReport)
+                      Chip(
+                        label: const Text('最終報'),
+                        backgroundColor: colorScheme.primaryContainer,
+                        labelStyle:
+                            TextStyle(color: colorScheme.onPrimaryContainer),
+                      ),
                   ],
-                  if (item.text != null)
-                    Text(
-                      item.text ?? '',
-                      style: theme.textTheme.bodyMedium,
-                    ),
+                ),
+                if (item.earthquake != null) ...[
+                  _buildEarthquakeInfo(item.earthquake!, theme),
                 ],
-              ),
+                if (maxLgIntensity != null &&
+                    maxLgIntensity != JmaLgIntensity.zero) ...[
+                  Text(
+                    '予想最大長周期地震動階級: '
+                    '${maxLgIntensity.type}',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 8),
+                ],
+                if (item.text != null)
+                  Text(
+                    item.text ?? '',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

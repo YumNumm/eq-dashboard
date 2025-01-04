@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:app_links/app_links.dart';
 import 'package:dio/dio.dart';
 import 'package:dmdata_oauth_api_client/dmdata_oauth_api_client.dart';
 import 'package:dmdata_oauth_flutter/src/model/oauth_config.dart';
+import 'package:dmdata_oauth_flutter/src/model/oauth_context.dart';
 import 'package:dmdata_oauth_flutter/src/model/oauth_state.dart';
 import 'package:dmdata_oauth_flutter/src/storage/oauth_storage.dart';
-import 'package:flutter_appauth/flutter_appauth.dart' as app_auth;
-
-export 'package:flutter_appauth_platform_interface/src/errors.dart';
+import 'package:oauth2/oauth2.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// OAuth認証を管理するクラス
 class OAuthManager {
@@ -16,16 +17,16 @@ class OAuthManager {
     required OAuthConfig config,
     required OAuthStorage storage,
     required DmdataOauthApiClient client,
-    required app_auth.FlutterAppAuth appAuth,
+    required AppLinks appLinks,
   })  : _config = config,
         _storage = storage,
         _client = client,
-        _appAuth = appAuth;
+        _appLinks = appLinks;
 
   final OAuthConfig _config;
   final OAuthStorage _storage;
   final DmdataOauthApiClient _client;
-  final app_auth.FlutterAppAuth _appAuth;
+  final AppLinks _appLinks;
 
   final _stateController = StreamController<OAuthState?>.broadcast();
 
@@ -101,28 +102,56 @@ class OAuthManager {
   /// 認証を開始
   /// can throws `FlutterAppAuthUserCancelledException`,
   /// `FlutterAppAuthPlatformException`
-  Future<OAuthState> startAuthorization() async {
-    final result = await _appAuth.authorizeAndExchangeCode(
-      app_auth.AuthorizationTokenRequest(
-        _config.clientId,
-        _config.redirectUri,
-        scopes: _config.scopes,
-        serviceConfiguration: app_auth.AuthorizationServiceConfiguration(
-          authorizationEndpoint: _config.authorizationEndpoint,
-          tokenEndpoint: _config.tokenEndpoint,
-        ),
-      ),
+  Future<OAuthState> startAuthorization({
+    bool usePkce = true,
+  }) async {
+    final context = OAuthContext.create(
+      usePkce: usePkce,
     );
+    final client = AuthorizationCodeGrant(
+      _config.clientId,
+      Uri.parse(_config.authorizationEndpoint),
+      Uri.parse(_config.tokenEndpoint),
+      codeVerifier: context.codeChallenge,
+    );
+    final authorizationUrl = client.getAuthorizationUrl(
+      Uri.parse(_config.redirectUri),
+      scopes: _config.scopes,
+      state: context.state,
+    );
+    print('authorizationUrl: $authorizationUrl');
+    await launchUrl(
+      authorizationUrl,
+      mode: LaunchMode.externalApplication,
+    );
+    // wait for redirect
+    final redirectUri = await getRedirectUri();
+    print('redirectUri: $redirectUri');
+    final result = await client.handleAuthorizationResponse(
+      redirectUri.queryParameters,
+    );
+
     final oauthState = OAuthState(
-      accessToken: result.accessToken!,
-      refreshToken: result.refreshToken!,
-      expiresAt: result.accessTokenExpirationDateTime!,
-      refreshTokenExpiresAt: DateTime.now().add(const Duration(days: 183)),
-      scopes: result.scopes!,
+      accessToken: result.credentials.accessToken,
+      refreshToken: result.credentials.refreshToken!,
+      expiresAt: result.credentials.expiration!,
+      refreshTokenExpiresAt: DateTime.now().add(
+        const Duration(days: 183),
+      ),
+      scopes: result.credentials.scopes!,
     );
     await _storage.save(oauthState);
     _stateController.add(oauthState);
     return oauthState;
+  }
+
+  Future<Uri> getRedirectUri() async {
+    final completer = Completer<Uri>();
+    final stream = _appLinks.uriLinkStream;
+    stream.listen(
+      completer.complete,
+    );
+    return completer.future;
   }
 
   /// アクセストークンをリフレッシュ

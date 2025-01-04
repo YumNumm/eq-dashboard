@@ -20,9 +20,10 @@ class Auth extends _$Auth {
     final result = await Result.capture(
       manager.startAuthorization,
     );
-    if (result case Success()) {
-      state = AsyncData(result.value);
-    }
+    state = switch (result) {
+      Success() => AsyncData(result.value),
+      Failure() => AsyncError(result.error, StackTrace.current),
+    };
     return result;
   }
 

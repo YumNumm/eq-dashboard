@@ -1,8 +1,10 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_card.dart';
 import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
+import 'package:eqdashboard/core/components/platform/platform_error_card.dart';
+import 'package:eqdashboard/core/components/platform/platform_progress_indicator.dart';
 import 'package:eqdashboard/features/eew/data/model/eew_list_item.dart';
 import 'package:eqdashboard/features/eew/data/notifier/eew_alive_items.dart';
-import 'package:eqdashboard/features/eew/ui/eew_list_card.dart';
+import 'package:eqdashboard/features/eew/ui/components/eew_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,13 +18,22 @@ class EewAliveBentoCard extends HookConsumerWidget with BentoCard {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eewItems = ref.watch(eewAliveItemsProvider);
+    final eewState = ref.watch(eewAliveItemsProvider);
 
     return BentoGridCard(
       header: const BentoGridCardHeader(
         title: Text('発表中の緊急地震速報'),
       ),
-      child: _buildEewList(eewItems, context),
+      child: switch (eewState) {
+        AsyncData(:final value) => _buildEewList(value, context),
+        AsyncError() => PlatformErrorCard(
+            error: eewState.error,
+            onRetry: () async => ref.invalidate(eewAliveItemsProvider),
+          ),
+        _ => const Center(
+            child: PlatformProgressIndicator(),
+          ),
+      },
     );
   }
 

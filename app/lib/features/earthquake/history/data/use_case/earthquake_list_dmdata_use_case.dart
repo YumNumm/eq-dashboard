@@ -5,6 +5,16 @@ import 'package:eqdashboard/features/earthquake/history/data/model/earthquake_hi
 import 'package:eqdashboard/features/earthquake/history/data/model/earthquake_list_state.dart';
 import 'package:eqdashboard/features/earthquake/history/data/repository/earthquake_history_dmdata_repository.dart';
 import 'package:eqdashboard/features/earthquake/history/data/use_case/earthquake_list_use_case.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'earthquake_list_dmdata_use_case.g.dart';
+
+@Riverpod(keepAlive: true)
+EarthquakeListDmdataUseCase earthquakeListDmdataUseCase(Ref ref) =>
+    EarthquakeListDmdataUseCase(
+      repository: ref.watch(earthquakeHistoryDmdataRepositoryProvider),
+    );
 
 class EarthquakeListDmdataUseCase implements EarthquakeListUseCase {
   EarthquakeListDmdataUseCase({
@@ -26,6 +36,8 @@ class EarthquakeListDmdataUseCase implements EarthquakeListUseCase {
     return EarthquakeListState(
       items: result.items.map(_toListItem).toList(),
       nextToken: result.nextToken,
+      lastUpdatedAt: DateTime.now(),
+      isSupportingRealtimeUpdate: false,
     );
   }
 
@@ -38,6 +50,11 @@ class EarthquakeListDmdataUseCase implements EarthquakeListUseCase {
     final magnitude = item.magnitude;
 
     return EarthquakeHistoryListItem(
+      earthquakeType: switch (item.type) {
+        'normal' => EarthquakeType.normal,
+        'distant' => EarthquakeType.distant,
+        _ => throw ArgumentError('Invalid earthquake type: ${item.type}'),
+      },
       eventId: item.eventId,
       arrivalTime: DateTime.parse(item.arrivalTime),
       originTime: originTime != null ? DateTime.parse(originTime) : null,

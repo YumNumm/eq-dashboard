@@ -15,6 +15,16 @@ sealed class Result<V, E extends Exception> {
       return Result.error(e);
     }
   }
+
+  static Result<V, E> captureSync<V, E extends Exception>(
+    V Function() fn,
+  ) {
+    try {
+      return Result.success(fn());
+    } on E catch (e) {
+      return Result.error(e);
+    }
+  }
 }
 
 class Success<V, E extends Exception> extends Result<V, E> {
