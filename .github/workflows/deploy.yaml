@@ -85,9 +85,7 @@ jobs:
           elif [ "${{ github.event_name }}" = "push" ]; then
             # コミットメッセージに [release only $platform] を含む場合は、
             # そのプラットフォームのみデプロイする
-            commit_message="${{ github.event.head_commit.message }}"
-            echo "コミットメッセージ: $commit_message"
-            if [[ "$commit_message" =~ \[release[[:space:]]+only[[:space:]]+([a-z,[:space:]]+)\] ]]; then
+            if [[ github.event.head_commit.message =~ \[release[[:space:]]+only[[:space:]]+([a-z,[:space:]]+)\] ]]; then
               # [release only platform1,platform2] の形式からプラットフォームを抽出
               IFS=',' read -ra selected_platforms <<< "${BASH_REMATCH[1]}"
               # 空白を削除して配列に追加
