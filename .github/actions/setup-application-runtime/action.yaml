@@ -28,18 +28,13 @@ runs:
           pubspec-
 
     - name: Setup melos
+      shell: bash
       run: |
         mkdir -p .fvm
         ln -s $FLUTTER_ROOT .fvm/flutter_sdk
         MELOS_VERSION=$(cat pubspec.lock | yq ".packages.melos.version" -r)
         dart pub global activate melos $MELOS_VERSION
-      shell: bash
-
-    - name: Setup PATH (Windows)
-      if: ${{ runner.os == 'Windows' }}
-      shell: bash
-      run: echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
     - name: Resolve dependencies
       shell: bash
-      run: melos bootstrap
+      run: dart run melos bootstrap
