@@ -42,6 +42,7 @@ class DmdataWebsocketConnectionBentoCard extends ConsumerWidget {
       ),
       child: const FittedBox(
         fit: BoxFit.scaleDown,
+        alignment: Alignment.topCenter,
         child: DmdataWebsocketConnectionStatus(),
       ),
     );
