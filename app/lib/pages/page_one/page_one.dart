@@ -33,9 +33,10 @@ class PageOne extends HookConsumerWidget {
 
     final items = useState<List<BentoGridItem>>(
       savedState != null
-          ? ref
-              .read(bentoSaverProvider(_bentoSaverId).notifier)
-              .restoreItems(defaultItems)
+          ? ref.read(bentoSaverProvider(_bentoSaverId).notifier).restoreItems(
+                BentoSaver.availableItems,
+                defaultItems,
+              )
           : defaultItems,
     );
 
