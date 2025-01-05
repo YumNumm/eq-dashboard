@@ -29,7 +29,7 @@ class PlatformCard extends StatelessWidget {
 
       return Container(
         margin: margin,
-        clipBehavior: clipBehavior,
+        clipBehavior: clipBehavior ?? Clip.none,
         decoration: BoxDecoration(
           color: isDark
               ? const Color.fromARGB(255, 45, 50, 55)

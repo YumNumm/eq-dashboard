@@ -3,6 +3,7 @@ import 'package:dmdata_oauth_flutter/dmdata_oauth_flutter.dart';
 import 'package:eqdashboard/core/components/platform/platform_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:web_socket/web_socket.dart';
 
 class PlatformErrorCard extends StatelessWidget {
   const PlatformErrorCard({
@@ -72,6 +73,7 @@ class PlatformErrorCard extends StatelessWidget {
         );
       }
     }
+
     return Center(
       child: SelectableText('エラーが発生しました: $error'),
     );
