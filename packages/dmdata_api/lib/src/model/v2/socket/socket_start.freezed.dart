@@ -703,3 +703,340 @@ abstract class _WebSocketInfo implements WebSocketInfo {
   _$$WebSocketInfoImplCopyWith<_$WebSocketInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+SocketStartRequest _$SocketStartRequestFromJson(Map<String, dynamic> json) {
+  return _SocketStartRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SocketStartRequest {
+  /// WebSocketで取得する配信区分を指定
+  /// 電文データ 区分(API名) を指定、ファイル形式データは指定できない
+  List<String> get classifications => throw _privateConstructorUsedError;
+
+  /// 取得したいデータ種類コードを指定
+  /// 最大30個まで指定可能
+  @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+  @JsonKey(includeIfNull: false)
+  List<String>? get types => throw _privateConstructorUsedError;
+
+  /// テストデータを取得する場合は`including`、それ以外は`no`
+  String get test => throw _privateConstructorUsedError;
+
+  /// アプリケーション名を指定
+  /// 最大24byteまで
+  @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+  String? get appName => throw _privateConstructorUsedError;
+
+  /// 取得したいデータのフォーマットを指定
+  /// `raw`または`json`を指定
+  @Assert(
+      'format == "raw" || format == "json"', 'formatは"raw"または"json"でなければなりません')
+  String get format => throw _privateConstructorUsedError;
+
+  /// Serializes this SocketStartRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SocketStartRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SocketStartRequestCopyWith<SocketStartRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SocketStartRequestCopyWith<$Res> {
+  factory $SocketStartRequestCopyWith(
+          SocketStartRequest value, $Res Function(SocketStartRequest) then) =
+      _$SocketStartRequestCopyWithImpl<$Res, SocketStartRequest>;
+  @useResult
+  $Res call(
+      {List<String> classifications,
+      @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+      @JsonKey(includeIfNull: false)
+      List<String>? types,
+      String test,
+      @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+      String? appName,
+      @Assert('format == "raw" || format == "json"',
+          'formatは"raw"または"json"でなければなりません')
+      String format});
+}
+
+/// @nodoc
+class _$SocketStartRequestCopyWithImpl<$Res, $Val extends SocketStartRequest>
+    implements $SocketStartRequestCopyWith<$Res> {
+  _$SocketStartRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SocketStartRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? classifications = null,
+    Object? types = freezed,
+    Object? test = null,
+    Object? appName = freezed,
+    Object? format = null,
+  }) {
+    return _then(_value.copyWith(
+      classifications: null == classifications
+          ? _value.classifications
+          : classifications // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      types: freezed == types
+          ? _value.types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      test: null == test
+          ? _value.test
+          : test // ignore: cast_nullable_to_non_nullable
+              as String,
+      appName: freezed == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SocketStartRequestImplCopyWith<$Res>
+    implements $SocketStartRequestCopyWith<$Res> {
+  factory _$$SocketStartRequestImplCopyWith(_$SocketStartRequestImpl value,
+          $Res Function(_$SocketStartRequestImpl) then) =
+      __$$SocketStartRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<String> classifications,
+      @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+      @JsonKey(includeIfNull: false)
+      List<String>? types,
+      String test,
+      @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+      String? appName,
+      @Assert('format == "raw" || format == "json"',
+          'formatは"raw"または"json"でなければなりません')
+      String format});
+}
+
+/// @nodoc
+class __$$SocketStartRequestImplCopyWithImpl<$Res>
+    extends _$SocketStartRequestCopyWithImpl<$Res, _$SocketStartRequestImpl>
+    implements _$$SocketStartRequestImplCopyWith<$Res> {
+  __$$SocketStartRequestImplCopyWithImpl(_$SocketStartRequestImpl _value,
+      $Res Function(_$SocketStartRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SocketStartRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? classifications = null,
+    Object? types = freezed,
+    Object? test = null,
+    Object? appName = freezed,
+    Object? format = null,
+  }) {
+    return _then(_$SocketStartRequestImpl(
+      classifications: null == classifications
+          ? _value._classifications
+          : classifications // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      types: freezed == types
+          ? _value._types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      test: null == test
+          ? _value.test
+          : test // ignore: cast_nullable_to_non_nullable
+              as String,
+      appName: freezed == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: null == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SocketStartRequestImpl implements _SocketStartRequest {
+  const _$SocketStartRequestImpl(
+      {required final List<String> classifications,
+      @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+      @JsonKey(includeIfNull: false)
+      required final List<String>? types,
+      this.test = 'no',
+      @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+      this.appName,
+      @Assert('format == "raw" || format == "json"',
+          'formatは"raw"または"json"でなければなりません')
+      this.format = 'raw'})
+      : _classifications = classifications,
+        _types = types;
+
+  factory _$SocketStartRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SocketStartRequestImplFromJson(json);
+
+  /// WebSocketで取得する配信区分を指定
+  /// 電文データ 区分(API名) を指定、ファイル形式データは指定できない
+  final List<String> _classifications;
+
+  /// WebSocketで取得する配信区分を指定
+  /// 電文データ 区分(API名) を指定、ファイル形式データは指定できない
+  @override
+  List<String> get classifications {
+    if (_classifications is EqualUnmodifiableListView) return _classifications;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_classifications);
+  }
+
+  /// 取得したいデータ種類コードを指定
+  /// 最大30個まで指定可能
+  final List<String>? _types;
+
+  /// 取得したいデータ種類コードを指定
+  /// 最大30個まで指定可能
+  @override
+  @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+  @JsonKey(includeIfNull: false)
+  List<String>? get types {
+    final value = _types;
+    if (value == null) return null;
+    if (_types is EqualUnmodifiableListView) return _types;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// テストデータを取得する場合は`including`、それ以外は`no`
+  @override
+  @JsonKey()
+  final String test;
+
+  /// アプリケーション名を指定
+  /// 最大24byteまで
+  @override
+  @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+  final String? appName;
+
+  /// 取得したいデータのフォーマットを指定
+  /// `raw`または`json`を指定
+  @override
+  @JsonKey()
+  @Assert(
+      'format == "raw" || format == "json"', 'formatは"raw"または"json"でなければなりません')
+  final String format;
+
+  @override
+  String toString() {
+    return 'SocketStartRequest(classifications: $classifications, types: $types, test: $test, appName: $appName, format: $format)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SocketStartRequestImpl &&
+            const DeepCollectionEquality()
+                .equals(other._classifications, _classifications) &&
+            const DeepCollectionEquality().equals(other._types, _types) &&
+            (identical(other.test, test) || other.test == test) &&
+            (identical(other.appName, appName) || other.appName == appName) &&
+            (identical(other.format, format) || other.format == format));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_classifications),
+      const DeepCollectionEquality().hash(_types),
+      test,
+      appName,
+      format);
+
+  /// Create a copy of SocketStartRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SocketStartRequestImplCopyWith<_$SocketStartRequestImpl> get copyWith =>
+      __$$SocketStartRequestImplCopyWithImpl<_$SocketStartRequestImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SocketStartRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SocketStartRequest implements SocketStartRequest {
+  const factory _SocketStartRequest(
+      {required final List<String> classifications,
+      @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+      @JsonKey(includeIfNull: false)
+      required final List<String>? types,
+      final String test,
+      @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+      final String? appName,
+      @Assert('format == "raw" || format == "json"',
+          'formatは"raw"または"json"でなければなりません')
+      final String format}) = _$SocketStartRequestImpl;
+
+  factory _SocketStartRequest.fromJson(Map<String, dynamic> json) =
+      _$SocketStartRequestImpl.fromJson;
+
+  /// WebSocketで取得する配信区分を指定
+  /// 電文データ 区分(API名) を指定、ファイル形式データは指定できない
+  @override
+  List<String> get classifications;
+
+  /// 取得したいデータ種類コードを指定
+  /// 最大30個まで指定可能
+  @override
+  @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+  @JsonKey(includeIfNull: false)
+  List<String>? get types;
+
+  /// テストデータを取得する場合は`including`、それ以外は`no`
+  @override
+  String get test;
+
+  /// アプリケーション名を指定
+  /// 最大24byteまで
+  @override
+  @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+  String? get appName;
+
+  /// 取得したいデータのフォーマットを指定
+  /// `raw`または`json`を指定
+  @override
+  @Assert(
+      'format == "raw" || format == "json"', 'formatは"raw"または"json"でなければなりません')
+  String get format;
+
+  /// Create a copy of SocketStartRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SocketStartRequestImplCopyWith<_$SocketStartRequestImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

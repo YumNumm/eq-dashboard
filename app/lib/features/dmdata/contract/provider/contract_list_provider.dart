@@ -9,5 +9,6 @@ part 'contract_list_provider.g.dart';
 Future<ContractListResponse> contractList(Ref ref) async {
   final api = ref.watch(dmdataApiProvider);
   final response = await api.v2.contract.getContractList();
+  ref.keepAlive();
   return response;
 }

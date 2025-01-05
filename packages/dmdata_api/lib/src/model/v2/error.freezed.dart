@@ -14,44 +14,45 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-DMMError _$DMMErrorFromJson(Map<String, dynamic> json) {
-  return _DMMError.fromJson(json);
+DmDataError _$DmDataErrorFromJson(Map<String, dynamic> json) {
+  return _DmDataError.fromJson(json);
 }
 
 /// @nodoc
-mixin _$DMMError {
+mixin _$DmDataError {
   String get message => throw _privateConstructorUsedError;
   int get code => throw _privateConstructorUsedError;
 
-  /// Serializes this DMMError to a JSON map.
+  /// Serializes this DmDataError to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of DMMError
+  /// Create a copy of DmDataError
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $DMMErrorCopyWith<DMMError> get copyWith =>
+  $DmDataErrorCopyWith<DmDataError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DMMErrorCopyWith<$Res> {
-  factory $DMMErrorCopyWith(DMMError value, $Res Function(DMMError) then) =
-      _$DMMErrorCopyWithImpl<$Res, DMMError>;
+abstract class $DmDataErrorCopyWith<$Res> {
+  factory $DmDataErrorCopyWith(
+          DmDataError value, $Res Function(DmDataError) then) =
+      _$DmDataErrorCopyWithImpl<$Res, DmDataError>;
   @useResult
   $Res call({String message, int code});
 }
 
 /// @nodoc
-class _$DMMErrorCopyWithImpl<$Res, $Val extends DMMError>
-    implements $DMMErrorCopyWith<$Res> {
-  _$DMMErrorCopyWithImpl(this._value, this._then);
+class _$DmDataErrorCopyWithImpl<$Res, $Val extends DmDataError>
+    implements $DmDataErrorCopyWith<$Res> {
+  _$DmDataErrorCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DMMError
+  /// Create a copy of DmDataError
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -73,25 +74,25 @@ class _$DMMErrorCopyWithImpl<$Res, $Val extends DMMError>
 }
 
 /// @nodoc
-abstract class _$$DMMErrorImplCopyWith<$Res>
-    implements $DMMErrorCopyWith<$Res> {
-  factory _$$DMMErrorImplCopyWith(
-          _$DMMErrorImpl value, $Res Function(_$DMMErrorImpl) then) =
-      __$$DMMErrorImplCopyWithImpl<$Res>;
+abstract class _$$DmDataErrorImplCopyWith<$Res>
+    implements $DmDataErrorCopyWith<$Res> {
+  factory _$$DmDataErrorImplCopyWith(
+          _$DmDataErrorImpl value, $Res Function(_$DmDataErrorImpl) then) =
+      __$$DmDataErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String message, int code});
 }
 
 /// @nodoc
-class __$$DMMErrorImplCopyWithImpl<$Res>
-    extends _$DMMErrorCopyWithImpl<$Res, _$DMMErrorImpl>
-    implements _$$DMMErrorImplCopyWith<$Res> {
-  __$$DMMErrorImplCopyWithImpl(
-      _$DMMErrorImpl _value, $Res Function(_$DMMErrorImpl) _then)
+class __$$DmDataErrorImplCopyWithImpl<$Res>
+    extends _$DmDataErrorCopyWithImpl<$Res, _$DmDataErrorImpl>
+    implements _$$DmDataErrorImplCopyWith<$Res> {
+  __$$DmDataErrorImplCopyWithImpl(
+      _$DmDataErrorImpl _value, $Res Function(_$DmDataErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DMMError
+  /// Create a copy of DmDataError
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -99,7 +100,7 @@ class __$$DMMErrorImplCopyWithImpl<$Res>
     Object? message = null,
     Object? code = null,
   }) {
-    return _then(_$DMMErrorImpl(
+    return _then(_$DmDataErrorImpl(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -114,11 +115,11 @@ class __$$DMMErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DMMErrorImpl implements _DMMError {
-  const _$DMMErrorImpl({required this.message, required this.code});
+class _$DmDataErrorImpl implements _DmDataError {
+  const _$DmDataErrorImpl({required this.message, required this.code});
 
-  factory _$DMMErrorImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DMMErrorImplFromJson(json);
+  factory _$DmDataErrorImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DmDataErrorImplFromJson(json);
 
   @override
   final String message;
@@ -127,14 +128,14 @@ class _$DMMErrorImpl implements _DMMError {
 
   @override
   String toString() {
-    return 'DMMError(message: $message, code: $code)';
+    return 'DmDataError(message: $message, code: $code)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DMMErrorImpl &&
+            other is _$DmDataErrorImpl &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code));
   }
@@ -143,39 +144,39 @@ class _$DMMErrorImpl implements _DMMError {
   @override
   int get hashCode => Object.hash(runtimeType, message, code);
 
-  /// Create a copy of DMMError
+  /// Create a copy of DmDataError
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$DMMErrorImplCopyWith<_$DMMErrorImpl> get copyWith =>
-      __$$DMMErrorImplCopyWithImpl<_$DMMErrorImpl>(this, _$identity);
+  _$$DmDataErrorImplCopyWith<_$DmDataErrorImpl> get copyWith =>
+      __$$DmDataErrorImplCopyWithImpl<_$DmDataErrorImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DMMErrorImplToJson(
+    return _$$DmDataErrorImplToJson(
       this,
     );
   }
 }
 
-abstract class _DMMError implements DMMError {
-  const factory _DMMError(
+abstract class _DmDataError implements DmDataError {
+  const factory _DmDataError(
       {required final String message,
-      required final int code}) = _$DMMErrorImpl;
+      required final int code}) = _$DmDataErrorImpl;
 
-  factory _DMMError.fromJson(Map<String, dynamic> json) =
-      _$DMMErrorImpl.fromJson;
+  factory _DmDataError.fromJson(Map<String, dynamic> json) =
+      _$DmDataErrorImpl.fromJson;
 
   @override
   String get message;
   @override
   int get code;
 
-  /// Create a copy of DMMError
+  /// Create a copy of DmDataError
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DMMErrorImplCopyWith<_$DMMErrorImpl> get copyWith =>
+  _$$DmDataErrorImplCopyWith<_$DmDataErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

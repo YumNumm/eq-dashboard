@@ -24,7 +24,7 @@ mixin _$ContractListResponse {
   String get responseTime => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   List<ContractItem> get items => throw _privateConstructorUsedError;
-  DMMError? get error => throw _privateConstructorUsedError;
+  DmDataError? get error => throw _privateConstructorUsedError;
 
   /// Serializes this ContractListResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,9 +47,9 @@ abstract class $ContractListResponseCopyWith<$Res> {
       String responseTime,
       String status,
       List<ContractItem> items,
-      DMMError? error});
+      DmDataError? error});
 
-  $DMMErrorCopyWith<$Res>? get error;
+  $DmDataErrorCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -94,7 +94,7 @@ class _$ContractListResponseCopyWithImpl<$Res,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as DMMError?,
+              as DmDataError?,
     ) as $Val);
   }
 
@@ -102,12 +102,12 @@ class _$ContractListResponseCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $DMMErrorCopyWith<$Res>? get error {
+  $DmDataErrorCopyWith<$Res>? get error {
     if (_value.error == null) {
       return null;
     }
 
-    return $DMMErrorCopyWith<$Res>(_value.error!, (value) {
+    return $DmDataErrorCopyWith<$Res>(_value.error!, (value) {
       return _then(_value.copyWith(error: value) as $Val);
     });
   }
@@ -126,10 +126,10 @@ abstract class _$$ContractListResponseImplCopyWith<$Res>
       String responseTime,
       String status,
       List<ContractItem> items,
-      DMMError? error});
+      DmDataError? error});
 
   @override
-  $DMMErrorCopyWith<$Res>? get error;
+  $DmDataErrorCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -171,7 +171,7 @@ class __$$ContractListResponseImplCopyWithImpl<$Res>
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as DMMError?,
+              as DmDataError?,
     ));
   }
 }
@@ -206,7 +206,7 @@ class _$ContractListResponseImpl implements _ContractListResponse {
   }
 
   @override
-  final DMMError? error;
+  final DmDataError? error;
 
   @override
   String toString() {
@@ -256,7 +256,7 @@ abstract class _ContractListResponse implements ContractListResponse {
       required final String responseTime,
       required final String status,
       final List<ContractItem> items,
-      final DMMError? error}) = _$ContractListResponseImpl;
+      final DmDataError? error}) = _$ContractListResponseImpl;
 
   factory _ContractListResponse.fromJson(Map<String, dynamic> json) =
       _$ContractListResponseImpl.fromJson;
@@ -270,7 +270,7 @@ abstract class _ContractListResponse implements ContractListResponse {
   @override
   List<ContractItem> get items;
   @override
-  DMMError? get error;
+  DmDataError? get error;
 
   /// Create a copy of ContractListResponse
   /// with the given fields replaced by the non-null parameter values.

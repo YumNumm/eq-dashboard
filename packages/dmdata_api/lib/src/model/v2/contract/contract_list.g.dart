@@ -30,7 +30,7 @@ _$ContractListResponseImpl _$$ContractListResponseImplFromJson(
               'error',
               (v) => v == null
                   ? null
-                  : DMMError.fromJson(v as Map<String, dynamic>)),
+                  : DmDataError.fromJson(v as Map<String, dynamic>)),
         );
         return val;
       },

@@ -72,3 +72,32 @@ Map<String, dynamic> _$$WebSocketInfoImplToJson(_$WebSocketInfoImpl instance) =>
       'protocol': instance.protocol,
       'expiration': instance.expiration,
     };
+
+_$SocketStartRequestImpl _$$SocketStartRequestImplFromJson(
+        Map<String, dynamic> json) =>
+    $checkedCreate(
+      r'_$SocketStartRequestImpl',
+      json,
+      ($checkedConvert) {
+        final val = _$SocketStartRequestImpl(
+          classifications: $checkedConvert('classifications',
+              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
+          types: $checkedConvert('types',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          test: $checkedConvert('test', (v) => v as String? ?? 'no'),
+          appName: $checkedConvert('appName', (v) => v as String?),
+          format: $checkedConvert('format', (v) => v as String? ?? 'raw'),
+        );
+        return val;
+      },
+    );
+
+Map<String, dynamic> _$$SocketStartRequestImplToJson(
+        _$SocketStartRequestImpl instance) =>
+    <String, dynamic>{
+      'classifications': instance.classifications,
+      if (instance.types case final value?) 'types': value,
+      'test': instance.test,
+      'appName': instance.appName,
+      'format': instance.format,
+    };

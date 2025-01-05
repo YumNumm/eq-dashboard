@@ -8,12 +8,12 @@ part of 'error.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DMMErrorImpl _$$DMMErrorImplFromJson(Map<String, dynamic> json) =>
+_$DmDataErrorImpl _$$DmDataErrorImplFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$DMMErrorImpl',
+      r'_$DmDataErrorImpl',
       json,
       ($checkedConvert) {
-        final val = _$DMMErrorImpl(
+        final val = _$DmDataErrorImpl(
           message: $checkedConvert('message', (v) => v as String),
           code: $checkedConvert('code', (v) => (v as num).toInt()),
         );
@@ -21,7 +21,7 @@ _$DMMErrorImpl _$$DMMErrorImplFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$$DMMErrorImplToJson(_$DMMErrorImpl instance) =>
+Map<String, dynamic> _$$DmDataErrorImplToJson(_$DmDataErrorImpl instance) =>
     <String, dynamic>{
       'message': instance.message,
       'code': instance.code,

@@ -12,7 +12,7 @@ class EarthquakeEvent with _$EarthquakeEvent {
     required String responseTime,
     required String status,
     required EarthquakeEventData event,
-    DMMError? error,
+    DmDataError? error,
   }) = _EarthquakeEvent;
 
   factory EarthquakeEvent.fromJson(Map<String, dynamic> json) =>

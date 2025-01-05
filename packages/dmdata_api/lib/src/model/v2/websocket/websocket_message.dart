@@ -10,13 +10,13 @@ part 'websocket_message.g.dart';
 class WebSocketMessage with _$WebSocketMessage {
   /// 開始メッセージ
   const factory WebSocketMessage.start({
-    required String type,
     required int socketId,
-    required List<String> classifications,
-    required List<String> types,
     required String test,
     required List<String> formats,
-    required String time,
+    required DateTime time,
+    String? type,
+    List<String>? classifications,
+    List<String>? types,
     String? appName,
   }) = WebSocketStartMessage;
 
