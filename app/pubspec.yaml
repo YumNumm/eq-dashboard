@@ -17,6 +17,7 @@ dependencies:
     path: ../packages/dmdata_api
   dmdata_oauth_flutter:
     path: ../packages/dmdata_oauth_flutter
+  exponential_back_off: ^0.1.0+2
   flutter:
     sdk: flutter
   flutter_appauth: ^8.0.3
@@ -39,6 +40,8 @@ dependencies:
   talker_logger: ^4.5.2
   talker_riverpod_logger: ^4.5.2
   url_launcher: ^6.3.1
+  uuid: ^4.5.1
+  web_socket: ^0.1.6
 
 dev_dependencies:
   altive_lints: ^1.16.0
