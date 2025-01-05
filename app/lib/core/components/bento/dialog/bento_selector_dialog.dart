@@ -16,63 +16,63 @@ class BentoSelectorDialog extends StatelessWidget {
     );
   }
 
+  static final availableBentos = [
+    _BentoOption(
+      title: '緊急地震速報の履歴',
+      description: '緊急地震速報の履歴を表示します',
+      icon: Icons.notifications_active,
+      onTap: (context) {
+        const item = BentoGridItem(
+          id: 'eew_list',
+          size: BentoGridSize.medium,
+          child: EewListBentoCard(),
+        );
+        Navigator.of(context).pop(item);
+      },
+    ),
+    _BentoOption(
+      title: '直近の緊急地震速報',
+      description: '直近の緊急地震速報を表示します',
+      icon: Icons.notifications_active,
+      onTap: (context) {
+        const item = BentoGridItem(
+          id: 'eew_alive',
+          size: BentoGridSize.medium,
+          child: EewAliveBentoCard(),
+        );
+        Navigator.of(context).pop(item);
+      },
+    ),
+    _BentoOption(
+      title: '地震履歴',
+      description: '地震履歴を表示します',
+      icon: Icons.history,
+      onTap: (context) {
+        const item = BentoGridItem(
+          id: 'earthquake_history',
+          size: BentoGridSize.medium,
+          child: EarthquakeHistoryBentoCard(),
+        );
+        Navigator.of(context).pop(item);
+      },
+    ),
+    _BentoOption(
+      title: 'DMDATA WebSocket',
+      description: 'DMDATA WebSocketを表示します',
+      icon: Icons.wifi,
+      onTap: (context) {
+        const item = BentoGridItem(
+          id: 'dmdata_websocket',
+          size: BentoGridSize.small,
+          child: DmdataWebsocketConnectionBentoCard(),
+        );
+        Navigator.of(context).pop(item);
+      },
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final availableBentos = [
-      _BentoOption(
-        title: '緊急地震速報の履歴',
-        description: '緊急地震速報の履歴を表示します',
-        icon: Icons.notifications_active,
-        onTap: () {
-          const item = BentoGridItem(
-            id: 'eew_list',
-            size: BentoGridSize.medium,
-            child: EewListBentoCard(),
-          );
-          Navigator.of(context).pop(item);
-        },
-      ),
-      _BentoOption(
-        title: '直近の緊急地震速報',
-        description: '直近の緊急地震速報を表示します',
-        icon: Icons.notifications_active,
-        onTap: () {
-          const item = BentoGridItem(
-            id: 'eew_alive',
-            size: BentoGridSize.medium,
-            child: EewAliveBentoCard(),
-          );
-          Navigator.of(context).pop(item);
-        },
-      ),
-      _BentoOption(
-        title: '地震履歴',
-        description: '地震履歴を表示します',
-        icon: Icons.history,
-        onTap: () {
-          const item = BentoGridItem(
-            id: 'earthquake_history',
-            size: BentoGridSize.medium,
-            child: EarthquakeHistoryBentoCard(),
-          );
-          Navigator.of(context).pop(item);
-        },
-      ),
-      _BentoOption(
-        title: 'DMDATA WebSocket',
-        description: 'DMDATA WebSocketを表示します',
-        icon: Icons.wifi,
-        onTap: () {
-          const item = BentoGridItem(
-            id: 'dmdata_websocket',
-            size: BentoGridSize.small,
-            child: DmdataWebsocketConnectionBentoCard(),
-          );
-          Navigator.of(context).pop(item);
-        },
-      ),
-    ];
-
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
@@ -102,7 +102,7 @@ class _BentoOption extends StatelessWidget {
   final String title;
   final String description;
   final IconData icon;
-  final VoidCallback onTap;
+  final void Function(BuildContext context) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _BentoOption extends StatelessWidget {
         title: Text(title),
         subtitle: Text(description),
         trailing: const Icon(Icons.add_circle_outline),
-        onTap: onTap,
+        onTap: () => onTap(context),
       ),
     );
   }

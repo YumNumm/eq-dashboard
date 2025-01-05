@@ -184,13 +184,13 @@ class BentoGridView extends HookWidget {
                             content: const Text('このカードを削除してもよろしいですか？'),
                             actions: [
                               PlatformDialogAction(
-                                onPressed: () {
+                                onPressed: (context) {
                                   Navigator.of(context).pop(false);
                                 },
                                 child: const Text('キャンセル'),
                               ),
                               PlatformDialogAction(
-                                onPressed: () {
+                                onPressed: (context) {
                                   Navigator.of(context).pop(true);
                                 },
                                 isDestructiveAction: true,
