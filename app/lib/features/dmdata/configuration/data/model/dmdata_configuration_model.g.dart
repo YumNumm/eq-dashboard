@@ -83,6 +83,21 @@ _$DmdataWebSocketConfigurationImpl _$$DmdataWebSocketConfigurationImplFromJson(
           forceDisconnectOtherConnectionWhenFull: $checkedConvert(
               'force_disconnect_other_connection_when_full',
               (v) => v as bool? ?? false),
+          endpoint: $checkedConvert(
+              'endpoint',
+              (v) =>
+                  $enumDecodeNullable(_$DmdataWebsocketEndpointEnumMap, v) ??
+                  DmdataWebsocketEndpoint.tokyoAndOsaka),
+          autoConnect:
+              $checkedConvert('auto_connect', (v) => v as bool? ?? true),
+          includeTestTelegram: $checkedConvert(
+              'include_test_telegram',
+              (v) =>
+                  $enumDecodeNullable(
+                      _$DmdataWebsocketIncludeTestTelegramEnumMap, v) ??
+                  DmdataWebsocketIncludeTestTelegram.no),
+          appName:
+              $checkedConvert('app_name', (v) => v as String? ?? 'EQDashboard'),
         );
         return val;
       },
@@ -90,7 +105,10 @@ _$DmdataWebSocketConfigurationImpl _$$DmdataWebSocketConfigurationImplFromJson(
         'pingInterval': 'ping_interval',
         'connectionTimeout': 'connection_timeout',
         'forceDisconnectOtherConnectionWhenFull':
-            'force_disconnect_other_connection_when_full'
+            'force_disconnect_other_connection_when_full',
+        'autoConnect': 'auto_connect',
+        'includeTestTelegram': 'include_test_telegram',
+        'appName': 'app_name'
       },
     );
 
@@ -101,4 +119,24 @@ Map<String, dynamic> _$$DmdataWebSocketConfigurationImplToJson(
       'connection_timeout': instance.connectionTimeout.inMicroseconds,
       'force_disconnect_other_connection_when_full':
           instance.forceDisconnectOtherConnectionWhenFull,
+      'endpoint': _$DmdataWebsocketEndpointEnumMap[instance.endpoint]!,
+      'auto_connect': instance.autoConnect,
+      'include_test_telegram': _$DmdataWebsocketIncludeTestTelegramEnumMap[
+          instance.includeTestTelegram]!,
+      'app_name': instance.appName,
     };
+
+const _$DmdataWebsocketEndpointEnumMap = {
+  DmdataWebsocketEndpoint.tokyoAndOsaka: 'tokyoAndOsaka',
+  DmdataWebsocketEndpoint.tokyo: 'tokyo',
+  DmdataWebsocketEndpoint.tokyo001: 'tokyo001',
+  DmdataWebsocketEndpoint.tokyo002: 'tokyo002',
+  DmdataWebsocketEndpoint.osaka: 'osaka',
+  DmdataWebsocketEndpoint.osaka003: 'osaka003',
+  DmdataWebsocketEndpoint.osaka004: 'osaka004',
+};
+
+const _$DmdataWebsocketIncludeTestTelegramEnumMap = {
+  DmdataWebsocketIncludeTestTelegram.no: 'no',
+  DmdataWebsocketIncludeTestTelegram.including: 'including',
+};

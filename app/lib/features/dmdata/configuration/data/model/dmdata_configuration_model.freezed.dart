@@ -425,6 +425,22 @@ mixin _$DmdataWebSocketConfiguration {
   bool get forceDisconnectOtherConnectionWhenFull =>
       throw _privateConstructorUsedError;
 
+  /// WebSocketの接続先
+  DmdataWebsocketEndpoint get endpoint => throw _privateConstructorUsedError;
+
+  /// 自動接続
+  bool get autoConnect => throw _privateConstructorUsedError;
+
+  /// テスト電文を受け取るかどうか
+  /// XML電文以外のテスト配信はNO時にも配信されます。本文中を参照するようにしてください
+  DmdataWebsocketIncludeTestTelegram get includeTestTelegram =>
+      throw _privateConstructorUsedError;
+
+  /// アプリケーション名
+  @Assert(
+      'utf8.encode(appName).length <= 24', 'appName must be less than 24 bytes')
+  String get appName => throw _privateConstructorUsedError;
+
   /// Serializes this DmdataWebSocketConfiguration to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -448,7 +464,13 @@ abstract class $DmdataWebSocketConfigurationCopyWith<$Res> {
           'pingInterval must be greater than 5 seconds')
       Duration pingInterval,
       Duration connectionTimeout,
-      bool forceDisconnectOtherConnectionWhenFull});
+      bool forceDisconnectOtherConnectionWhenFull,
+      DmdataWebsocketEndpoint endpoint,
+      bool autoConnect,
+      DmdataWebsocketIncludeTestTelegram includeTestTelegram,
+      @Assert('utf8.encode(appName).length <= 24',
+          'appName must be less than 24 bytes')
+      String appName});
 }
 
 /// @nodoc
@@ -470,6 +492,10 @@ class _$DmdataWebSocketConfigurationCopyWithImpl<$Res,
     Object? pingInterval = null,
     Object? connectionTimeout = null,
     Object? forceDisconnectOtherConnectionWhenFull = null,
+    Object? endpoint = null,
+    Object? autoConnect = null,
+    Object? includeTestTelegram = null,
+    Object? appName = null,
   }) {
     return _then(_value.copyWith(
       pingInterval: null == pingInterval
@@ -485,6 +511,22 @@ class _$DmdataWebSocketConfigurationCopyWithImpl<$Res,
           ? _value.forceDisconnectOtherConnectionWhenFull
           : forceDisconnectOtherConnectionWhenFull // ignore: cast_nullable_to_non_nullable
               as bool,
+      endpoint: null == endpoint
+          ? _value.endpoint
+          : endpoint // ignore: cast_nullable_to_non_nullable
+              as DmdataWebsocketEndpoint,
+      autoConnect: null == autoConnect
+          ? _value.autoConnect
+          : autoConnect // ignore: cast_nullable_to_non_nullable
+              as bool,
+      includeTestTelegram: null == includeTestTelegram
+          ? _value.includeTestTelegram
+          : includeTestTelegram // ignore: cast_nullable_to_non_nullable
+              as DmdataWebsocketIncludeTestTelegram,
+      appName: null == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -503,7 +545,13 @@ abstract class _$$DmdataWebSocketConfigurationImplCopyWith<$Res>
           'pingInterval must be greater than 5 seconds')
       Duration pingInterval,
       Duration connectionTimeout,
-      bool forceDisconnectOtherConnectionWhenFull});
+      bool forceDisconnectOtherConnectionWhenFull,
+      DmdataWebsocketEndpoint endpoint,
+      bool autoConnect,
+      DmdataWebsocketIncludeTestTelegram includeTestTelegram,
+      @Assert('utf8.encode(appName).length <= 24',
+          'appName must be less than 24 bytes')
+      String appName});
 }
 
 /// @nodoc
@@ -524,6 +572,10 @@ class __$$DmdataWebSocketConfigurationImplCopyWithImpl<$Res>
     Object? pingInterval = null,
     Object? connectionTimeout = null,
     Object? forceDisconnectOtherConnectionWhenFull = null,
+    Object? endpoint = null,
+    Object? autoConnect = null,
+    Object? includeTestTelegram = null,
+    Object? appName = null,
   }) {
     return _then(_$DmdataWebSocketConfigurationImpl(
       pingInterval: null == pingInterval
@@ -539,6 +591,22 @@ class __$$DmdataWebSocketConfigurationImplCopyWithImpl<$Res>
           ? _value.forceDisconnectOtherConnectionWhenFull
           : forceDisconnectOtherConnectionWhenFull // ignore: cast_nullable_to_non_nullable
               as bool,
+      endpoint: null == endpoint
+          ? _value.endpoint
+          : endpoint // ignore: cast_nullable_to_non_nullable
+              as DmdataWebsocketEndpoint,
+      autoConnect: null == autoConnect
+          ? _value.autoConnect
+          : autoConnect // ignore: cast_nullable_to_non_nullable
+              as bool,
+      includeTestTelegram: null == includeTestTelegram
+          ? _value.includeTestTelegram
+          : includeTestTelegram // ignore: cast_nullable_to_non_nullable
+              as DmdataWebsocketIncludeTestTelegram,
+      appName: null == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -552,7 +620,13 @@ class _$DmdataWebSocketConfigurationImpl
           'pingInterval must be greater than 5 seconds')
       this.pingInterval = const Duration(seconds: 10),
       this.connectionTimeout = const Duration(seconds: 10),
-      this.forceDisconnectOtherConnectionWhenFull = false});
+      this.forceDisconnectOtherConnectionWhenFull = false,
+      this.endpoint = DmdataWebsocketEndpoint.tokyoAndOsaka,
+      this.autoConnect = true,
+      this.includeTestTelegram = DmdataWebsocketIncludeTestTelegram.no,
+      @Assert('utf8.encode(appName).length <= 24',
+          'appName must be less than 24 bytes')
+      this.appName = 'EQDashboard'});
 
   factory _$DmdataWebSocketConfigurationImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -575,9 +649,32 @@ class _$DmdataWebSocketConfigurationImpl
   @JsonKey()
   final bool forceDisconnectOtherConnectionWhenFull;
 
+  /// WebSocketの接続先
+  @override
+  @JsonKey()
+  final DmdataWebsocketEndpoint endpoint;
+
+  /// 自動接続
+  @override
+  @JsonKey()
+  final bool autoConnect;
+
+  /// テスト電文を受け取るかどうか
+  /// XML電文以外のテスト配信はNO時にも配信されます。本文中を参照するようにしてください
+  @override
+  @JsonKey()
+  final DmdataWebsocketIncludeTestTelegram includeTestTelegram;
+
+  /// アプリケーション名
+  @override
+  @JsonKey()
+  @Assert(
+      'utf8.encode(appName).length <= 24', 'appName must be less than 24 bytes')
+  final String appName;
+
   @override
   String toString() {
-    return 'DmdataWebSocketConfiguration(pingInterval: $pingInterval, connectionTimeout: $connectionTimeout, forceDisconnectOtherConnectionWhenFull: $forceDisconnectOtherConnectionWhenFull)';
+    return 'DmdataWebSocketConfiguration(pingInterval: $pingInterval, connectionTimeout: $connectionTimeout, forceDisconnectOtherConnectionWhenFull: $forceDisconnectOtherConnectionWhenFull, endpoint: $endpoint, autoConnect: $autoConnect, includeTestTelegram: $includeTestTelegram, appName: $appName)';
   }
 
   @override
@@ -592,13 +689,27 @@ class _$DmdataWebSocketConfigurationImpl
             (identical(other.forceDisconnectOtherConnectionWhenFull,
                     forceDisconnectOtherConnectionWhenFull) ||
                 other.forceDisconnectOtherConnectionWhenFull ==
-                    forceDisconnectOtherConnectionWhenFull));
+                    forceDisconnectOtherConnectionWhenFull) &&
+            (identical(other.endpoint, endpoint) ||
+                other.endpoint == endpoint) &&
+            (identical(other.autoConnect, autoConnect) ||
+                other.autoConnect == autoConnect) &&
+            (identical(other.includeTestTelegram, includeTestTelegram) ||
+                other.includeTestTelegram == includeTestTelegram) &&
+            (identical(other.appName, appName) || other.appName == appName));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, pingInterval, connectionTimeout,
-      forceDisconnectOtherConnectionWhenFull);
+  int get hashCode => Object.hash(
+      runtimeType,
+      pingInterval,
+      connectionTimeout,
+      forceDisconnectOtherConnectionWhenFull,
+      endpoint,
+      autoConnect,
+      includeTestTelegram,
+      appName);
 
   /// Create a copy of DmdataWebSocketConfiguration
   /// with the given fields replaced by the non-null parameter values.
@@ -621,12 +732,17 @@ class _$DmdataWebSocketConfigurationImpl
 abstract class _DmdataWebSocketConfiguration
     implements DmdataWebSocketConfiguration {
   const factory _DmdataWebSocketConfiguration(
-          {@Assert('pingInterval.inSeconds > 5',
-              'pingInterval must be greater than 5 seconds')
-          final Duration pingInterval,
-          final Duration connectionTimeout,
-          final bool forceDisconnectOtherConnectionWhenFull}) =
-      _$DmdataWebSocketConfigurationImpl;
+      {@Assert('pingInterval.inSeconds > 5',
+          'pingInterval must be greater than 5 seconds')
+      final Duration pingInterval,
+      final Duration connectionTimeout,
+      final bool forceDisconnectOtherConnectionWhenFull,
+      final DmdataWebsocketEndpoint endpoint,
+      final bool autoConnect,
+      final DmdataWebsocketIncludeTestTelegram includeTestTelegram,
+      @Assert('utf8.encode(appName).length <= 24',
+          'appName must be less than 24 bytes')
+      final String appName}) = _$DmdataWebSocketConfigurationImpl;
 
   factory _DmdataWebSocketConfiguration.fromJson(Map<String, dynamic> json) =
       _$DmdataWebSocketConfigurationImpl.fromJson;
@@ -644,6 +760,25 @@ abstract class _DmdataWebSocketConfiguration
   /// 接続数に余りがない場合に、他の接続を切断し強制的に接続するかどうか
   @override
   bool get forceDisconnectOtherConnectionWhenFull;
+
+  /// WebSocketの接続先
+  @override
+  DmdataWebsocketEndpoint get endpoint;
+
+  /// 自動接続
+  @override
+  bool get autoConnect;
+
+  /// テスト電文を受け取るかどうか
+  /// XML電文以外のテスト配信はNO時にも配信されます。本文中を参照するようにしてください
+  @override
+  DmdataWebsocketIncludeTestTelegram get includeTestTelegram;
+
+  /// アプリケーション名
+  @override
+  @Assert(
+      'utf8.encode(appName).length <= 24', 'appName must be less than 24 bytes')
+  String get appName;
 
   /// Create a copy of DmdataWebSocketConfiguration
   /// with the given fields replaced by the non-null parameter values.
