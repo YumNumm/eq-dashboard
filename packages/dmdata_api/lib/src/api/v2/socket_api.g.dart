@@ -24,12 +24,12 @@ class _SocketApiClient implements SocketApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SocketStartResponse> startSocket(Map<String, dynamic> body) async {
+  Future<SocketStartResponse> startSocket(SocketStartRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(request.toJson());
     final _options = _setStreamType<SocketStartResponse>(Options(
       method: 'POST',
       headers: _headers,

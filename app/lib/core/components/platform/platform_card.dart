@@ -7,11 +7,13 @@ class PlatformCard extends StatelessWidget {
     super.key,
     this.padding = _kDefaultPadding,
     this.margin = EdgeInsets.zero,
+    this.clipBehavior,
   });
 
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
+  final Clip? clipBehavior;
 
   static const _kDefaultRadius = BorderRadius.all(Radius.circular(4));
   static const _kDefaultPadding = EdgeInsets.all(16);
@@ -27,6 +29,7 @@ class PlatformCard extends StatelessWidget {
 
       return Container(
         margin: margin,
+        clipBehavior: clipBehavior ?? Clip.none,
         decoration: BoxDecoration(
           color: isDark
               ? const Color.fromARGB(255, 45, 50, 55)

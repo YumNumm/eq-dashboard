@@ -1,5 +1,6 @@
 import 'package:eqdashboard/core/components/intenisty/intensity_icon_type.dart';
 import 'package:eqdashboard/core/components/intenisty/jma_intensity_icon.dart';
+import 'package:eqdashboard/core/components/platform/platform_list_tile.dart';
 import 'package:eqdashboard/core/models/intensity/jma_forecast_intensity.dart';
 import 'package:eqdashboard/core/models/intensity/jma_forecast_lg_intensity.dart';
 import 'package:eqdashboard/core/models/intensity/jma_intensity.dart';
@@ -37,12 +38,6 @@ class EewListCard extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final dateFormat = DateFormat('MM/dd HH:mm:ss');
 
-    final cardColor = item.isCanceled
-        ? Colors.red.withValues(alpha: 0.1)
-        : (item.isWarning ?? false)
-            ? Colors.red.withValues(alpha: 0.2)
-            : Colors.grey.withValues(alpha: 0.1);
-
     final displayTime = switch ((
       item.earthquake?.originTime,
       item.earthquake?.detectionTime,
@@ -63,72 +58,67 @@ class EewListCard extends StatelessWidget {
     };
 
     final maxIntensity = item.intensity?.forecastMaxIntensity.intensity.$1;
-    final maxLgIntensity = item.intensity?.forecastMaxLgIntensity?.intensity.$1;
 
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Row(
-        children: [
-          if (maxIntensity != null) ...[
-            JmaIntensityIcon(
+    return PlatformListTile(
+      leading: maxIntensity != null
+          ? JmaIntensityIcon(
               intensity: maxIntensity,
               type: IntensityIconType.filled,
               size: 36,
-            ),
-            const SizedBox(width: 8),
-          ],
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        '${displayTime.$1.displayName}: '
-                        '${dateFormat.format(displayTime.$2.toLocal())}',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    if (item.isCanceled)
-                      Chip(
-                        label: const Text('キャンセル報'),
-                        labelStyle:
-                            TextStyle(color: colorScheme.onErrorContainer),
-                        backgroundColor: colorScheme.errorContainer,
-                      )
-                    else if (item.isLastReport)
-                      Chip(
-                        label: const Text('最終報'),
-                        backgroundColor: colorScheme.primaryContainer,
-                        labelStyle:
-                            TextStyle(color: colorScheme.onPrimaryContainer),
-                      ),
-                  ],
+            )
+          : null,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  '${displayTime.$1.displayName}: '
+                  '${dateFormat.format(displayTime.$2.toLocal())}',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                if (item.earthquake != null) ...[
-                  _buildEarthquakeInfo(item.earthquake!, theme),
-                ],
-                if (maxLgIntensity != null &&
-                    maxLgIntensity != JmaLgIntensity.zero) ...[
-                  Text(
-                    '予想最大長周期地震動階級: '
-                    '${maxLgIntensity.type}',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 8),
-                ],
-                if (item.text != null)
-                  Text(
-                    item.text ?? '',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-              ],
-            ),
+              ),
+              if (item.isCanceled)
+                Chip(
+                  label: const Text('キャンセル報'),
+                  labelStyle: TextStyle(color: colorScheme.onErrorContainer),
+                  backgroundColor: colorScheme.errorContainer,
+                )
+              else if (item.isLastReport)
+                Chip(
+                  label: const Text('最終報'),
+                  backgroundColor: colorScheme.primaryContainer,
+                  labelStyle: TextStyle(color: colorScheme.onPrimaryContainer),
+                ),
+            ],
           ),
+          if (item.earthquake != null) ...[
+            _buildEarthquakeInfo(item.earthquake!, theme),
+          ],
+        ],
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (item.intensity?.forecastMaxLgIntensity?.intensity.$1 != null &&
+              item.intensity!.forecastMaxLgIntensity!.intensity.$1 !=
+                  JmaLgIntensity.zero) ...[
+            Text(
+              '予想最大長周期地震動階級: '
+              '${item.intensity!.forecastMaxLgIntensity!.intensity.$1.type}',
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 8),
+          ],
+          if (item.text != null)
+            Text(
+              item.text!,
+              style: theme.textTheme.bodyMedium,
+            ),
         ],
       ),
     );
@@ -158,19 +148,5 @@ class EewListCard extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  String _formatIntensityRange(JmaIntensity from, JmaIntensity to) {
-    if (from == to) {
-      return '震度${from.type}';
-    }
-    return '震度${from.type} ～ 震度${to.type}';
-  }
-
-  String _formatLgIntensityRange(JmaLgIntensity from, JmaLgIntensity to) {
-    if (from == to) {
-      return '階級${from.type}';
-    }
-    return '階級${from.type} ～ 階級${to.type}';
   }
 }

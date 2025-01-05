@@ -8,7 +8,7 @@ part of 'contract_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$contractListHash() => r'70b9b34b86c48aa0bc3049b090daf8555a6162c7';
+String _$contractListHash() => r'299b4d06fdebb656cbf708bcde2749d39284af23';
 
 /// See also [contractList].
 @ProviderFor(contractList)

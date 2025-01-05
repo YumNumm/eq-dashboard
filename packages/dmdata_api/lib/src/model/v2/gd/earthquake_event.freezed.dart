@@ -24,7 +24,7 @@ mixin _$EarthquakeEvent {
   String get responseTime => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   EarthquakeEventData get event => throw _privateConstructorUsedError;
-  DMMError? get error => throw _privateConstructorUsedError;
+  DmDataError? get error => throw _privateConstructorUsedError;
 
   /// Serializes this EarthquakeEvent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,10 +47,10 @@ abstract class $EarthquakeEventCopyWith<$Res> {
       String responseTime,
       String status,
       EarthquakeEventData event,
-      DMMError? error});
+      DmDataError? error});
 
   $EarthquakeEventDataCopyWith<$Res> get event;
-  $DMMErrorCopyWith<$Res>? get error;
+  $DmDataErrorCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -94,7 +94,7 @@ class _$EarthquakeEventCopyWithImpl<$Res, $Val extends EarthquakeEvent>
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as DMMError?,
+              as DmDataError?,
     ) as $Val);
   }
 
@@ -112,12 +112,12 @@ class _$EarthquakeEventCopyWithImpl<$Res, $Val extends EarthquakeEvent>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $DMMErrorCopyWith<$Res>? get error {
+  $DmDataErrorCopyWith<$Res>? get error {
     if (_value.error == null) {
       return null;
     }
 
-    return $DMMErrorCopyWith<$Res>(_value.error!, (value) {
+    return $DmDataErrorCopyWith<$Res>(_value.error!, (value) {
       return _then(_value.copyWith(error: value) as $Val);
     });
   }
@@ -136,12 +136,12 @@ abstract class _$$EarthquakeEventImplCopyWith<$Res>
       String responseTime,
       String status,
       EarthquakeEventData event,
-      DMMError? error});
+      DmDataError? error});
 
   @override
   $EarthquakeEventDataCopyWith<$Res> get event;
   @override
-  $DMMErrorCopyWith<$Res>? get error;
+  $DmDataErrorCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -183,7 +183,7 @@ class __$$EarthquakeEventImplCopyWithImpl<$Res>
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as DMMError?,
+              as DmDataError?,
     ));
   }
 }
@@ -210,7 +210,7 @@ class _$EarthquakeEventImpl implements _EarthquakeEvent {
   @override
   final EarthquakeEventData event;
   @override
-  final DMMError? error;
+  final DmDataError? error;
 
   @override
   String toString() {
@@ -259,7 +259,7 @@ abstract class _EarthquakeEvent implements EarthquakeEvent {
       required final String responseTime,
       required final String status,
       required final EarthquakeEventData event,
-      final DMMError? error}) = _$EarthquakeEventImpl;
+      final DmDataError? error}) = _$EarthquakeEventImpl;
 
   factory _EarthquakeEvent.fromJson(Map<String, dynamic> json) =
       _$EarthquakeEventImpl.fromJson;
@@ -273,7 +273,7 @@ abstract class _EarthquakeEvent implements EarthquakeEvent {
   @override
   EarthquakeEventData get event;
   @override
-  DMMError? get error;
+  DmDataError? get error;
 
   /// Create a copy of EarthquakeEvent
   /// with the given fields replaced by the non-null parameter values.

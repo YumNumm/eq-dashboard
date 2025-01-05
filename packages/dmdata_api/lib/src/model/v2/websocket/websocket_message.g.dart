@@ -15,16 +15,16 @@ _$WebSocketStartMessageImpl _$$WebSocketStartMessageImplFromJson(
       json,
       ($checkedConvert) {
         final val = _$WebSocketStartMessageImpl(
-          type: $checkedConvert('type', (v) => v as String),
           socketId: $checkedConvert('socketId', (v) => (v as num).toInt()),
-          classifications: $checkedConvert('classifications',
-              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-          types: $checkedConvert('types',
-              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
           test: $checkedConvert('test', (v) => v as String),
           formats: $checkedConvert('formats',
               (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-          time: $checkedConvert('time', (v) => v as String),
+          time: $checkedConvert('time', (v) => DateTime.parse(v as String)),
+          type: $checkedConvert('type', (v) => v as String?),
+          classifications: $checkedConvert('classifications',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          types: $checkedConvert('types',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
           appName: $checkedConvert('appName', (v) => v as String?),
         );
         return val;
@@ -34,13 +34,13 @@ _$WebSocketStartMessageImpl _$$WebSocketStartMessageImplFromJson(
 Map<String, dynamic> _$$WebSocketStartMessageImplToJson(
         _$WebSocketStartMessageImpl instance) =>
     <String, dynamic>{
-      'type': instance.type,
       'socketId': instance.socketId,
-      'classifications': instance.classifications,
-      'types': instance.types,
       'test': instance.test,
       'formats': instance.formats,
-      'time': instance.time,
+      'time': instance.time.toIso8601String(),
+      'type': instance.type,
+      'classifications': instance.classifications,
+      'types': instance.types,
       'appName': instance.appName,
     };
 

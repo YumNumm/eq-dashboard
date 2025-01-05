@@ -42,6 +42,10 @@ RouteBase get $appShellRoute => StatefulShellRouteData.$route(
               path: '/log',
               factory: $LogSettingsRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: '/api',
+              factory: $ApiSettingsRouteExtension._fromState,
+            ),
           ],
         ),
       ],
@@ -145,6 +149,24 @@ extension $LogSettingsRouteExtension on LogSettingsRoute {
 
   String get location => GoRouteData.$location(
         '/log',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ApiSettingsRouteExtension on ApiSettingsRoute {
+  static ApiSettingsRoute _fromState(GoRouterState state) =>
+      const ApiSettingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/api',
       );
 
   void go(BuildContext context) => context.go(location);

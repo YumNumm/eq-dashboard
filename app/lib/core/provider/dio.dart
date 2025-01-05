@@ -13,6 +13,9 @@ Dio dio(Ref ref) {
   dio.interceptors.add(
     TalkerDioLogger(
       talker: talker,
+      settings: const TalkerDioLoggerSettings(
+        printResponseData: false,
+      ),
     ),
   );
   return dio;

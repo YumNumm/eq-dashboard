@@ -35,17 +35,17 @@ WebSocketMessage _$WebSocketMessageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WebSocketMessage {
-  String get type => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)
         start,
     required TResult Function(String type, String pingId) ping,
@@ -70,13 +70,13 @@ mixin _$WebSocketMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult? Function(String type, String pingId)? ping,
@@ -100,13 +100,13 @@ mixin _$WebSocketMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult Function(String type, String pingId)? ping,
@@ -195,7 +195,7 @@ class _$WebSocketMessageCopyWithImpl<$Res, $Val extends WebSocketMessage>
   }) {
     return _then(_value.copyWith(
       type: null == type
-          ? _value.type
+          ? _value.type!
           : type // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
@@ -212,13 +212,13 @@ abstract class _$$WebSocketStartMessageImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String type,
-      int socketId,
-      List<String> classifications,
-      List<String> types,
+      {int socketId,
       String test,
       List<String> formats,
-      String time,
+      DateTime time,
+      String? type,
+      List<String>? classifications,
+      List<String>? types,
       String? appName});
 }
 
@@ -235,32 +235,20 @@ class __$$WebSocketStartMessageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
     Object? socketId = null,
-    Object? classifications = null,
-    Object? types = null,
     Object? test = null,
     Object? formats = null,
     Object? time = null,
+    Object? type = freezed,
+    Object? classifications = freezed,
+    Object? types = freezed,
     Object? appName = freezed,
   }) {
     return _then(_$WebSocketStartMessageImpl(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       socketId: null == socketId
           ? _value.socketId
           : socketId // ignore: cast_nullable_to_non_nullable
               as int,
-      classifications: null == classifications
-          ? _value._classifications
-          : classifications // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      types: null == types
-          ? _value._types
-          : types // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       test: null == test
           ? _value.test
           : test // ignore: cast_nullable_to_non_nullable
@@ -272,7 +260,19 @@ class __$$WebSocketStartMessageImplCopyWithImpl<$Res>
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      classifications: freezed == classifications
+          ? _value._classifications
+          : classifications // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      types: freezed == types
+          ? _value._types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       appName: freezed == appName
           ? _value.appName
           : appName // ignore: cast_nullable_to_non_nullable
@@ -285,41 +285,23 @@ class __$$WebSocketStartMessageImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
   const _$WebSocketStartMessageImpl(
-      {required this.type,
-      required this.socketId,
-      required final List<String> classifications,
-      required final List<String> types,
+      {required this.socketId,
       required this.test,
       required final List<String> formats,
       required this.time,
+      this.type,
+      final List<String>? classifications,
+      final List<String>? types,
       this.appName})
-      : _classifications = classifications,
-        _types = types,
-        _formats = formats;
+      : _formats = formats,
+        _classifications = classifications,
+        _types = types;
 
   factory _$WebSocketStartMessageImpl.fromJson(Map<String, dynamic> json) =>
       _$$WebSocketStartMessageImplFromJson(json);
 
   @override
-  final String type;
-  @override
   final int socketId;
-  final List<String> _classifications;
-  @override
-  List<String> get classifications {
-    if (_classifications is EqualUnmodifiableListView) return _classifications;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_classifications);
-  }
-
-  final List<String> _types;
-  @override
-  List<String> get types {
-    if (_types is EqualUnmodifiableListView) return _types;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_types);
-  }
-
   @override
   final String test;
   final List<String> _formats;
@@ -331,13 +313,35 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
   }
 
   @override
-  final String time;
+  final DateTime time;
+  @override
+  final String? type;
+  final List<String>? _classifications;
+  @override
+  List<String>? get classifications {
+    final value = _classifications;
+    if (value == null) return null;
+    if (_classifications is EqualUnmodifiableListView) return _classifications;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _types;
+  @override
+  List<String>? get types {
+    final value = _types;
+    if (value == null) return null;
+    if (_types is EqualUnmodifiableListView) return _types;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? appName;
 
   @override
   String toString() {
-    return 'WebSocketMessage.start(type: $type, socketId: $socketId, classifications: $classifications, types: $types, test: $test, formats: $formats, time: $time, appName: $appName)';
+    return 'WebSocketMessage.start(socketId: $socketId, test: $test, formats: $formats, time: $time, type: $type, classifications: $classifications, types: $types, appName: $appName)';
   }
 
   @override
@@ -345,15 +349,15 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WebSocketStartMessageImpl &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.socketId, socketId) ||
                 other.socketId == socketId) &&
-            const DeepCollectionEquality()
-                .equals(other._classifications, _classifications) &&
-            const DeepCollectionEquality().equals(other._types, _types) &&
             (identical(other.test, test) || other.test == test) &&
             const DeepCollectionEquality().equals(other._formats, _formats) &&
             (identical(other.time, time) || other.time == time) &&
+            (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality()
+                .equals(other._classifications, _classifications) &&
+            const DeepCollectionEquality().equals(other._types, _types) &&
             (identical(other.appName, appName) || other.appName == appName));
   }
 
@@ -361,13 +365,13 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      type,
       socketId,
-      const DeepCollectionEquality().hash(_classifications),
-      const DeepCollectionEquality().hash(_types),
       test,
       const DeepCollectionEquality().hash(_formats),
       time,
+      type,
+      const DeepCollectionEquality().hash(_classifications),
+      const DeepCollectionEquality().hash(_types),
       appName);
 
   /// Create a copy of WebSocketMessage
@@ -383,13 +387,13 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)
         start,
     required TResult Function(String type, String pingId) ping,
@@ -411,20 +415,20 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
         error,
   }) {
     return start(
-        type, socketId, classifications, types, test, formats, time, appName);
+        socketId, test, formats, time, type, classifications, types, appName);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult? Function(String type, String pingId)? ping,
@@ -445,20 +449,20 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
     TResult? Function(String type, String error, int code, bool close)? error,
   }) {
     return start?.call(
-        type, socketId, classifications, types, test, formats, time, appName);
+        socketId, test, formats, time, type, classifications, types, appName);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult Function(String type, String pingId)? ping,
@@ -481,7 +485,7 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
   }) {
     if (start != null) {
       return start(
-          type, socketId, classifications, types, test, formats, time, appName);
+          socketId, test, formats, time, type, classifications, types, appName);
     }
     return orElse();
   }
@@ -536,26 +540,26 @@ class _$WebSocketStartMessageImpl implements WebSocketStartMessage {
 
 abstract class WebSocketStartMessage implements WebSocketMessage {
   const factory WebSocketStartMessage(
-      {required final String type,
-      required final int socketId,
-      required final List<String> classifications,
-      required final List<String> types,
+      {required final int socketId,
       required final String test,
       required final List<String> formats,
-      required final String time,
+      required final DateTime time,
+      final String? type,
+      final List<String>? classifications,
+      final List<String>? types,
       final String? appName}) = _$WebSocketStartMessageImpl;
 
   factory WebSocketStartMessage.fromJson(Map<String, dynamic> json) =
       _$WebSocketStartMessageImpl.fromJson;
 
-  @override
-  String get type;
   int get socketId;
-  List<String> get classifications;
-  List<String> get types;
   String get test;
   List<String> get formats;
-  String get time;
+  DateTime get time;
+  @override
+  String? get type;
+  List<String>? get classifications;
+  List<String>? get types;
   String? get appName;
 
   /// Create a copy of WebSocketMessage
@@ -651,13 +655,13 @@ class _$WebSocketPingMessageImpl implements WebSocketPingMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)
         start,
     required TResult Function(String type, String pingId) ping,
@@ -685,13 +689,13 @@ class _$WebSocketPingMessageImpl implements WebSocketPingMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult? Function(String type, String pingId)? ping,
@@ -718,13 +722,13 @@ class _$WebSocketPingMessageImpl implements WebSocketPingMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult Function(String type, String pingId)? ping,
@@ -904,13 +908,13 @@ class _$WebSocketPongMessageImpl implements WebSocketPongMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)
         start,
     required TResult Function(String type, String pingId) ping,
@@ -938,13 +942,13 @@ class _$WebSocketPongMessageImpl implements WebSocketPongMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult? Function(String type, String pingId)? ping,
@@ -971,13 +975,13 @@ class _$WebSocketPongMessageImpl implements WebSocketPongMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult Function(String type, String pingId)? ping,
@@ -1301,13 +1305,13 @@ class _$WebSocketDataMessageImpl implements WebSocketDataMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)
         start,
     required TResult Function(String type, String pingId) ping,
@@ -1336,13 +1340,13 @@ class _$WebSocketDataMessageImpl implements WebSocketDataMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult? Function(String type, String pingId)? ping,
@@ -1370,13 +1374,13 @@ class _$WebSocketDataMessageImpl implements WebSocketDataMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult Function(String type, String pingId)? ping,
@@ -1595,13 +1599,13 @@ class _$WebSocketErrorMessageImpl implements WebSocketErrorMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)
         start,
     required TResult Function(String type, String pingId) ping,
@@ -1629,13 +1633,13 @@ class _$WebSocketErrorMessageImpl implements WebSocketErrorMessage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult? Function(String type, String pingId)? ping,
@@ -1662,13 +1666,13 @@ class _$WebSocketErrorMessageImpl implements WebSocketErrorMessage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             int socketId,
-            List<String> classifications,
-            List<String> types,
             String test,
             List<String> formats,
-            String time,
+            DateTime time,
+            String? type,
+            List<String>? classifications,
+            List<String>? types,
             String? appName)?
         start,
     TResult Function(String type, String pingId)? ping,

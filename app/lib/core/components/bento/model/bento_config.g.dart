@@ -36,4 +36,5 @@ const _$BentoGridSizeEnumMap = {
   BentoGridSize.large: 'large',
   BentoGridSize.xLarge: 'xLarge',
   BentoGridSize.xxLarge: 'xxLarge',
+  BentoGridSize.xxxLarge: 'xxxLarge',
 };

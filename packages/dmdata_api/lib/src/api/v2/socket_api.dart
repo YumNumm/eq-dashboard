@@ -12,7 +12,7 @@ abstract class SocketApiClient {
   /// WebSocketに接続する場合のアクセスURLを取得します。
   @POST('/v2/socket')
   Future<SocketStartResponse> startSocket(
-    @Body() Map<String, dynamic> body,
+    @Body() SocketStartRequest request,
   );
 
   /// WebSocketのリストを取得します。

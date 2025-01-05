@@ -63,6 +63,7 @@ class AdaptiveListSection extends StatelessWidget {
                 ),
               ),
             PlatformCard(
+            
               margin: margin,
               padding: EdgeInsets.zero,
               child: Column(

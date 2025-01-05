@@ -8,7 +8,7 @@ part of 'bento_saver.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bentoSaverHash() => r'471e4f6d8ea5f183b0651539fc8a72157db9dca1';
+String _$bentoSaverHash() => r'729f8b035ec1c112f0b3c07e0f7126463c7531cb';
 
 /// Copied from Dart SDK
 class _SystemHash {

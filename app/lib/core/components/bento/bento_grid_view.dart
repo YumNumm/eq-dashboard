@@ -10,10 +10,11 @@ mixin BentoCard {}
 
 enum BentoGridSize {
   small(1, 2), // 1x2
-  medium(2, 2), // 1x3
-  large(2, 3), // 2x3
-  xLarge(2, 4), // 2x4
-  xxLarge(3, 4), // 3x4
+  medium(2, 1), // 2x1
+  large(2, 2), // 2x2
+  xLarge(2, 3), // 2x3
+  xxLarge(2, 4), // 2x4
+  xxxLarge(3, 4), // 3x4
   ;
 
   const BentoGridSize(this.columnSpan, this.rowSpan);
@@ -47,8 +48,8 @@ class BentoGridView extends HookWidget {
   const BentoGridView({
     required this.items,
     super.key,
-    this.spacing = 8.0,
-    this.padding = const EdgeInsets.all(16),
+    this.spacing = 2.0,
+    this.padding = const EdgeInsets.all(4),
     this.cellSize = 160.0,
     this.mode = BentoGridMode.view,
     this.onItemsReordered,
@@ -155,7 +156,6 @@ class BentoGridView extends HookWidget {
                   padding: const EdgeInsets.all(8),
                   child: Wrap(
                     runAlignment: WrapAlignment.spaceBetween,
-                    
                     children: [
                       PlatformPopupMenuButton<BentoGridSize>(
                         icon: const Icon(
@@ -184,13 +184,13 @@ class BentoGridView extends HookWidget {
                             content: const Text('このカードを削除してもよろしいですか？'),
                             actions: [
                               PlatformDialogAction(
-                                onPressed: () {
+                                onPressed: (context) {
                                   Navigator.of(context).pop(false);
                                 },
                                 child: const Text('キャンセル'),
                               ),
                               PlatformDialogAction(
-                                onPressed: () {
+                                onPressed: (context) {
                                   Navigator.of(context).pop(true);
                                 },
                                 isDestructiveAction: true,

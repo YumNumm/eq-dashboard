@@ -1,5 +1,6 @@
 import 'package:eqdashboard/core/components/platform/platform_root_scaffold.dart';
 import 'package:eqdashboard/core/router/router.dart';
+import 'package:eqdashboard/pages/settings/children/api_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/display_settings_page.dart';
 import 'package:eqdashboard/pages/settings/children/dmdata_settings_screen.dart';
 import 'package:eqdashboard/pages/settings/children/log_settings_page.dart';
@@ -28,6 +29,11 @@ class HomePage extends StatelessWidget {
     () {
       final disclosureItems = [
         NavigationItem(
+          label: 'API設定',
+          path: const ApiSettingsRoute().location,
+          icon: Icons.api,
+        ),
+        NavigationItem(
           label: 'Project DM-D.S.S 設定',
           path: const DmdataSettingsRouteData().location,
           icon: Icons.settings_applications,
@@ -43,7 +49,6 @@ class HomePage extends StatelessWidget {
           icon: Icons.terminal,
         ),
       ];
-
 
       return NavigationItem(
         label: '設定',

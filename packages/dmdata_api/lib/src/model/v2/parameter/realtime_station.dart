@@ -6,7 +6,9 @@ part 'realtime_station.g.dart';
 
 /// リアルタイム震度観測点のパラメータレスポンス
 @freezed
-class RealtimeStationResponse with _$RealtimeStationResponse implements DmdataResponse {
+class RealtimeStationResponse
+    with _$RealtimeStationResponse
+    implements DmdataResponse {
   const factory RealtimeStationResponse({
     /// API処理ID
     required String responseId,
@@ -76,6 +78,5 @@ class Region with _$Region {
     required String name,
   }) = _Region;
 
-  factory Region.fromJson(Map<String, dynamic> json) =>
-      _$RegionFromJson(json);
+  factory Region.fromJson(Map<String, dynamic> json) => _$RegionFromJson(json);
 }

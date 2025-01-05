@@ -32,14 +32,16 @@ class PlatformApp extends StatelessWidget {
       ThemeMode.system => MediaQuery.platformBrightnessOf(context),
     };
 
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: theme?.primaryColor ?? Colors.blueAccent,
+      brightness: brightness,
+    );
+
     final materialLightTheme = ThemeData.light(useMaterial3: true).copyWith(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+      colorScheme: colorScheme,
     );
     final materialDarkTheme = ThemeData.dark(useMaterial3: true).copyWith(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.blueAccent,
-        brightness: Brightness.dark,
-      ),
+      colorScheme: colorScheme,
     );
 
     const localizationsDelegates = [

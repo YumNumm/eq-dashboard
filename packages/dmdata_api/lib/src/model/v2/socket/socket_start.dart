@@ -65,3 +65,40 @@ class WebSocketInfo with _$WebSocketInfo {
   factory WebSocketInfo.fromJson(Map<String, dynamic> json) =>
       _$WebSocketInfoFromJson(json);
 }
+
+@freezed
+class SocketStartRequest with _$SocketStartRequest {
+  const factory SocketStartRequest({
+    /// WebSocketで取得する配信区分を指定
+    /// 電文データ 区分(API名) を指定、ファイル形式データは指定できない
+    required List<String> classifications,
+
+    /// 取得したいデータ種類コードを指定
+    /// 最大30個まで指定可能
+    @Assert('types.length <= 30', 'typesの要素数は30個以下でなければなりません')
+    @JsonKey(
+      includeIfNull: false,
+    )
+    required List<String>? types,
+
+    /// テストデータを取得する場合は`including`、それ以外は`no`
+    @Default('no') String test,
+
+    /// アプリケーション名を指定
+    /// 最大24byteまで
+    @Assert('appName.length <= 24', 'appNameの長さは24byte以下でなければなりません')
+    String? appName,
+
+    /// 取得したいデータのフォーマットを指定
+    /// `raw`または`json`を指定
+    @Assert(
+      'format == "raw" || format == "json"',
+      'formatは"raw"または"json"でなければなりません',
+    )
+    @Default('raw')
+    String format,
+  }) = _SocketStartRequest;
+
+  factory SocketStartRequest.fromJson(Map<String, dynamic> json) =>
+      _$SocketStartRequestFromJson(json);
+}

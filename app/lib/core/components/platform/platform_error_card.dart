@@ -72,6 +72,7 @@ class PlatformErrorCard extends StatelessWidget {
         );
       }
     }
+
     return Center(
       child: SelectableText('エラーが発生しました: $error'),
     );
