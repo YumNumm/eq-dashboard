@@ -9,6 +9,7 @@ targets:
       json_serializable:
         options:
           checked: true
+
 global_options:
   freezed:
     runs_before:

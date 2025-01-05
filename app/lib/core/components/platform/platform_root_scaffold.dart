@@ -208,7 +208,6 @@ class PlatformRootScaffold extends HookConsumerWidget {
         onTap: onItemSelected,
       ),
       tabBuilder: (context, index) {
-        final item = items[index];
         return index == currentIndex ? child : const SizedBox();
       },
     );

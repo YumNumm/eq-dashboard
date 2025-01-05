@@ -6,7 +6,6 @@ part 'dmdata_websocket_message_model.freezed.dart';
 @freezed
 class DmdataWebsocketMessageModel with _$DmdataWebsocketMessageModel {
   const factory DmdataWebsocketMessageModel({
-    @JsonKey(toJson: _streamToJson) required Stream<WebSocketMessage> stream,
     String? lastPingId,
     DateTime? lastPingAt,
     Duration? lastPingDuration,

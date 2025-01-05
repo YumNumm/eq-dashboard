@@ -9,14 +9,14 @@ part of 'dmdata_websocket_message_provider.dart';
 // **************************************************************************
 
 String _$dmdataWebsocketEventsHash() =>
-    r'852e36fd10716a96bf6d12369146acea99774a27';
+    r'd3ee24874d7f88b62118302b19151edc9bf4b19d';
 
-/// See also [_dmdataWebsocketEvents].
-@ProviderFor(_dmdataWebsocketEvents)
-final _dmdataWebsocketEventsProvider =
-    AutoDisposeFutureProvider<Stream<WebSocketEvent>>.internal(
-  _dmdataWebsocketEvents,
-  name: r'_dmdataWebsocketEventsProvider',
+/// See also [dmdataWebsocketEvents].
+@ProviderFor(dmdataWebsocketEvents)
+final dmdataWebsocketEventsProvider =
+    AutoDisposeStreamProvider<WebSocketEvent>.internal(
+  dmdataWebsocketEvents,
+  name: r'dmdataWebsocketEventsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$dmdataWebsocketEventsHash,
@@ -26,10 +26,29 @@ final _dmdataWebsocketEventsProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef _DmdataWebsocketEventsRef
-    = AutoDisposeFutureProviderRef<Stream<WebSocketEvent>>;
+typedef DmdataWebsocketEventsRef = AutoDisposeStreamProviderRef<WebSocketEvent>;
+String _$dmdataWebsocketMessagesHash() =>
+    r'6b1f1f2adab7b308d6ad2eb6dabeb3d2ce49d920';
+
+/// See also [dmdataWebsocketMessages].
+@ProviderFor(dmdataWebsocketMessages)
+final dmdataWebsocketMessagesProvider =
+    AutoDisposeStreamProvider<WebSocketMessage>.internal(
+  dmdataWebsocketMessages,
+  name: r'dmdataWebsocketMessagesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$dmdataWebsocketMessagesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef DmdataWebsocketMessagesRef
+    = AutoDisposeStreamProviderRef<WebSocketMessage>;
 String _$dmdataWebsocketMessageProviderHash() =>
-    r'e75e684e15c6f91af85207061956b94e455623c5';
+    r'50b854ec55c469b227c3c164948990cceeb78606';
 
 /// See also [DmdataWebsocketMessageProvider].
 @ProviderFor(DmdataWebsocketMessageProvider)

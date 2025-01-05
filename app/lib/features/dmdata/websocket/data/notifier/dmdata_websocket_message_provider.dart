@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dmdata_api/dmdata_api.dart';
 import 'package:eqdashboard/features/dmdata/websocket/data/model/dmdata_websocket_message_model.dart';
@@ -15,10 +16,13 @@ part 'dmdata_websocket_message_provider.g.dart';
 class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
   @override
   Future<DmdataWebsocketMessageModel> build() async {
-    final events = await ref.watch(_dmdataWebsocketEventsProvider.future);
     final streamController = StreamController<WebSocketMessage>();
 
-    events.listen((event) {
+    ref.listen(dmdataWebsocketEventsProvider, (_, next) {
+      final event = next.valueOrNull;
+      if (event == null) {
+        return;
+      }
       switch (event) {
         case TextDataReceived():
           {
@@ -51,7 +55,7 @@ class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
       ..keepAlive()
       ..onDispose(streamController.close);
 
-    final stream = streamController.stream.asBroadcastStream();
+    final stream = streamController.stream;
     stream.listen(
       (event) {
         // handle ping
@@ -71,14 +75,12 @@ class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
         }
       },
     );
-    return DmdataWebsocketMessageModel(
-      stream: stream,
-    );
+    return const DmdataWebsocketMessageModel();
   }
 
   /// Pingを送信し 応答までの時間を計測する
   Future<Duration> pingAndCalculatePongDuration() async {
-    if (state case AsyncData(:final value)) {
+    if (state case AsyncData()) {
       final sendPingId = const Uuid().v4();
       final stopwatch = Stopwatch()..start();
       // send ping
@@ -88,7 +90,12 @@ class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
 
       // wait for pong
       final completer = Completer<Duration>();
-      value.stream.listen((event) {
+      ref.listen(dmdataWebsocketMessagesProvider, (_, next) {
+        final event = next.valueOrNull;
+        log('event: $event');
+        if (event == null) {
+          return;
+        }
         if (event case WebSocketPongMessage(pingId: final recievedPingId)
             when sendPingId == recievedPingId) {
           completer.complete(stopwatch.elapsed);
@@ -112,12 +119,37 @@ class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
 }
 
 @riverpod
-Future<Stream<WebSocketEvent>> _dmdataWebsocketEvents(Ref ref) async {
+Stream<WebSocketEvent> dmdataWebsocketEvents(Ref ref) async* {
   final websocket = await ref.watch(dmdataWebsocketNotifierProvider.future);
   if (websocket == null) {
     throw Exception('WebSocket is not connected');
   }
-  return websocket.events.asBroadcastStream();
+  yield* websocket.events.asBroadcastStream();
+}
+
+@riverpod
+Stream<WebSocketMessage> dmdataWebsocketMessages(Ref ref) async* {
+  final streamController = StreamController<WebSocketMessage>();
+
+  ref.listen(dmdataWebsocketEventsProvider, (_, next) {
+    final event = next.valueOrNull;
+    if (event == null) {
+      return;
+    }
+    if (event case TextDataReceived(:final text)) {
+      final json = jsonDecode(text);
+      if (json is Map<String, dynamic>) {
+        final message = WebSocketMessage.fromJson(json);
+        streamController.add(message);
+      }
+    }
+  });
+
+  ref
+    ..keepAlive()
+    ..onDispose(streamController.close);
+
+  yield* streamController.stream;
 }
 
 enum DmdataWebsocketConnectionStatus {

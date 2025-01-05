@@ -150,7 +150,7 @@ void main() {
           'eventId': '20210808085414',
           'arrivalTime': '2021-08-08T08:54:00+09:00',
           'maxInt': null,
-          'telegrams': [],
+          'telegrams': <void>[],
         },
       };
 

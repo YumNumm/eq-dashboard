@@ -9,7 +9,7 @@ part of 'dmdata_websocket_notifier.dart';
 // **************************************************************************
 
 String _$dmdataWebsocketNotifierHash() =>
-    r'795e83dc2678ee31c806d014ca9072b12f35c9a2';
+    r'0f6a535172b9a3947278b03312ca15bac58e763f';
 
 /// WebSocketの接続を行います
 /// `connect` を呼ぶことで、WebSocketのインスタンスを取得できます

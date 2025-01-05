@@ -31,6 +31,9 @@ Dio dmdataDio(Ref ref) {
       TalkerDioLogger(
         talker: talker,
         addonId: 'dmdata',
+        settings: const TalkerDioLoggerSettings(
+          printResponseData: false,
+        ),
       ),
       _DmdataInterceptor(authNotifier: authNotifier),
     ],

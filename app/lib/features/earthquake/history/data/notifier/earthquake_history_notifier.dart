@@ -1,5 +1,4 @@
 import 'package:eqdashboard/features/earthquake/history/data/model/earthquake_list_state.dart';
-import 'package:eqdashboard/features/earthquake/history/data/use_case/earthquake_list_dmdata_use_case.dart';
 import 'package:eqdashboard/features/earthquake/history/data/use_case/earthquake_list_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

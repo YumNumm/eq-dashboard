@@ -16,8 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DmdataWebsocketMessageModel {
-  @JsonKey(toJson: _streamToJson)
-  Stream<WebSocketMessage> get stream => throw _privateConstructorUsedError;
   String? get lastPingId => throw _privateConstructorUsedError;
   DateTime? get lastPingAt => throw _privateConstructorUsedError;
   Duration? get lastPingDuration => throw _privateConstructorUsedError;
@@ -39,8 +37,7 @@ abstract class $DmdataWebsocketMessageModelCopyWith<$Res> {
           DmdataWebsocketMessageModel>;
   @useResult
   $Res call(
-      {@JsonKey(toJson: _streamToJson) Stream<WebSocketMessage> stream,
-      String? lastPingId,
+      {String? lastPingId,
       DateTime? lastPingAt,
       Duration? lastPingDuration,
       DateTime? lastPongAt});
@@ -62,17 +59,12 @@ class _$DmdataWebsocketMessageModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stream = null,
     Object? lastPingId = freezed,
     Object? lastPingAt = freezed,
     Object? lastPingDuration = freezed,
     Object? lastPongAt = freezed,
   }) {
     return _then(_value.copyWith(
-      stream: null == stream
-          ? _value.stream
-          : stream // ignore: cast_nullable_to_non_nullable
-              as Stream<WebSocketMessage>,
       lastPingId: freezed == lastPingId
           ? _value.lastPingId
           : lastPingId // ignore: cast_nullable_to_non_nullable
@@ -103,8 +95,7 @@ abstract class _$$DmdataWebsocketMessageModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(toJson: _streamToJson) Stream<WebSocketMessage> stream,
-      String? lastPingId,
+      {String? lastPingId,
       DateTime? lastPingAt,
       Duration? lastPingDuration,
       DateTime? lastPongAt});
@@ -125,17 +116,12 @@ class __$$DmdataWebsocketMessageModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stream = null,
     Object? lastPingId = freezed,
     Object? lastPingAt = freezed,
     Object? lastPingDuration = freezed,
     Object? lastPongAt = freezed,
   }) {
     return _then(_$DmdataWebsocketMessageModelImpl(
-      stream: null == stream
-          ? _value.stream
-          : stream // ignore: cast_nullable_to_non_nullable
-              as Stream<WebSocketMessage>,
       lastPingId: freezed == lastPingId
           ? _value.lastPingId
           : lastPingId // ignore: cast_nullable_to_non_nullable
@@ -161,15 +147,11 @@ class __$$DmdataWebsocketMessageModelImplCopyWithImpl<$Res>
 class _$DmdataWebsocketMessageModelImpl
     implements _DmdataWebsocketMessageModel {
   const _$DmdataWebsocketMessageModelImpl(
-      {@JsonKey(toJson: _streamToJson) required this.stream,
-      this.lastPingId,
+      {this.lastPingId,
       this.lastPingAt,
       this.lastPingDuration,
       this.lastPongAt});
 
-  @override
-  @JsonKey(toJson: _streamToJson)
-  final Stream<WebSocketMessage> stream;
   @override
   final String? lastPingId;
   @override
@@ -181,7 +163,7 @@ class _$DmdataWebsocketMessageModelImpl
 
   @override
   String toString() {
-    return 'DmdataWebsocketMessageModel(stream: $stream, lastPingId: $lastPingId, lastPingAt: $lastPingAt, lastPingDuration: $lastPingDuration, lastPongAt: $lastPongAt)';
+    return 'DmdataWebsocketMessageModel(lastPingId: $lastPingId, lastPingAt: $lastPingAt, lastPingDuration: $lastPingDuration, lastPongAt: $lastPongAt)';
   }
 
   @override
@@ -189,7 +171,6 @@ class _$DmdataWebsocketMessageModelImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DmdataWebsocketMessageModelImpl &&
-            (identical(other.stream, stream) || other.stream == stream) &&
             (identical(other.lastPingId, lastPingId) ||
                 other.lastPingId == lastPingId) &&
             (identical(other.lastPingAt, lastPingAt) ||
@@ -201,8 +182,8 @@ class _$DmdataWebsocketMessageModelImpl
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, stream, lastPingId, lastPingAt,
-      lastPingDuration, lastPongAt);
+  int get hashCode => Object.hash(
+      runtimeType, lastPingId, lastPingAt, lastPingDuration, lastPongAt);
 
   /// Create a copy of DmdataWebsocketMessageModel
   /// with the given fields replaced by the non-null parameter values.
@@ -217,16 +198,11 @@ class _$DmdataWebsocketMessageModelImpl
 abstract class _DmdataWebsocketMessageModel
     implements DmdataWebsocketMessageModel {
   const factory _DmdataWebsocketMessageModel(
-      {@JsonKey(toJson: _streamToJson)
-      required final Stream<WebSocketMessage> stream,
-      final String? lastPingId,
+      {final String? lastPingId,
       final DateTime? lastPingAt,
       final Duration? lastPingDuration,
       final DateTime? lastPongAt}) = _$DmdataWebsocketMessageModelImpl;
 
-  @override
-  @JsonKey(toJson: _streamToJson)
-  Stream<WebSocketMessage> get stream;
   @override
   String? get lastPingId;
   @override

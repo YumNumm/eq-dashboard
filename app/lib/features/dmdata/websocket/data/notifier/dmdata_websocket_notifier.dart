@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dmdata_api/dmdata_api.dart';
 import 'package:eqdashboard/core/provider/talker.dart';
@@ -123,6 +124,7 @@ class DmdataWebsocketNotifier extends _$DmdataWebsocketNotifier {
       type: 'ping',
       pingId: pingId,
     );
+    log('sendPing: $message');
     webSocket.sendText(
       jsonEncode(message.toJson()),
     );

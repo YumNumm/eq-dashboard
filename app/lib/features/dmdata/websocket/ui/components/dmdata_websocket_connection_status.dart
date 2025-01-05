@@ -22,12 +22,14 @@ class DmdataWebsocketConnectionBentoCard extends ConsumerWidget {
           children: [
             // Ping button
             IconButton(
+              tooltip: 'Pingを送信してPongの応答時間を計測します',
               onPressed: () async => ref
                   .read(dmdataWebsocketMessageProviderProvider.notifier)
                   .pingAndCalculatePongDuration(),
               icon: const Icon(Icons.network_check),
             ),
             IconButton(
+              tooltip: 'WebSocketを再接続します',
               onPressed: () async =>
                   ref.refresh(dmdataWebsocketNotifierProvider),
               icon: const Icon(Icons.refresh),
@@ -35,7 +37,9 @@ class DmdataWebsocketConnectionBentoCard extends ConsumerWidget {
           ],
         ),
       ),
-      child: const DmdataWebsocketConnectionStatus(),
+      child: const SingleChildScrollView(
+        child: DmdataWebsocketConnectionStatus(),
+      ),
     );
   }
 }
@@ -53,6 +57,8 @@ class DmdataWebsocketConnectionStatus extends ConsumerWidget {
     final messageState = ref.watch(dmdataWebsocketMessageProviderProvider);
 
     return websocketState.when(
+      skipLoadingOnRefresh: false,
+      skipLoadingOnReload: false,
       data: (websocket) {
         if (websocket == null) {
           return PlatformErrorCard(
