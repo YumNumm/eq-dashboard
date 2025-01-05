@@ -68,8 +68,8 @@ class PlatformDialog extends StatelessWidget {
         appIcon: const FlutterLogo(size: 56),
         title: title,
         message: content,
-        primaryButton: primaryAction.macOsAction,
-        secondaryButton: secondaryAction.macOsAction,
+        primaryButton: primaryAction.macOsAction(context),
+        secondaryButton: secondaryAction.macOsAction(context),
       );
     }
     if (platform == AdaptivePlatformType.cupertino) {
@@ -96,14 +96,14 @@ class PlatformDialogAction extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback? onPressed;
+  final void Function(BuildContext context) onPressed;
   final Widget child;
   final bool isDestructiveAction;
   final bool isDefaultAction;
 
-  PushButton get macOsAction => PushButton(
+  PushButton macOsAction(BuildContext context) => PushButton(
         controlSize: ControlSize.large,
-        onPressed: onPressed,
+        onPressed: () => onPressed(context),
         color: isDestructiveAction ? MacosColors.systemRedColor : null,
         secondary: !isDefaultAction,
         child: child,
@@ -113,18 +113,18 @@ class PlatformDialogAction extends StatelessWidget {
   Widget build(BuildContext context) {
     final platform = AdaptivePlatformScope.of(context);
     if (platform == AdaptivePlatformType.macos) {
-      return macOsAction;
+      return macOsAction(context);
     }
     if (platform == AdaptivePlatformType.cupertino) {
       return CupertinoDialogAction(
-        onPressed: onPressed,
+        onPressed: () => onPressed(context),
         isDestructiveAction: isDestructiveAction,
         isDefaultAction: isDefaultAction,
         child: child,
       );
     }
     return TextButton(
-      onPressed: onPressed,
+      onPressed: () => onPressed(context),
       style: isDestructiveAction
           ? TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
