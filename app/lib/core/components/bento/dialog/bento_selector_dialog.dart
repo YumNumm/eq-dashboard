@@ -1,5 +1,6 @@
 import 'package:eqdashboard/core/components/bento/bento_grid_view.dart';
 import 'package:eqdashboard/core/components/bento/model/bento_grid_item.dart';
+import 'package:eqdashboard/features/dmdata/websocket/ui/components/dmdata_websocket_connection_status.dart';
 import 'package:eqdashboard/features/earthquake/history/ui/earthquake_history_bento_card.dart';
 import 'package:eqdashboard/features/eew/ui/eew_alive_bento_card.dart';
 import 'package:eqdashboard/features/eew/ui/eew_list_bento_card.dart';
@@ -23,10 +24,10 @@ class BentoSelectorDialog extends StatelessWidget {
         description: '緊急地震速報の履歴を表示します',
         icon: Icons.notifications_active,
         onTap: () {
-          final item = BentoGridItem(
-            id: 'eew_list_${DateTime.now().millisecondsSinceEpoch}',
+          const item = BentoGridItem(
+            id: 'eew_list',
             size: BentoGridSize.medium,
-            child: const EewListBentoCard(),
+            child: EewListBentoCard(),
           );
           Navigator.of(context).pop(item);
         },
@@ -36,10 +37,10 @@ class BentoSelectorDialog extends StatelessWidget {
         description: '直近の緊急地震速報を表示します',
         icon: Icons.notifications_active,
         onTap: () {
-          final item = BentoGridItem(
-            id: 'eew_alive_${DateTime.now().millisecondsSinceEpoch}',
+          const item = BentoGridItem(
+            id: 'eew_alive',
             size: BentoGridSize.medium,
-            child: const EewAliveBentoCard(),
+            child: EewAliveBentoCard(),
           );
           Navigator.of(context).pop(item);
         },
@@ -49,10 +50,23 @@ class BentoSelectorDialog extends StatelessWidget {
         description: '地震履歴を表示します',
         icon: Icons.history,
         onTap: () {
-          final item = BentoGridItem(
-            id: 'earthquake_history_${DateTime.now().millisecondsSinceEpoch}',
+          const item = BentoGridItem(
+            id: 'earthquake_history',
             size: BentoGridSize.medium,
-            child: const EarthquakeHistoryBentoCard(),
+            child: EarthquakeHistoryBentoCard(),
+          );
+          Navigator.of(context).pop(item);
+        },
+      ),
+      _BentoOption(
+        title: 'DMDATA WebSocket',
+        description: 'DMDATA WebSocketを表示します',
+        icon: Icons.wifi,
+        onTap: () {
+          const item = BentoGridItem(
+            id: 'dmdata_websocket',
+            size: BentoGridSize.small,
+            child: DmdataWebsocketConnectionBentoCard(),
           );
           Navigator.of(context).pop(item);
         },
