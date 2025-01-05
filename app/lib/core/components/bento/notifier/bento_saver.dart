@@ -7,7 +7,7 @@ import 'package:eqdashboard/core/components/bento/model/bento_config.dart';
 import 'package:eqdashboard/core/components/bento/model/bento_grid_item.dart';
 import 'package:eqdashboard/core/components/bento/model/bento_saved_state.dart';
 import 'package:eqdashboard/core/provider/shared_preferences.dart';
-import 'package:eqdashboard/features/dmdata/websocket/ui/components/dmdata_websocket_connection_status.dart';
+import 'package:eqdashboard/features/dmdata/websocket/ui/components/dmdata_websocket_connection_bento_card.dart';
 import 'package:eqdashboard/features/earthquake/history/ui/earthquake_history_bento_card.dart';
 import 'package:eqdashboard/features/eew/ui/eew_alive_bento_card.dart';
 import 'package:eqdashboard/features/eew/ui/eew_list_bento_card.dart';

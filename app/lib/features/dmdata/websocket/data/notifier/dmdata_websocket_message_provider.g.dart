@@ -48,7 +48,7 @@ final dmdataWebsocketMessagesProvider =
 typedef DmdataWebsocketMessagesRef
     = AutoDisposeStreamProviderRef<WebSocketMessage>;
 String _$dmdataWebsocketMessageProviderHash() =>
-    r'50b854ec55c469b227c3c164948990cceeb78606';
+    r'd26ad7632b67b608f70f17db8559b69619d0e7a2';
 
 /// See also [DmdataWebsocketMessageProvider].
 @ProviderFor(DmdataWebsocketMessageProvider)

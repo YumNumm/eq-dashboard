@@ -90,7 +90,8 @@ class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
 
       // wait for pong
       final completer = Completer<Duration>();
-      ref.listen(dmdataWebsocketMessagesProvider, (_, next) {
+      final subscription =
+          ref.listen(dmdataWebsocketMessagesProvider, (_, next) {
         final event = next.valueOrNull;
         log('event: $event');
         if (event == null) {
@@ -102,6 +103,7 @@ class DmdataWebsocketMessageProvider extends _$DmdataWebsocketMessageProvider {
         }
       });
       final duration = await completer.future;
+      subscription.close();
       final currentState = state.valueOrNull;
       if (currentState != null) {
         state = AsyncData(
