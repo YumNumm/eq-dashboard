@@ -205,7 +205,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download ipa
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: EQDashboard-ios.ipa
           path: build
@@ -263,7 +263,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Download Web artifact
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: EQDashboard-web
           path: .
@@ -367,7 +367,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Download app
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: EQDashboard-macos.pkg
           path: .
