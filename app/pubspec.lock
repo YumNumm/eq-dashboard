@@ -475,10 +475,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_secure_storage
-      sha256: "1913841ac4c7bf57cd2e05b717e1fbff7841b542962feff827b16525a781b3e4"
+      sha256: "9cad52d75ebc511adfae3d447d5d13da15a55a92c9410e50f67335b6d21d16ea"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.3"
+    version: "9.2.4"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
@@ -568,18 +568,18 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2fd11229f59e23e967b0775df8d5948a519cd7e1e8b6e849729e010587b46539"
+      sha256: "7c2d40b59890a929824f30d442e810116caf5088482629c894b9e4478c67472d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.2"
+    version: "14.6.3"
   go_router_builder:
     dependency: "direct dev"
     description:
       name: go_router_builder
-      sha256: "3425b72dea69209754ac6b71b4da34165dcd4d4a2934713029945709a246427a"
+      sha256: "293e366566c209f70a05508bb5fdd6ce536fa3f75e58ccba1f83341a7943a6be"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.1"
+    version: "2.7.3"
   gradient_borders:
     dependency: transitive
     description:
@@ -728,10 +728,10 @@ packages:
     dependency: "direct main"
     description:
       name: macos_ui
-      sha256: c524398d3db161ac52254ebc9617c3399bdcf269ce7a70e014f202b5c4da5ea4
+      sha256: "94753db0a67f6b065c1877c57563459afd717d800acd5d83a663a0a6e09747c5"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   macos_window_utils:
     dependency: transitive
     description:
@@ -1149,42 +1149,42 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: dff22de27ac0dbe1bb2052fc258ccceee0a2703e6cfe03839ccd337aaf5d291b
+      sha256: "6d4ab102a746d7c2b8fe44e36b9f9dbe4097c3067c644fd02274c759ae20bedd"
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.6.2"
   talker_dio_logger:
     dependency: "direct main"
     description:
       name: talker_dio_logger
-      sha256: "4d4eabbc3005d3089731229707330f2d570cb96051809f17fac9957a2c312e1c"
+      sha256: daf636f1c3c634ecc6f059c81cc9e29307d555d8c9b05cb8eee3b923729c497a
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.6.2"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "92de889557ba076b5ac01dbf8f55149c5dc5f3655c5e60c68443689caeb95266"
+      sha256: c1c71f2276ca113b604cc9bad3e6171da950f1aac1768ef2f92a46d754c64f41
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.6.2"
   talker_logger:
     dependency: "direct main"
     description:
       name: talker_logger
-      sha256: f6af15f038576fb727668131c2a829f986bab0bad379e48805a8f251e3687002
+      sha256: "6a38786d0755538a397d374c57f381f26c15c45095a2e9677b09ac2a00f464e4"
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.6.2"
   talker_riverpod_logger:
     dependency: "direct main"
     description:
       name: talker_riverpod_logger
-      sha256: "5980057af884dad15f4faae3e749820947aa73e2368ff8fec3046d0ec7e36e97"
+      sha256: fa2a19ad67788c3d6d7d09f3a718ce7d1761d5a7bd954c296c4ff596cabd79f6
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.6.2"
   term_glyph:
     dependency: transitive
     description:
