@@ -187,7 +187,7 @@ jobs:
             -authenticationKeyPath ${{ github.workspace }}/app/ios/AuthKey.p8 | xcbeautify
 
       - name: Upload ipa as artifact
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: EQDashboard-ios.ipa
           path: app/eqdashboard.ipa
@@ -205,7 +205,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download ipa
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: EQDashboard-ios.ipa
           path: build
@@ -251,7 +251,7 @@ jobs:
 
       # https://github.com/actions/upload-artifact
       - name: Upload Web as artifact
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: EQDashboard-web
           path: app/build/web/
@@ -263,7 +263,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Download Web artifact
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: EQDashboard-web
           path: .
@@ -355,7 +355,7 @@ jobs:
             | xcbeautify
 
       - name: Upload app as artifact
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: EQDashboard-macos.pkg
           path: app/build/macos/Release/EQDashboard.pkg
@@ -367,7 +367,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Download app
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: EQDashboard-macos.pkg
           path: .
@@ -418,7 +418,7 @@ jobs:
         run: flutter build linux --release
 
       - name: Upload Linux as artifact
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: EQDashboard-linux
           path: app/build/linux/
@@ -442,7 +442,7 @@ jobs:
         run: flutter build windows --release
 
       - name: Upload Windows as artifact
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: EQDashboard-windows
           path: app/build/windows/x64/runner/Release
